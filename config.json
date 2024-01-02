@@ -1,0 +1,11 @@
+{
+  "firebaseConfig": {
+    "apiKey": "AIzaSyDm8zNPr1GKuKAmgipbDnJ1hQpXiAEMHGU",
+    "authDomain": "portfolio-hugo-pinna.firebaseapp.com",
+    "projectId": "portfolio-hugo-pinna",
+    "storageBucket": "portfolio-hugo-pinna.appspot.com",
+    "messagingSenderId": "322582929257",
+    "appId": "1:322582929257:web:6c4dddbafdac82cc0467f8",
+    "measurementId": "G-VFQ9TKG8YY"
+  }
+}
