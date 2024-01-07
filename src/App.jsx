@@ -1,5 +1,5 @@
-import './App.css';
-import FirebaseView from "./view/FirebaseView.jsx";
+import './App.scss';
+import FirebaseView from "./view/other/FirebaseView.jsx";
 function App() {
     return (
         <>
