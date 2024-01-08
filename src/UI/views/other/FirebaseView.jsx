@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import ProjectView from "../project/ProjectView.jsx"
-import ProjectManager from "../../managers/ProjectManager.jsx"
+import ProjectManager from "../../../managers/ProjectManager.jsx"
 
 const FirebaseView = () => {
     const [projects, setProjects] = useState([]);

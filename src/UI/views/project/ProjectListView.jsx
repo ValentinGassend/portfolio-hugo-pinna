@@ -1,5 +1,5 @@
 import ProjectView from "./ProjectView.jsx";
-import ProjectData from "../../models/project/ProjectData.jsx";
+import ProjectData from "../../../models/project/ProjectData.jsx";
 
 const ProjectListView = () => {
 
