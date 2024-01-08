@@ -14,8 +14,8 @@
     background-color: $color_secondary;
 
     &-title, &-subtitle {
+        width: 110%;
         overflow: hidden;
-
         &--content {
             font-family: $ff_1;
             text-transform: uppercase;
