@@ -1,0 +1,20 @@
+.PrimaryLink {
+    color: $color_primary;
+    font-size: 24px;
+    font-weight: 700;
+    font-style: italic;
+    font-family: $ff_2;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    &--url {
+        color: $color_primary;
+        text-decoration: none;
+
+    }
+    &--decoration {
+        width: 100%;
+        height: 2px;
+        background-color: $color_primary;
+    }
+}

@@ -4,6 +4,9 @@
     background-color: $color_secondary;
     display: grid;
     align-content: center;
+    position: relative;
+    top: 0;
+    left: 0;
 
     &-grid {
         display: grid;
@@ -215,12 +218,31 @@
         &--element {
             font-size: 40px;
             line-height: 48px;
+            font-weight: 600;
             color: $color_primary;
+            font-family: $ff_2;
 
             &.uppercase {
                 text-transform: uppercase;
             }
 
+            &.bold {
+                font-weight: 700;
+            }
+
+            &.italic {
+                font-style: italic;
+            }
+
         }
+    }
+
+    &-scroll {
+        position: absolute;
+        bottom: 128px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        width: fit-content;
     }
 }

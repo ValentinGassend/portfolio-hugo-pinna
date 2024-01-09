@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import ProjectView from "../project/ProjectView.jsx"
+import ProjectsView from "../projects/ProjectsView.jsx"
 import ProjectManager from "../../../managers/ProjectManager.jsx"
 
 const FirebaseView = () => {
@@ -22,7 +22,7 @@ const FirebaseView = () => {
             {analyticsInitialized ? (
                 <div>
                     {projects.map((project) => (
-                        <ProjectView key={project.id} project={project}/>
+                        <ProjectsView key={project.id} project={project}/>
                     ))}
                 </div>
             ) : (

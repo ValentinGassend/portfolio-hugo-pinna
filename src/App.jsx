@@ -1,9 +1,9 @@
 import FirebaseView from "./UI/views/other/FirebaseView.jsx";
-import Landing from "./UI/views/home/Landing.jsx";
+import Home from "./UI/views/home/Home.jsx";
 function App() {
     return (
         <>
-            <Landing/>
+            <Home/>
 
             {/*<div>*/}
             {/*    /!* Your existing app content *!/*/}
