@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.scss'
 import {createBrowserRouter, Link, RouterProvider} from "react-router-dom";
-import Landing from "./UI/views/home/Landing.jsx";
+import Home from "./UI/views/home/Home.jsx";
 
 const router = createBrowserRouter([{
-    path: "/", element: (<Landing/>),
+    path: "/", element: (<Home/>),
 }, {
     path: "about", element: <div>About</div>,
 },]);

@@ -5,7 +5,9 @@
 @import "base/default.scss";
 @import "base/typography.scss";
 
-@import "components/link.scss";
+@import "ui/components/button.scss";
+@import "ui/components/link.scss";
+@import "ui/components/partTitle.scss";
 
 @import "layout/footer.scss";
 @import "layout/header.scss";
