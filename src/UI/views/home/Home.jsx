@@ -29,11 +29,6 @@ const Home = () => {
     }, []);
     return (
         <>
-            <div>
-                {projects.map((project) => (
-                    <ProjectsView key={project.id} project={project}/>
-                ))}
-            </div>
             <Landing/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView/>
