@@ -3,7 +3,24 @@
 @import "../project/projectsPart";
 @import "../about/aboutContent";
 
+
+.Home {
+
+  width: 100%;
+  height: 100%;
+  &.isPageReady {
+    overflow-y: visible;
+
+  }
+
+  &.isNotPageReady {
+    overflow: hidden;
+    height: 100vh;
+  }
+}
+
 section {
   width: 100%;
   position: relative;
 }
+
