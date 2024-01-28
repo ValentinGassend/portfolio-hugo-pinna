@@ -22,10 +22,6 @@ const Home = () => {
 
     const [assetsUrl, setAssetsUrl] = useState({})
     const addAssetUrl = (name, url) => {
-        // Créer une copie du tableau avec la nouvelle paire clé-valeur
-        setAssetsUrl({
-            ...assetsUrl, [name]: url,
-        });
         setAssetsUrl(assetsUrl => ({
             ...assetsUrl, [name]: url,
         }));
@@ -61,6 +57,11 @@ const Home = () => {
                 .then(results => {
                     // All promises resolved, do something with the results if needed
                     console.log("All promises resolved:", results);
+                    results.forEach(result => {
+                        console.log("Result:", result);
+                        addAssetUrl(result.name, result.url);
+
+                    });
                     console.log(assetsUrl)
                     setIsAssetReady(true)
 

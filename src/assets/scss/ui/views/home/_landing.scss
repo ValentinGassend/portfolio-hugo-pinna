@@ -20,6 +20,7 @@
             display: grid;
             width: 100%;
             grid-auto-flow: column;
+            align-items: center;
 
             & > * {
                 width: fit-content;
