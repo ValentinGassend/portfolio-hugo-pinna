@@ -7,15 +7,70 @@ import ContactPartView from "../contact/ContactPartView.jsx";
 import ProjectManager from "../../../managers/ProjectManager.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
+import AssetNames from "./AssetNames.js";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
+    const [assets, setAssets] = useState([]);
     const [analyticsInitialized, setAnalyticsInitialized] = useState(false);
 
     const projectManager = ProjectManager
+    const [isProjectReady, setIsProjectReady] = useState(false)
+    const [isAssetReady, setIsAssetReady] = useState(false)
     const [isPageReady, setIsPageReady] = useState(false)
     const elapsedTimeRef = useRef(0);
 
+    const [assetsUrl, setAssetsUrl] = useState({})
+    const addAssetUrl = (name, url) => {
+        // Créer une copie du tableau avec la nouvelle paire clé-valeur
+        setAssetsUrl({
+            ...assetsUrl, [name]: url,
+        });
+        setAssetsUrl(assetsUrl => ({
+            ...assetsUrl, [name]: url,
+        }));
+        console.log(assetsUrl)
+    };
+
+    useEffect(() => {
+        if (assets && Array.isArray(assets) && assets.length > 0) {
+            const promises = Object.values(AssetNames).map((name) => {
+                return Promise.resolve(projectManager.getSpecificAsset(assets, name))
+                    .then(asset => {
+                        let assetPath = asset[0].asset_img;
+
+                        return projectManager.getUrlOfImage(assetPath)
+                            .then((url) => {
+                                if (url) {
+                                    console.log("URL de l'asset:" + name, url);
+                                    addAssetUrl(name, url);
+                                    return {name, url}; // Return the result for Promise.all
+                                } else {
+                                    console.log("L'image n'existe pas ou une erreur s'est produite.");
+                                    return null; // Return null for failed promises
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Erreur générale:", error);
+                                return null; // Return null for failed promises
+                            });
+                    });
+            });
+
+            Promise.all(promises)
+                .then(results => {
+                    // All promises resolved, do something with the results if needed
+                    console.log("All promises resolved:", results);
+                    console.log(assetsUrl)
+                    setIsAssetReady(true)
+
+                })
+                .catch(error => {
+                    // Handle any errors during the Promise.all
+                    console.error("Error in Promise.all:", error);
+                });
+        }
+    }, [assets])
 
     useEffect(() => {
         const startTime = Date.now(); // Enregistrez le temps de début
@@ -27,19 +82,28 @@ const Home = () => {
             elapsedTimeRef.current = elapsedTime;
 
             setTimeout(() => {
-                setIsPageReady(true);
+                setIsProjectReady(true);
             }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
         });
-    }, []); // Le tableau de dépendances est vide, donc le useEffect s'exécute une seule fois après le montage
+        projectManager.getProjectsFromFirebase('assets').then((assetsData) => {
+            setAssets(assetsData);
+        });
+    }, []);
 
-    // Fonction pour obtenir le temps écoulé
     const getElapsedTime = () => {
         return elapsedTimeRef.current;
     };
+    getElapsedTime();
 
-    // Utilisation de getElapsedTime pour obtenir le temps écoulé dans votre composant
-    const elapsedMilliseconds = getElapsedTime();
 
+    useEffect(() => {
+        console.log("isAssetReady ", isAssetReady)
+        console.log("isProjectReady ", isProjectReady)
+        console.log("isPageReady ", isPageReady)
+        if (isAssetReady && isProjectReady) {
+            setIsPageReady(true)
+        }
+    }, [isAssetReady, isProjectReady]);
     useEffect(() => {
         if (isPageReady) {
             let partTitleContainer = document.getElementsByClassName('partTitle')
@@ -74,9 +138,14 @@ const Home = () => {
             }
         }
     }, [isPageReady]);
+
+
+    useEffect(() => {
+        console.log("assetsUrl ", assetsUrl)
+    }, [assetsUrl]);
     return (<>
         <div className={`Home ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
-            <Landing/>
+            <Landing assetsUrl={assetsUrl}/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView/>
             <ContactPartView/>

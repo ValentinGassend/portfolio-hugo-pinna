@@ -17,6 +17,10 @@ const ProjectManager = {
     getPromotedProjects: (projects) => {
         return projects.filter((project) => project.is_promoted);
     },
+
+    getSpecificAsset: (assets, name) => {
+        return assets.filter((asset) => asset.asset_name===name);
+    },
     getUrlOfImage: async (path) => {
         try {
             // Créez une référence à l'image dans Firebase Storage

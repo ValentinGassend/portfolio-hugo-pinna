@@ -22,7 +22,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
         <img className={`Projects-promote-card--img`} src={`${imageUrl}`}
              alt={`image d'illustration du projet ${project.name}`}></img>
         <div className={`Projects-promote-card-content`}>
-            <h2 className={`Projects-promote-card-content--date`}>{project.name}</h2>
+            <h2 className={`Projects-promote-card-content--date`}>{project.year}</h2>
             <h1 className={`Projects-promote-card-content--title`}>{project.name}</h1>
             <h3 className={`Projects-promote-card-content--type`}>{project.name}</h3>
         </div>
