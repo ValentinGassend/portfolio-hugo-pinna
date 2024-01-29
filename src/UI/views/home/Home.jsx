@@ -8,6 +8,7 @@ import ProjectManager from "../../../managers/ProjectManager.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import AssetNames from "./AssetNames.js";
+import Overlay from "../../components/Overlay.jsx";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
@@ -150,6 +151,7 @@ const Home = () => {
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView/>
             <ContactPartView/>
+            <Overlay/>
             <Loader isPageReady={isPageReady}/>
         </div>
     </>)

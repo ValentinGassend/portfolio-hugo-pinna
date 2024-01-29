@@ -1,0 +1,63 @@
+.Overlay {
+    position: fixed;
+    z-index: 10;
+    height: 100vh;
+    width: 100vw;
+    padding: 32px;
+    top: 0;
+    left: 0;
+
+    &-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+
+        &-upper, &-lower {
+            display: flex;
+
+            &--text {
+                font-size: 24px;
+                font-weight: 600;
+                color: $color_primary;
+                font-family: $ff_1;
+
+                &.uppercase {
+                    text-transform: uppercase;
+                }
+
+                &.bold {
+                    font-weight: 700;
+                }
+
+                &.italic {
+                    font-style: italic;
+                }
+
+                &.ff2 {
+                    font-family: $ff_2;
+                }
+
+                &.currentSection {
+                    font-weight: 700;
+                    font-style: italic;
+                    font-family: $ff_2;
+                }
+            }
+        }
+
+        &-upper {
+            flex-direction: column;
+        }
+
+        &-lower {
+
+            justify-content: space-between;
+            align-items: flex-end;
+            &-item {
+                text-align: right;
+            }
+        }
+    }
+}
