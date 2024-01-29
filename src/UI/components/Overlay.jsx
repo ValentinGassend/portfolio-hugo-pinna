@@ -1,7 +1,7 @@
 const Overlay = ({}) => {
 
     return (
-        <div className={`Overlay`}>
+        <div className={`Overlay hidden`}>
             <div className={`Overlay-wrapper`}>
                 <div className={`Overlay-wrapper-upper`}>
                     <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
@@ -10,10 +10,10 @@ const Overlay = ({}) => {
                 </div>
                 <div className={`Overlay-wrapper-lower`}>
                     <div className={`Overlay-wrapper-lower-item`}>
-                        <p className={`Overlay-wrapper-lower--text uppercase currentSection`}>Projects</p>
+                        <p className={`Overlay-wrapper-lower--text uppercase`}>Projects</p>
                     </div>
                     <div className={`Overlay-wrapper-lower-item`}>
-                        <p className={`Overlay-wrapper-lower--text uppercase`}>Info</p>
+                        <p className={`Overlay-wrapper-lower--text uppercase`}>About</p>
                     </div>
                     <div className={`Overlay-wrapper-lower-item`}>
                         <p className={`Overlay-wrapper-lower--text uppercase`}>Contact</p>

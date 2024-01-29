@@ -1,63 +1,75 @@
 .Overlay {
-    position: fixed;
-    z-index: 10;
-    height: 100vh;
-    width: 100vw;
-    padding: 32px;
-    top: 0;
-    left: 0;
+  position: fixed;
+  z-index: 10;
+  height: 100vh;
+  width: 100vw;
+  padding: 32px;
+  top: 0;
+  left: 0;
+  transition: 300ms opacity linear, 300ms visibility linear;
 
-    &-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 100%;
-        height: 100%;
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
-        &-upper, &-lower {
-            display: flex;
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
 
-            &--text {
-                font-size: 24px;
-                font-weight: 600;
-                color: $color_primary;
-                font-family: $ff_1;
+    &-upper, &-lower {
+      display: flex;
 
-                &.uppercase {
-                    text-transform: uppercase;
-                }
+      &--text {
+        font-size: 24px;
+        font-weight: 600;
+        color: $color_primary;
+        font-family: $ff_1;
+        transition: 300ms font-family linear, 300ms font-weight linear, 300ms font-style linear;
 
-                &.bold {
-                    font-weight: 700;
-                }
-
-                &.italic {
-                    font-style: italic;
-                }
-
-                &.ff2 {
-                    font-family: $ff_2;
-                }
-
-                &.currentSection {
-                    font-weight: 700;
-                    font-style: italic;
-                    font-family: $ff_2;
-                }
-            }
+        &.uppercase {
+          text-transform: uppercase;
         }
 
-        &-upper {
-            flex-direction: column;
+        &.bold {
+          font-weight: 700;
         }
 
-        &-lower {
-
-            justify-content: space-between;
-            align-items: flex-end;
-            &-item {
-                text-align: right;
-            }
+        &.italic {
+          font-style: italic;
         }
+
+        &.ff2 {
+          font-family: $ff_2;
+        }
+
+        &.currentSection {
+          font-weight: 700;
+          font-style: italic;
+          font-family: $ff_2;
+        }
+      }
     }
+
+    &-upper {
+      flex-direction: column;
+    }
+
+    &-lower {
+
+      justify-content: space-between;
+      align-items: flex-end;
+
+      &-item {
+        text-align: right;
+      }
+    }
+  }
 }

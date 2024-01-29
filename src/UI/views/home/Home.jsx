@@ -56,14 +56,10 @@ const Home = () => {
 
             Promise.all(promises)
                 .then(results => {
-                    // All promises resolved, do something with the results if needed
-                    console.log("All promises resolved:", results);
                     results.forEach(result => {
-                        console.log("Result:", result);
                         addAssetUrl(result.name, result.url);
 
                     });
-                    console.log(assetsUrl)
                     setIsAssetReady(true)
 
                 })
@@ -99,9 +95,6 @@ const Home = () => {
 
 
     useEffect(() => {
-        console.log("isAssetReady ", isAssetReady)
-        console.log("isProjectReady ", isProjectReady)
-        console.log("isPageReady ", isPageReady)
         if (isAssetReady && isProjectReady) {
             setIsPageReady(true)
         }
@@ -109,32 +102,84 @@ const Home = () => {
     useEffect(() => {
         if (isPageReady) {
             let partTitleContainer = document.getElementsByClassName('partTitle')
-
-            console.log(partTitleContainer)
+            let overlay = document.getElementsByClassName('Overlay')[0]
+            let overlayLowerItems = document.getElementsByClassName('Overlay-wrapper-lower--text')
 
             let containers = []
             let container;
             gsap.registerPlugin(ScrollTrigger);
 
             for (let i = 0; i < partTitleContainer.length; i++) {
-                console.log(partTitleContainer[i])
                 container = partTitleContainer[i].closest('section').classList[0]
 
                 containers = [].concat(containers, container)
             }
 
             for (let i = 0; i < containers.length; i++) {
-                console.log(containers)
 
                 container = document.getElementsByClassName(containers[i] + "-headline")[0].closest("section").classList[0]
+
                 gsap.to("." + container + "-headline", {
-                    filter: "blur(32px)", scrollTrigger: {
+                    filter: "blur(32px)",
+                    scrollTrigger: {
                         pinSpacing: false,
                         endTrigger: "." + container,
                         pin: "." + container + "-headline",
                         scrub: 0.2,
                         start: "center center",
                         end: "bottom center",
+                    },
+                    onReverseCompleteParams: [containers, overlay, container, overlayLowerItems],
+                    onStartParams: [containers, overlay, container, overlayLowerItems],
+                    onStart: (containers, overlay, container, overlayLowerItems) => {
+                        if (overlay.classList.contains("hidden")) {
+                            overlay.classList.remove("hidden")
+                            overlay.classList.add("visible")
+                        }
+                        for (let k = 0; k < containers.length; k++) {
+                            if (overlay.classList.contains(containers[k])) {
+                                overlay.classList.remove(containers[k])
+                            }
+                        }
+
+                        overlay.classList.add(container)
+
+                        for (let j = 0; j < overlayLowerItems.length; j++) {
+                            if (overlayLowerItems[j].textContent === container) {
+                                overlayLowerItems[j].classList.add("currentSection")
+                            } else {
+                                if (overlayLowerItems[j].classList.contains("currentSection")) {
+                                    overlayLowerItems[j].classList.remove("currentSection")
+                                }
+                            }
+                        }
+                    },
+                    onReverseComplete: (containers, overlay, container, overlayLowerItems) => {
+                        if (!overlay.classList.contains("hidden")) {
+                            if (container === containers[0]) {
+                                overlay.classList.remove("visible")
+                                overlay.classList.add("hidden")
+                            }
+                        }
+                        overlay.classList.remove(container)
+
+                        for (let k = 0; k < containers.length; k++) {
+                            if (container !== containers[0]) {
+                                overlay.classList.add(containers[k - 1])
+                            }
+                        }
+                        for (let j = 0; j < overlayLowerItems.length; j++) {
+
+                            if (overlayLowerItems[j].classList.contains("currentSection")) {
+                                overlayLowerItems[j].classList.remove("currentSection")
+                            }
+                            if (container !== containers[0]) {
+                                if (overlayLowerItems[j].textContent === containers[i - 1]) {
+                                    overlayLowerItems[j].classList.add("currentSection")
+                                }
+                            }
+                        }
+
                     }
                 })
             }
