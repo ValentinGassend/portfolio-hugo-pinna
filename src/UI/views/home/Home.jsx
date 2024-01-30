@@ -126,7 +126,7 @@ const Home = () => {
                         endTrigger: "." + container,
                         pin: "." + container + "-headline",
                         scrub: 0.2,
-                        start: "center center",
+                        start: "center 51%",
                         end: "bottom center",
                     },
                     onReverseCompleteParams: [containers, overlay, container, overlayLowerItems],

@@ -32,6 +32,7 @@
         font-weight: 600;
         color: $color_primary;
         font-family: $ff_1;
+        text-decoration: none;
         transition: 300ms font-family linear, 300ms font-weight linear, 300ms font-style linear;
 
         &.uppercase {
