@@ -9,6 +9,7 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import AssetNames from "./AssetNames.js";
 import Overlay from "../../components/Overlay.jsx";
+import PanelsContainer from "./PanelsConainter.jsx";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
@@ -26,7 +27,7 @@ const Home = () => {
         setAssetsUrl(assetsUrl => ({
             ...assetsUrl, [name]: url,
         }));
-        console.log(assetsUrl)
+        //console.log(assetsUrl)
     };
 
     useEffect(() => {
@@ -39,11 +40,11 @@ const Home = () => {
                         return projectManager.getUrlOfImage(assetPath)
                             .then((url) => {
                                 if (url) {
-                                    console.log("URL de l'asset:" + name, url);
+                                    //console.log("URL de l'asset:" + name, url);
                                     addAssetUrl(name, url);
                                     return {name, url}; // Return the result for Promise.all
                                 } else {
-                                    console.log("L'image n'existe pas ou une erreur s'est produite.");
+                                    //console.log("L'image n'existe pas ou une erreur s'est produite.");
                                     return null; // Return null for failed promises
                                 }
                             })
@@ -183,15 +184,17 @@ const Home = () => {
                     }
                 })
             }
+
+
         }
     }, [isPageReady]);
-
-
     useEffect(() => {
-        console.log("assetsUrl ", assetsUrl)
+        //console.log("assetsUrl ", assetsUrl)
     }, [assetsUrl]);
     return (<>
         <div className={`Home ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
+
+            <PanelsContainer isPageReady={isPageReady}/>
             <Landing assetsUrl={assetsUrl}/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView/>

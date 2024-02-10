@@ -10,10 +10,10 @@ const ProjectPromoteView = ({index, project, manager}) => {
             .getUrlOfImage(project.header_image)
             .then((url) => {
                 if (url) {
-                    console.log("URL de l'image:", url);
+                    //console.log("URL de l'image:", url);
                     setImageUrl(url);
                 } else {
-                    console.log("L'image n'existe pas ou une erreur s'est produite.");
+                    //console.log("L'image n'existe pas ou une erreur s'est produite.");
                 }
             })
             .catch((error) => console.error("Erreur générale:", error));

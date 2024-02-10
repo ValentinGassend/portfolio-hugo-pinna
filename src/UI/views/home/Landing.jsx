@@ -8,7 +8,7 @@ const Landing = ({assetsUrl}) => {
 
 
     return (<>
-        <script>console.log(assetsUrl)</script>
+        <script>//console.log(assetsUrl)</script>
         <div className={`Landing`}>
             <div className={`Landing-grid`}>
                 <div className={`Landing-grid-name`}>

@@ -10,7 +10,7 @@
     align-content: center;
     align-items: center;
     overflow: hidden;
-
+    height: 100vh;
     &--separator {
       height: 100%;
       width: 2px;
@@ -32,12 +32,13 @@
 
   &-promote {
     width: 100%;
-    padding: 0px 202px;
+    padding: 0 202px;
     display: grid;
     grid-auto-flow: row;
+    height: calc(var(--PromotedProjectLength) * 100vh);
+    align-content: space-around;
 
     &-card {
-      margin: 282px 0;
       display: flex;
       position: relative;
       align-items: center;
