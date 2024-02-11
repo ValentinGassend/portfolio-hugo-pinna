@@ -10,6 +10,7 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import AssetNames from "./AssetNames.js";
 import Overlay from "../../components/Overlay.jsx";
 import PanelsContainer from "./PanelsConainter.jsx";
+import GalleryPartView from "../gallery/GalleryPartView.jsx";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
@@ -201,6 +202,9 @@ const Home = () => {
             <ContactPartView/>
             <Overlay/>
             <Loader isPageReady={isPageReady}/>
+            <GalleryPartView/>
+            <Landing assetsUrl={assetsUrl}/>
+
         </div>
     </>)
 }

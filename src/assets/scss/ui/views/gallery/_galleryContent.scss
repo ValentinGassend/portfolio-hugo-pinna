@@ -1,0 +1,17 @@
+.Gallery-content {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  display: grid;
+  align-items: end;
+  justify-content: center;
+  justify-items: center;
+
+  &-scroll {
+    position: absolute;
+    bottom: 128px;
+    display: grid;
+    width: fit-content;
+  }
+}

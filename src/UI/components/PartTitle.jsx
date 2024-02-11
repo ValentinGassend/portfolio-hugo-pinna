@@ -1,8 +1,6 @@
-const PartTitle = ({ParentClass, titleText}) => {
-    return (
-        <div className={`${ParentClass}-headline partTitle`}>
+const PartTitle = ({ParentClass, titleText, scrollable = true}) => {
+    return (<div className={`${ParentClass}-headline  ${scrollable ? 'partTitle' : ''}`}>
             <h1 className={`${ParentClass}-headline--title partTitle--title`}>{titleText ? titleText : ParentClass}</h1>
-        </div>
-    )
+        </div>)
 }
 export default PartTitle
