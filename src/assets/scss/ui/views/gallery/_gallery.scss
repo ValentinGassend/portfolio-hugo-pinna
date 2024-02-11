@@ -1,10 +1,18 @@
 @import "galleryContent";
 
-.Gallery-headline {
-  &--title {
-    text-align: center;
-    margin: 0 25%;
+.Gallery {
+  height: 100vh
+;
+  &-headline {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &--title {
+      text-align: center;
+      margin: 0 25%;
 
+    }
   }
 
 }
