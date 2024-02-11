@@ -92,7 +92,7 @@ const PanelsContainer = ({isPageReady}) => {
                 const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
                 if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
                     goToSection(snapTriggers.current.length - 1, true); // Go to the last panel
-                } else if (bottomOffset <= 0) {
+                } else if (bottomOffset <= 0 && deltaY > 0) {
                     // Bottom of the window hits the bottom of the website
                     goToSection(0, true); // Go to the first panel
                 } else {
