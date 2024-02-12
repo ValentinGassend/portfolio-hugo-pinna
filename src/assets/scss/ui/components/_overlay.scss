@@ -28,13 +28,13 @@
       display: flex;
 
       &--text {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 600;
         color: $color_primary;
         font-family: $ff_1;
         text-decoration: none;
         pointer-events: auto;
-        transition: 300ms font-family linear, 300ms font-weight linear, 300ms font-style linear;
+        //transition: 300ms font-family linear, 300ms font-weight linear;
 
         &.uppercase {
           text-transform: uppercase;
