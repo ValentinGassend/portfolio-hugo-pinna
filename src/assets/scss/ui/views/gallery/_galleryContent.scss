@@ -10,8 +10,64 @@
 
   &-scroll {
     position: absolute;
-    bottom: 128px;
+    bottom: 72px;
     display: grid;
     width: fit-content;
   }
+
+  &-cards {
+    z-index: -1;
+    display: grid;
+    column-gap: 16px;
+    grid-auto-flow: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    margin: auto;
+
+    &-column {
+      position: relative;
+      display: grid;
+      row-gap: 16px;
+      grid-auto-flow: row;
+
+      width: fit-content;
+      height: fit-content;
+      transform: skewX(-6deg);
+
+      &--item {
+        position: relative;
+        filter: blur(4px);
+        //transition: transform 300ms linear,box-shadow 300ms linear;
+        &-img {
+          content: var(--url);
+          position: relative;
+          width: 100%;
+          height: 100%;
+          aspect-ratio: 244/332;
+          max-height: 250px;
+          object-fit: cover;
+        }
+
+        &-overlay {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: $color_primary;
+          opacity: 0.16;
+          mix-blend-mode: multiply; /* Blending mode to blend with the image */
+        }
+      }
+
+
+    }
+
+
+  }
 }
+
