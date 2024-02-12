@@ -16,10 +16,12 @@ const Landing = ({assetsUrl}) => {
     useEffect(() => {
         // Add event listener to track mouse movement
         document.getElementsByClassName('Landing')[0].addEventListener("mousemove", handleMouseMove);
+        document.getElementsByClassName('Landing')[1].addEventListener("mousemove", handleMouseMove);
         setSize(200)
         // Clean up event listener when component unmounts
         return () => {
             document.getElementsByClassName('Landing')[0].removeEventListener("mousemove", handleMouseMove);
+            document.getElementsByClassName('Landing')[1].removeEventListener("mousemove", handleMouseMove);
         };
     }, []);
 
@@ -30,14 +32,14 @@ const Landing = ({assetsUrl}) => {
     }}>
         <div className={`Landing-grid`}>
             <div className={`Landing-grid-name`}>
-                <span className={`Landing-grid--element uppercase italic bold`}>Hugo</span>
+                <span className={`Landing-grid--element uppercase italic bold miller`}>Hugo</span>
                 <span className={`Landing-grid--element uppercase`}>Pinna</span>
-                <span className={`Landing-grid--element uppercase italic bold`}>Cuillère</span>
+                <span className={`Landing-grid--element uppercase italic bold miller`}>Cuillère</span>
             </div>
             <div className={`Landing-grid-domain`}>
                 <span className={`Landing-grid--element uppercase`}>Art director</span>
                 <span className={`Landing-grid--element uppercase`}>Graphic designer</span>
-                <span className={`Landing-grid--element uppercase italic bold`}>3d artist</span>
+                <span className={`Landing-grid--element uppercase italic bold miller`}>3d artist</span>
             </div>
             <div className={`Landing-grid-location`}>
                 <span className={`Landing-grid--element uppercase`}>Genève</span>
@@ -50,7 +52,7 @@ const Landing = ({assetsUrl}) => {
                 <span className={`Landing-grid--element uppercase`}>Annecy</span>
             </div>
             <div className={`Landing-grid-baseline`}>
-                <span className={`Landing-grid--element uppercase italic bold`}>“Baseline un peu cool”</span>
+                <span className={`Landing-grid--element uppercase italic bold miller`}>“Baseline un peu cool”</span>
             </div>
             <div className={`Landing-grid-support`}>
                 <span className={`Landing-grid--element`}>Portfolio</span>
@@ -59,7 +61,7 @@ const Landing = ({assetsUrl}) => {
                 <span className={`Landing-grid--element`}>@hugocuillère</span>
             </div>
             <div className={`Landing-grid-work`}>
-                    <span className={`Landing-grid--element uppercase italic bold`}>
+                    <span className={`Landing-grid--element uppercase italic bold miller`}>
                         {assetsUrl[AssetNames.DOT_AVAILABLE] ? (<img
                             className={`Landing-grid--element`}
                             src={assetsUrl[AssetNames.DOT_AVAILABLE]}
@@ -76,7 +78,7 @@ const Landing = ({assetsUrl}) => {
             <div className={`Landing-grid-status`}>
                 <span className={`Landing-grid--element uppercase`}>Freelance</span>
                 <span
-                    className={`Landing-grid--element uppercase italic bold`}>{new Date().getFullYear()}</span>
+                    className={`Landing-grid--element uppercase italic bold miller`}>{new Date().getFullYear()}</span>
             </div>
         </div>
         <div className={`Landing-scroll`}>
