@@ -16,6 +16,10 @@
       display: grid;
       grid-auto-flow: row;
       row-gap: 100px;
+      position: relative;
+      transform: rotateY(calc(var(--mouseRX) * -1)) rotateX(var(--mouseRY));
+      box-shadow: var(--shadowPX) var(--shadowPY) 72px rgba(0, 0, 0, 0.32);
+    //rgba(0, 0, 0, 0.16)
       &-upper {
         display: flex;
         height: fit-content;
