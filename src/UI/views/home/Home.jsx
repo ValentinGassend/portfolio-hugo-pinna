@@ -15,6 +15,7 @@ import GalleryPartView from "../gallery/GalleryPartView.jsx";
 const Home = () => {
     const [projects, setProjects] = useState([]);
     const [assets, setAssets] = useState([]);
+    const [contactData, setContact] = useState([]);
     const [analyticsInitialized, setAnalyticsInitialized] = useState(false);
 
     const projectManager = ProjectManager
@@ -87,6 +88,10 @@ const Home = () => {
         });
         projectManager.getProjectsFromFirebase('assets').then((assetsData) => {
             setAssets(assetsData);
+        });
+        projectManager.getProjectsFromFirebase('contact').then((contactData) => {
+            setContact(contactData);
+
         });
     }, []);
 
@@ -199,7 +204,7 @@ const Home = () => {
             <Landing assetsUrl={assetsUrl}/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView/>
-            <ContactPartView/>
+            <ContactPartView contactManager={projectManager} contactData={contactData}/>
             <Overlay/>
             <Loader isPageReady={isPageReady}/>
             <GalleryPartView/>
