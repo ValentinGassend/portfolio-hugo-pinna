@@ -79,7 +79,7 @@ const PanelsContainer = ({isPageReady}) => {
         const refreshScrollTriggers = () => {
             scrollStarts = snapTriggers.current.map(trigger => trigger.start);
             snapScroll = ScrollTrigger.snapDirectional(scrollStarts);
-            console.log(snapTriggers.current)
+            // console.log(snapTriggers.current)
         };
 
         const handleScroll = self => {

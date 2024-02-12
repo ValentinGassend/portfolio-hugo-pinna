@@ -125,7 +125,7 @@ const Home = () => {
             for (let i = 0; i < containers.length; i++) {
 
                 container = document.getElementsByClassName(containers[i] + "-headline")[0].closest("section").classList[0]
-
+                console.log(document.getElementsByClassName(containers[i] + "-headline")[0].classList.contains('disable'))
                 gsap.to("." + container + "-headline", {
                     filter: "blur(32px)",
                     scrollTrigger: {
@@ -134,14 +134,21 @@ const Home = () => {
                         pin: "." + container + "-headline",
                         scrub: 0.2,
                         start: "center 51%",
-                        end: "bottom center",
+                        end: "bottom 90%",
                     },
                     onReverseCompleteParams: [containers, overlay, container, overlayLowerItems],
+                    onCompleteParams: [containers, overlay, container, overlayLowerItems],
                     onStartParams: [containers, overlay, container, overlayLowerItems],
                     onStart: (containers, overlay, container, overlayLowerItems) => {
+                        // console.log("onStart",container)
+
                         if (overlay.classList.contains("hidden")) {
                             overlay.classList.remove("hidden")
                             overlay.classList.add("visible")
+                        }
+                        if (!overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
+                            overlay.classList.remove("visible")
+                            overlay.classList.add("hidden")
                         }
                         for (let k = 0; k < containers.length; k++) {
                             if (overlay.classList.contains(containers[k])) {
@@ -161,12 +168,27 @@ const Home = () => {
                             }
                         }
                     },
+                    onComplete: (containers, overlay, container, overlayLowerItems) => {
+                        // console.log("onComplete",container)
+                        if (!overlay.classList.contains("hidden")) {
+                            if (container !== containers[containers.length - 1]) {
+                                overlay.classList.remove("visible")
+                                overlay.classList.add("hidden")
+                            }
+                        }
+                    },
                     onReverseComplete: (containers, overlay, container, overlayLowerItems) => {
+                        // console.log("onReverseComplete",container)
+
                         if (!overlay.classList.contains("hidden")) {
                             if (container === containers[0]) {
                                 overlay.classList.remove("visible")
                                 overlay.classList.add("hidden")
                             }
+                        }
+                        if (overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
+                            overlay.classList.add("visible")
+                            overlay.classList.remove("hidden")
                         }
                         overlay.classList.remove(container)
 

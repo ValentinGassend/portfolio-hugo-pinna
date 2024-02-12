@@ -7,34 +7,15 @@ import AssetNames from "./AssetNames.js";
 const Landing = ({assetsUrl}) => {
     const [mousePosition, setMousePosition] = useState({x: null, y: null});
     const [size, setSize] = useState(null);
-    const [mouseGridPosition, setMouseGridPosition] = useState({x: null, y: null});
-    const [mouseForRotation, setMouseForRotation] = useState({x: null, y: null});
 
     const handleMouseMove = (event) => {
         const {clientX, clientY} = event;
         setMousePosition({x: clientX - (size / 2), y: clientY - (size / 2)});
     };
-    const handleMouseGridMove = (event) => {
-        console.log(event)
-        const {clientX, layerY} = event;
-        setMouseGridPosition({x: clientX - (size / 2), y: layerY - (size / 2)});
-    };
-
-    const calculateTheRotation = () => {
-        let rotationY = (mousePosition.y / window.innerHeight) * 60 - 60 / 2;
-        let rotationX = (mousePosition.x / window.innerWidth) * 60 - 60 / 2;
-        return {x: rotationX, y: rotationY};
-    };
-
-    useEffect(() => {
-        const rotation = calculateTheRotation();
-        setMouseForRotation(rotation);
-    }, [mousePosition]);
 
     useEffect(() => {
         // Add event listener to track mouse movement
         document.getElementsByClassName('Landing')[0].addEventListener("mousemove", handleMouseMove);
-        document.getElementsByClassName('Landing-grid')[0].addEventListener("mousemove", handleMouseGridMove);
         setSize(200)
         // Clean up event listener when component unmounts
         return () => {

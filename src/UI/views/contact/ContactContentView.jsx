@@ -4,12 +4,12 @@ const ContactContentView = ({contactManager, contactData}) => {
     const [letter, setLetter] = useState(null);
 
     useEffect(() => {
-        console.log(contactData)
+        // console.log(contactData)
 
         if (contactData && contactData.length > 0) {
             const data = contactData[0];
-            console.log(contactData);
-            console.log(data);
+            // console.log(contactData);
+            // console.log(data);
             contactManager.getUrlOfImage(data.letter_part.timbre).then((url) => {
                 if (url) {
                     //console.log("URL de l'asset:" + name, url);
