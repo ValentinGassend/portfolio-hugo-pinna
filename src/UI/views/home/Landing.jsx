@@ -12,16 +12,17 @@ const Landing = ({assetsUrl}) => {
 
     const handleMouseMove = (event) => {
         const {clientX, clientY} = event;
-        setMousePosition({x: clientX - (size/2), y: clientY - (size/2)});
-    };const handleMouseGridMove = (event) => {
+        setMousePosition({x: clientX - (size / 2), y: clientY - (size / 2)});
+    };
+    const handleMouseGridMove = (event) => {
         console.log(event)
         const {clientX, layerY} = event;
-        setMouseGridPosition({x: clientX -(size/2), y: layerY - (size/2)});
+        setMouseGridPosition({x: clientX - (size / 2), y: layerY - (size / 2)});
     };
 
     const calculateTheRotation = () => {
-        let rotationY = (mousePosition.y / window.innerHeight) * 60 - 60/2;
-        let rotationX = (mousePosition.x / window.innerWidth) * 60 - 60/2;
+        let rotationY = (mousePosition.y / window.innerHeight) * 60 - 60 / 2;
+        let rotationX = (mousePosition.x / window.innerWidth) * 60 - 60 / 2;
         return {x: rotationX, y: rotationY};
     };
 
@@ -41,7 +42,11 @@ const Landing = ({assetsUrl}) => {
         };
     }, []);
 
-    return (<section className={`Landing`} style={{'--size': size+"px",'--mouseRY': mouseForRotation.y+"deg", '--mouseRX': mouseForRotation.x+"deg",'--mouseGridPY': mouseGridPosition.y+"px", '--mouseGridPX': mouseGridPosition.x+"px",'--mousePY': mousePosition.y+"px", '--mousePX': mousePosition.x+"px"}}>
+    return (<section className={`Landing`} style={{
+        '--size': size + "px",
+        '--mousePY': mousePosition.y + "px",
+        '--mousePX': mousePosition.x + "px"
+    }}>
         <div className={`Landing-grid`}>
             <div className={`Landing-grid-name`}>
                 <span className={`Landing-grid--element uppercase italic bold`}>Hugo</span>
