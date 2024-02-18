@@ -1,6 +1,7 @@
 import ProjectData from "../../../models/project/ProjectData.jsx";
 import ProjectsView from "./ProjectsView.jsx";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 const ProjectPromoteView = ({index, project, manager}) => {
     const [imageUrl, setImageUrl] = useState(null);
@@ -18,7 +19,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
             })
             .catch((error) => console.error("Erreur générale:", error));
     }, [project.header_image]);
-    return (<a data-id={project.id} className={`Projects-promote-card`} href={project.link}>
+    return (<Link data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
         <img className={`Projects-promote-card--img`} src={`${imageUrl}`}
              alt={`image d'illustration du projet ${project.name}`}></img>
         <div className={`Projects-promote-card-content`}>
@@ -26,6 +27,6 @@ const ProjectPromoteView = ({index, project, manager}) => {
             <h1 className={`Projects-promote-card-content--title`}>{project.name}</h1>
             <h3 className={`Projects-promote-card-content--type`}>{project.name}</h3>
         </div>
-    </a>)
+    </Link>)
 }
 export default ProjectPromoteView

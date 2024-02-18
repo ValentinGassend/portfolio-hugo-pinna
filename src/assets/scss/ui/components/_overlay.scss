@@ -74,4 +74,9 @@
       }
     }
   }
+  &.Others {
+    .Overlay-wrapper-lower {
+      justify-content: flex-end;
+    }
+  }
 }

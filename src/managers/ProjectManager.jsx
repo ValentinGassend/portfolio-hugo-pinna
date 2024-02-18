@@ -1,4 +1,4 @@
-import {collection, getDocs} from "firebase/firestore";
+import {collection,doc, getDoc, getDocs} from "firebase/firestore";
 import {db, storage} from "../assets/js/firebase.js";
 import {getDownloadURL, ref} from "firebase/storage";
 
@@ -12,6 +12,20 @@ const ProjectManager = {
             return projectsData;
         } catch (error) {
             console.error("Error fetching data:", error);
+        }
+    },
+    getProjectByID: async (projectId, DatabaseName = "") => {
+        try {
+            const projectDocRef = doc(db, DatabaseName, projectId);
+            const projectDocSnapshot = await getDoc(projectDocRef);
+            if (projectDocSnapshot.exists()) {
+                return { id: projectDocSnapshot.id, ...projectDocSnapshot.data() };
+            } else {
+                throw new Error("No such document exists!");
+            }
+        } catch (error) {
+            console.error("Error fetching project:", error);
+            throw error;
         }
     },
     getPromotedProjects: (projects) => {

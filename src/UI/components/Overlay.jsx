@@ -1,7 +1,7 @@
-const Overlay = ({}) => {
+const Overlay = ({isHome = true}) => {
 
-    return (<div className={`Overlay hidden`}>
-        <div className={`Overlay-wrapper`}>
+    return (<div className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"}`}>
+        {isHome ? (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
                 <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
                 <p className={`Overlay-wrapper-upper--text ff2 italic bold`}>Cuillère</p>
@@ -24,7 +24,22 @@ const Overlay = ({}) => {
                     <p className={`Overlay-wrapper-lower--text`}>2024</p>
                 </div>
             </div>
-        </div>
+        </div>) : (<div className={`Overlay-wrapper`}>
+            <div className={`Overlay-wrapper-upper`}>
+                <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
+                <p className={`Overlay-wrapper-upper--text ff2 italic bold`}>Cuillère</p>
+
+            </div>
+            <div className={`Overlay-wrapper-lower`}>
+                <div className={`Overlay-wrapper-lower-item`}>
+                    <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>
+                    <p className={`Overlay-wrapper-lower--text`}>@hugocuilliere</p>
+                    <p className={`Overlay-wrapper-lower--text`}>hello@hugopinna.com</p>
+                    <p className={`Overlay-wrapper-lower--text`}>2024</p>
+                </div>
+            </div>
+        </div>)}
+
     </div>);
 };
 export default Overlay
