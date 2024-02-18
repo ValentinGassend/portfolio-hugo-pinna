@@ -7,6 +7,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
     const [imageUrl, setImageUrl] = useState(null);
 
     useEffect(() => {
+        console.log(project)
         manager
             .getUrlOfImage(project.header_image)
             .then((url) => {
@@ -25,7 +26,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
         <div className={`Projects-promote-card-content`}>
             <h2 className={`Projects-promote-card-content--date`}>{project.year}</h2>
             <h1 className={`Projects-promote-card-content--title`}>{project.name}</h1>
-            <h3 className={`Projects-promote-card-content--type`}>{project.name}</h3>
+            <h3 className={`Projects-promote-card-content--type`}>{project.project_type}</h3>
         </div>
     </Link>)
 }
