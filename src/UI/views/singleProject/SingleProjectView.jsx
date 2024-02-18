@@ -9,7 +9,7 @@ import gsap from "gsap";
 
 // Import Swiper styles
 import 'swiper/css';
-import Loader from "../homePage/Loader.jsx";
+import Loader from "../../components/Loader.jsx";
 import Overlay from "../../components/Overlay.jsx";
 
 const SingleProjectView = (props) => {
@@ -100,7 +100,7 @@ const SingleProjectView = (props) => {
 
 
     return (<>
-        <section className={"SingleProject"}>
+        <section className={`SingleProject ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
 
             <div className={"SingleProject-banner"}>
                 <img className={"SingleProject-banner--img"} src={`${imageUrl}`}

@@ -2,6 +2,16 @@
   position: relative;
   height: fit-content;
   overflow: hidden;
+
+  &.isPageReady {
+    overflow-y: visible;
+
+  }
+
+  &.isNotPageReady {
+    overflow: hidden;
+    height: 100vh;
+  }
   &-banner {
     position: relative;
     width: 100%;
