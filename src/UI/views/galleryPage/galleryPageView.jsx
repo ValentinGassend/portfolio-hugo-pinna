@@ -16,7 +16,6 @@ const GalleryPageView = () => {
     const [projectData, setProjectData] = useState(null);
     const elapsedTimeRef = useRef(0);
     const [isPageReady, setIsPageReady] = useState(false)
-    const [imageUrl, setImageUrl] = useState(null);
     const [isAtRightEdge, setIsAtRightEdge] = useState(false);
 
     const containerRef = useRef(null);
@@ -340,7 +339,7 @@ const GalleryPageView = () => {
         <section className={`GalleryPage ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
             <div ref={containerRef} className={`GalleryPage-container`}
                  style={{left: `${containerPosition.x}%`, top: `${containerPosition.y}%`}}>
-                {generateGrid(projectData.length)}
+                {projectData ? generateGrid(projectData.length): <></>}
             </div>
 
 

@@ -159,7 +159,7 @@ const SingleProjectView = (props) => {
             </div>
 
         </section>
-        <Overlay isHome={false}/>
+        <Overlay isHome={false} isDiff={false}/>
 
         <Loader isPageReady={isPageReady}/>
 

@@ -19,8 +19,9 @@
     visibility: visible;
   }
   &.Diff {
+    mix-blend-mode: difference;
+
     .Overlay-wrapper-upper--text,.Overlay-wrapper-lower--text {
-      mix-blend-mode: difference;
     color: $color_secondary !important;
     }
   }
@@ -81,7 +82,7 @@
     }
   }
   &.Others {
-    mix-blend-mode: exclusion;
+    //mix-blend-mode: exclusion;
     .Overlay-wrapper-upper{
       width: fit-content;
     }

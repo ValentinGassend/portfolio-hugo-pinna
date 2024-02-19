@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-const Overlay = ({isHome = true, isDiff =false}) => {
+const Overlay = ({isHome = true, isDiff = false}) => {
 
     return (<div className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isDiff ? "Diff" : ""}`}>
         {isHome ? (<div className={`Overlay-wrapper`}>
