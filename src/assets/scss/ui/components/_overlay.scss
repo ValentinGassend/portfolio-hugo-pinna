@@ -1,3 +1,4 @@
+
 .Overlay {
   position: fixed;
   z-index: 10;
@@ -17,7 +18,12 @@
     opacity: 1;
     visibility: visible;
   }
-
+  &.Diff {
+    .Overlay-wrapper-upper--text,.Overlay-wrapper-lower--text {
+      mix-blend-mode: difference;
+    color: $color_secondary !important;
+    }
+  }
   &-wrapper {
     display: flex;
     flex-direction: column;
@@ -75,8 +81,9 @@
     }
   }
   &.Others {
-    .Overlay-wrapper-lower {
-      justify-content: flex-end;
+    mix-blend-mode: exclusion;
+    .Overlay-wrapper-upper{
+      width: fit-content;
     }
   }
 }

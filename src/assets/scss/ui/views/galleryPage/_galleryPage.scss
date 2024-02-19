@@ -1,0 +1,47 @@
+.GalleryPage {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+
+  &.isPageReady {
+
+  }
+
+  &.isNotPageReady {
+    overflow: hidden;
+    height: 100vh;
+  }
+  &-container {
+    position: relative;
+    transform: translate(-50%);
+    display: grid;
+    width: fit-content;
+    height: fit-content;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+    grid-column-gap: 8px;
+    &-column {
+      display: grid;
+      grid-auto-flow: row;
+      grid-row-gap: 8px;
+
+      &-item {
+        &--img {
+          width: 447px;
+          height: fit-content;
+          object-fit: cover;
+          background-color: #fff;
+
+        }
+      }
+    }
+  }
+}

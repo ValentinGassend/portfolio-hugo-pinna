@@ -1,6 +1,8 @@
-const Overlay = ({isHome = true}) => {
+import {Link} from "react-router-dom";
 
-    return (<div className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"}`}>
+const Overlay = ({isHome = true, isDiff =false}) => {
+
+    return (<div className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isDiff ? "Diff" : ""}`}>
         {isHome ? (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
                 <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
@@ -31,6 +33,9 @@ const Overlay = ({isHome = true}) => {
 
             </div>
             <div className={`Overlay-wrapper-lower`}>
+                <div className={`Overlay-wrapper-lower-item`}>
+                    <Link className={`Overlay-wrapper-lower--text`}  to={"../"}>back to the home</Link>
+                </div>
                 <div className={`Overlay-wrapper-lower-item`}>
                     <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>
                     <p className={`Overlay-wrapper-lower--text`}>@hugocuilliere</p>
