@@ -1,10 +1,6 @@
 import React, {useState, useEffect, useRef, useLayoutEffect} from "react";
-import {useParams} from "react-router-dom";
 import projectManager from "../../../managers/ProjectManager.jsx";
 
-import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
-import {Swiper, SwiperSlide} from 'swiper/react';
 import gsap from "gsap";
 
 // Import Swiper styles
@@ -13,7 +9,7 @@ import Loader from "../../components/Loader.jsx";
 import Overlay from "../../components/Overlay.jsx";
 
 const GalleryPageView = () => {
-    const [projectData, setProjectData] = useState(null);
+    const [galleryData, setGalleryData] = useState(null);
     const elapsedTimeRef = useRef(0);
     const [isPageReady, setIsPageReady] = useState(false)
     const [isAtRightEdge, setIsAtRightEdge] = useState(false);
@@ -26,9 +22,8 @@ const GalleryPageView = () => {
         //
         const fetchProject = async () => {
             try {
-                const project = await projectManager.getProjectsFromFirebase("gallery");
-                setProjectData(project);
-                console.log(project)
+                const projects = await projectManager.getProjectsFromFirebase("gallery");
+                setGalleryData(projects);
                 const elapsedTime = Date.now() - startTime;
                 elapsedTimeRef.current = elapsedTime;
                 setTimeout(() => {
@@ -46,20 +41,30 @@ const GalleryPageView = () => {
     }, []);
 
     useEffect(() => {
-        if (projectData) {
-            projectManager
-                .getUrlOfImage(projectData.visual)
-                .then((url) => {
-                    if (url) {
-                        //// console.log("URL de l'image:", url);
-                        setImageUrl(url);
+        const fetchData = async () => {
+            const newData = await Promise.all(
+                galleryData.map(async (item) => {
+                    if (item.visual) {
+                        try {
+                            const url = await projectManager.getUrlOfImage(item.visual);
+                            return { ...item, url };
+                        } catch (error) {
+                            console.error("Erreur lors de la récupération de l'URL de l'image:", error);
+                            return item;
+                        }
                     } else {
-                        //// console.log("L'image n'existe pas ou une erreur s'est produite.");
+                        return item;
                     }
                 })
-                .catch((error) => console.error("Erreur générale:", error));
+            );
+            setGalleryData(newData);
+        };
+
+        if (galleryData) {
+            fetchData();
         }
-    }, [projectData]);
+
+    }, [isPageReady]);
     useEffect(() => {
         const handleMouseMove = (event) => {
             const mouseX = event.clientX;
@@ -95,7 +100,7 @@ const GalleryPageView = () => {
             if (container) {
                 const containerRect = container.getBoundingClientRect();
                 const {x, y} = mousePosition;
-                const newX = x / window.innerWidth * 50 + 50;
+                const newX = x / window.innerWidth * 50 + 25;
                 const newY = y / window.innerHeight * 80 + 40;
                 setContainerPosition({x: newX, y: newY});
             }
@@ -145,6 +150,7 @@ const GalleryPageView = () => {
     const generateGrid = (totalItems) => {
         let grid = [];
 
+        let ImageIndex = 0;
         grid.push([], [], []);
         if (totalItems <= 10) {
 
@@ -322,15 +328,19 @@ const GalleryPageView = () => {
 
                 }
             }
-
         }
         return (<>
             {/* Generate grid items */}
             {grid.map((subArray, subIndex) => (<div key={subIndex} className="GalleryPage-container-column">
-                {subArray.map((item, index) => (<div key={index} className="GalleryPage-container-column-item">
-                    <img className={`GalleryPage-container-column-item--img`}
-                         src={'https://picsum.photos/600/1000'} alt={'image de la page contenu'}/>
-                </div>))}
+                {subArray.map((item, index) => {
+                    let url = galleryData[ImageIndex].url
+                    ImageIndex++
+                    return (<div key={index} className="GalleryPage-container-column-item">
+                        <img className={`GalleryPage-container-column-item--img`}
+                             src={`${url}`} alt={'image de la page contenu'}/>
+                    </div>)
+                }
+            )}
             </div>))}
         </>);
     };
@@ -339,7 +349,7 @@ const GalleryPageView = () => {
         <section className={`GalleryPage ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
             <div ref={containerRef} className={`GalleryPage-container`}
                  style={{left: `${containerPosition.x}%`, top: `${containerPosition.y}%`}}>
-                {projectData ? generateGrid(projectData.length): <></>}
+                {galleryData ? generateGrid(galleryData.length): <></>}
             </div>
 
 
