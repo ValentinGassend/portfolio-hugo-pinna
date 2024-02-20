@@ -1,6 +1,6 @@
 import Landing from "./Landing.jsx";
 import Loader from "../../components/Loader.jsx";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ProjectsPartView from "../projects/ProjectsPartView.jsx";
 import AboutPartView from "../about/AboutPartView.jsx";
 import ContactPartView from "../contact/ContactPartView.jsx";
@@ -11,15 +11,18 @@ import AssetNames from "./AssetNames.js";
 import Overlay from "../../components/Overlay.jsx";
 import PanelsContainer from "./PanelsConainter.jsx";
 import GalleryPartView from "../gallery/GalleryPartView.jsx";
+import projectManager from "../../../managers/ProjectManager.jsx";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
     const [assets, setAssets] = useState([]);
     const [contactData, setContact] = useState([]);
     const [analyticsInitialized, setAnalyticsInitialized] = useState(false);
+    const [galleryData, setGalleryData] = useState(null);
 
     const projectManager = ProjectManager
     const [isProjectReady, setIsProjectReady] = useState(false)
+    const [isGalleryReady, setIsGalleryReady] = useState(false)
     const [isAssetReady, setIsAssetReady] = useState(false)
     const [isPageReady, setIsPageReady] = useState(false)
     const elapsedTimeRef = useRef(0);
@@ -75,6 +78,15 @@ const Home = () => {
 
     useEffect(() => {
         const startTime = Date.now(); // Enregistrez le temps de début
+        projectManager.getProjectsFromFirebase("gallery").then((galleryData) => {
+            setGalleryData(galleryData);
+            const elapsedTime = Date.now() - startTime;
+            elapsedTimeRef.current = elapsedTime;
+
+            setTimeout(() => {
+                setIsGalleryReady(true);
+            }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
+        });
         projectManager.getProjectsFromFirebase('projects').then((projectsData) => {
             setProjects(projectsData);
             setAnalyticsInitialized(true);
@@ -95,6 +107,30 @@ const Home = () => {
         });
     }, []);
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const newData = await Promise.all(galleryData.map(async (item) => {
+                if (item.visual) {
+                    try {
+                        const url = await projectManager.getUrlOfImage(item.visual);
+                        return {...item, url};
+                    } catch (error) {
+                        console.error("Erreur lors de la récupération de l'URL de l'image:", error);
+                        return item;
+                    }
+                } else {
+                    return item;
+                }
+            }));
+            setGalleryData(newData);
+        };
+
+        if (galleryData) {
+            fetchData();
+        }
+
+    }, [isPageReady]);
     const getElapsedTime = () => {
         return elapsedTimeRef.current;
     };
@@ -102,10 +138,10 @@ const Home = () => {
 
 
     useEffect(() => {
-        if (isAssetReady && isProjectReady) {
+        if (isAssetReady && isProjectReady && isGalleryReady) {
             setIsPageReady(true)
         }
-    }, [isAssetReady, isProjectReady]);
+    }, [isAssetReady, isProjectReady, isGalleryReady]);
     useEffect(() => {
         if (isPageReady) {
             let partTitleContainer = document.getElementsByClassName('partTitle')
@@ -219,6 +255,8 @@ const Home = () => {
     useEffect(() => {
         //console.log("assetsUrl ", assetsUrl)
     }, [assetsUrl]);
+
+
     return (<>
         <div className={`Home ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
 
@@ -229,7 +267,7 @@ const Home = () => {
             <ContactPartView contactManager={projectManager} contactData={contactData}/>
             <Overlay/>
             <Loader isPageReady={isPageReady}/>
-            <GalleryPartView/>
+            <GalleryPartView galleryData={galleryData}/>
             <Landing assetsUrl={assetsUrl}/>
 
         </div>
