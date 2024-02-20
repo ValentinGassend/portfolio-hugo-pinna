@@ -1,5 +1,5 @@
 import FirebaseView from "./UI/views/other/FirebaseView.jsx";
-import Home from "./UI/views/home/Home.jsx";
+import Home from "./UI/views/homePage/Home.jsx";
 function App() {
     return (
         <>

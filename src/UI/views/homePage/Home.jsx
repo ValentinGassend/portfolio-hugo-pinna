@@ -1,5 +1,5 @@
 import Landing from "./Landing.jsx";
-import Loader from "./Loader.jsx";
+import Loader from "../../components/Loader.jsx";
 import {useEffect, useRef, useState} from "react";
 import ProjectsPartView from "../projects/ProjectsPartView.jsx";
 import AboutPartView from "../about/AboutPartView.jsx";

@@ -1,4 +1,4 @@
-import Loader from "./Loader.jsx";
+import Loader from "../../components/Loader.jsx";
 import LoadingManager from "../../../managers/LoadingManager.jsx";
 import {useEffect, useState} from "react";
 import Link from "../../components/Link.jsx";
@@ -15,13 +15,25 @@ const Landing = ({assetsUrl}) => {
 
     useEffect(() => {
         // Add event listener to track mouse movement
-        document.getElementsByClassName('Landing')[0].addEventListener("mousemove", handleMouseMove);
-        document.getElementsByClassName('Landing')[1].addEventListener("mousemove", handleMouseMove);
+        if (document.getElementsByClassName('Landing')) {
+            if (document.getElementsByClassName('Landing')[0]) {
+                document.getElementsByClassName('Landing')[0].addEventListener("mousemove", handleMouseMove);
+            }
+            if (document.getElementsByClassName('Landing')[1]) {
+                document.getElementsByClassName('Landing')[1].addEventListener("mousemove", handleMouseMove);
+            }
+        }
         setSize(200)
         // Clean up event listener when component unmounts
         return () => {
-            document.getElementsByClassName('Landing')[0].removeEventListener("mousemove", handleMouseMove);
-            document.getElementsByClassName('Landing')[1].removeEventListener("mousemove", handleMouseMove);
+            if (document.getElementsByClassName('Landing')) {
+                if (document.getElementsByClassName('Landing')[0]) {
+                    document.getElementsByClassName('Landing')[0].removeEventListener("mousemove", handleMouseMove);
+                }
+                if (document.getElementsByClassName('Landing')[1]) {
+                    document.getElementsByClassName('Landing')[1].removeEventListener("mousemove", handleMouseMove);
+                }
+            }
         };
     }, []);
 
