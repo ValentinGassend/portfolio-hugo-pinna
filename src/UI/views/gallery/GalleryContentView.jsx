@@ -1,7 +1,7 @@
 import Link from "../../components/Link.jsx";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 
-const GalleryContentView = () => {
+const GalleryContentView = ({galleryData}) => {
     useEffect(() => {
         const handleMouseMove = (e) => {
             const items = document.querySelectorAll('.Gallery-content-cards-column--item');
@@ -59,13 +59,14 @@ const GalleryContentView = () => {
 
     }
 
-    function getGrid(total) {
+    const generateGrid = (totalItems) => {
         let grid = [];
 
+        let ImageIndex = 0;
         grid.push([], [], []);
-        if (total <= 10) {
+        if (totalItems <= 10) {
 
-            const returnValues = from4To8(total);
+            const returnValues = from4To8(totalItems);
             let middle = returnValues[0];
             let firstSides = returnValues[1];
             let middleGrid
@@ -99,14 +100,14 @@ const GalleryContentView = () => {
             }
 
             // console.log("=========================");
-            // console.log("résultat pour ", total);
+            // console.log("résultat pour ", totalItems);
             // console.log("middle", middle);
             // console.log("sides", firstSides);
-            // console.log("grille de " + total, grid);
+            // console.log("grille de " + totalItems, grid);
             // console.log("=========================");
-        } else if (total <= 32) {
+        } else if (totalItems <= 32) {
 
-            const returnValues = from4To8(total);
+            const returnValues = from4To8(totalItems);
             let middle = returnValues[0];
             let firstSides = returnValues[1];
             let sides
@@ -178,12 +179,12 @@ const GalleryContentView = () => {
                         }
 
                         // console.log("=========================");
-                        // console.log("résultat pour ", total);
+                        // console.log("résultat pour ", totalItems);
                         // console.log("middle", middle);
                         // console.log("firstSides", firstSides);
                         // console.log("secondSides", secondSides);
                         // console.log("sides", sides);
-                        // console.log("grille de " + total, grid);
+                        // console.log("grille de " + totalItems, grid);
                         // console.log("=========================");
                     }
 
@@ -224,11 +225,11 @@ const GalleryContentView = () => {
                     }
 
                     // console.log("=========================");
-                    // console.log("résultat pour ", total);
+                    // console.log("résultat pour ", totalItems);
                     // console.log("middle", middle);
                     // console.log("firstSides", firstSides);
                     // console.log("sides", sides);
-                    // console.log("grille de " + total, grid);
+                    // console.log("grille de " + totalItems, grid);
                     // console.log("=========================");
                 }
             } else {
@@ -239,148 +240,34 @@ const GalleryContentView = () => {
 
                 }
             }
-
         }
+        return (<>
+            {/* Generate grid items */}
+            {grid.map((subArray, subIndex) => (
+                <div key={subIndex} className="Gallery-content-cards-column">
+                {subArray.map((item, index) => {
+                        let url = galleryData[ImageIndex].url
+                        ImageIndex++
+                        return (
+                            <div key={ImageIndex} className={`Gallery-content-cards-column--item`}
+                                 style={{"--url": `url("${url}")`}}>
+                                <span className={`Gallery-content-cards-column--item-img`}/>
+                                <span className={`Gallery-content-cards-column--item-overlay`}/>
+                            </div>
+                        )
+                    }
+                )}
+            </div>))}
+        </>);
+    };
 
-        // else if (total < 24) {
-        //
-        //     const returnValues = from4To8(total);
-        //     let middle = returnValues[0];
-        //     let firstSides = returnValues[1];
-        //     let sides
-        //     let middleGrid
-        //     // Check if half is modulable by (number of columns in grid + 2)
-        //     if (middle / (grid.length + 2) > 1) {
-        //         grid.unshift([], []);
-        //         middleGrid = Math.trunc(grid.length / 2)
-        //
-        //         const returnValues = from4To8(middle);
-        //         middle = returnValues[0];
-        //         sides = returnValues[1];
-        //         if (middle <= firstSides) {
-        //             // console.log("before twist ")
-        //             // console.log("middle", middle);
-        //             // console.log("firstSides", firstSides);
-        //             // console.log("sides", sides);
-        //             if ((middle - firstSides) >= (middle - sides)) {
-        //                 middle = middle + 2
-        //                 sides--
-        //             } else {
-        //
-        //                 middle = middle + 2
-        //                 firstSides--
-        //             }
-        //             // console.log("after twist ")
-        //             // console.log("middle", middle);
-        //             // console.log("firstSides", firstSides);
-        //             // console.log("sides", sides);
-        //         }
-        //         for (let i = 0; i < sides; i++) {
-        //             grid[0].push("item");
-        //             grid[grid.length - 1].push("item"); // Push to the last column as well
-        //         }
-        //         for (let j = 0; j < middle; j++) {
-        //             grid[middleGrid].push("item");
-        //         }
-        //     } else {
-        //         middleGrid = Math.trunc(grid.length / 2)
-        //
-        //         for (let j = 0; j < middle; j++) {
-        //             grid[middleGrid].push("item");
-        //
-        //         }
-        //     }
-        //
-        //     for (let i = 0; i < firstSides; i++) {
-        //         grid[middleGrid - 1].push("item");
-        //         grid[middleGrid + 1].push("item"); // Push to the last column as well
-        //     }
-        //
-        //     // console.log("=========================");
-        //     // console.log("résultat pour ", total);
-        //     // console.log("middle", middle);
-        //     // console.log("firstSides", firstSides);
-        //     // console.log("sides", sides);
-        //     // console.log("grille de " + total, grid);
-        //     // console.log("=========================");
-        // }
-    }
 
-    getGrid(4);
-    getGrid(5);
-    getGrid(6);
-    getGrid(7);
-    getGrid(8);
-    getGrid(9);
-    getGrid(10);
-    getGrid(11);
-    getGrid(12);
-    getGrid(13);
-    getGrid(14);
-    getGrid(15);
-    getGrid(16);
-    getGrid(17);
-    getGrid(18);
-    getGrid(19);
-    getGrid(20);
-    getGrid(21);
-    getGrid(22);
-    getGrid(23);
-    getGrid(24);
-    getGrid(25);
-    getGrid(26);
-    getGrid(27);
+
 
 
     return (<div className={`Gallery-content`}>
         <div className={`Gallery-content-cards`}>
-            <div className={'Gallery-content-cards-column'}>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}>
-                    <span className={`Gallery-content-cards-column--item-img`}/>
-                    <span className={`Gallery-content-cards-column--item-overlay`}/>
-                </div>
-            </div>
-            <div className={'Gallery-content-cards-column'}>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-            </div>
-            <div className={'Gallery-content-cards-column'}>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-            </div>
-            <div className={'Gallery-content-cards-column'}>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-            </div>
-            <div className={'Gallery-content-cards-column'}>
-                <div className={`Gallery-content-cards-column--item`}
-                     style={{"--url": 'url("https://picsum.photos/200/300")'}}><span
-                    className={`Gallery-content-cards-column--item-img`}/><span
-                    className={`Gallery-content-cards-column--item-overlay`}/></div>
-            </div>
+            {galleryData ? generateGrid(9) : <></>}
         </div>
 
         <div className={`Gallery-content-scroll`}>
