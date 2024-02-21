@@ -254,6 +254,9 @@
       &.miller {
         font-family: $ff_2;
       }
+      & > img {
+        padding-right: 8px;
+      }
 
     }
   }

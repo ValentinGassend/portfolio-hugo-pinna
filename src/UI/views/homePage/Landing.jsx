@@ -88,7 +88,7 @@ const Landing = ({assetsUrl}) => {
                 <span className={`Landing-grid--element`}>hugopinna@free.fr</span>
             </div>
             <div className={`Landing-grid-status`}>
-                <span className={`Landing-grid--element uppercase`}>Freelance</span>
+                <span className={`Landing-grid--element uppercase italic`}>Freelance</span>
                 <span
                     className={`Landing-grid--element uppercase italic bold miller`}>{new Date().getFullYear()}</span>
             </div>
