@@ -1,20 +1,20 @@
 import {useEffect, useState} from "react";
 
 const ContactContentView = ({contactManager, contactData}) => {
-    const [letter, setLetter] = useState(null);
+    const [contactInfo, setContactInfo] = useState(null);
 
     useEffect(() => {
         // console.log(contactData)
 
         if (contactData && contactData.length > 0) {
             const data = contactData[0];
-            // console.log(contactData);
-            // console.log(data);
-            contactManager.getUrlOfImage(data.letter_part.timbre).then((url) => {
+            contactManager.getUrlOfImage(data.letter.timbre).then((url) => {
                 if (url) {
                     //console.log("URL de l'asset:" + name, url);
-                    data.letter_part.timbre = url
-                    setLetter(data.letter_part);
+                    data.letter.timbre = url
+                    console.log(contactInfo)
+                    console.log(data)
+
                 } else {
                     console.log("L'image n'existe pas ou une erreur s'est produite.");
                 }
@@ -23,6 +23,8 @@ const ContactContentView = ({contactManager, contactData}) => {
                     console.error("Erreur générale:", error);
                     return null; // Return null for failed promises
                 });
+
+            setContactInfo(data)
         }
     }, [contactData]);
     return (
@@ -31,15 +33,29 @@ const ContactContentView = ({contactManager, contactData}) => {
             <div className={`Contact-content-wrapper`}>
                 <div className={`Contact-content-wrapper-upper`}>
                     <div className={`Contact-content-wrapper-upper-texts`}>
-                        <p className={`Contact-content-wrapper-upper-texts--item`}>{letter ? letter.title : ''}</p>
-                        <p className={`Contact-content-wrapper-upper-texts--item`}>{letter ? letter.sub_title : ''}</p>
+                        <h2 className={`Contact-content-wrapper-upper-texts--subtitle`}>{contactInfo ? contactInfo.letter.subtitle : ''}</h2>
+                        <a className={`Contact-content-wrapper-upper-texts--email`} rel="noreferrer"
+                           href={`mailto:${contactInfo ? contactInfo.letter.email : ''}`}
+                           target={"_blank"}>{contactInfo ? contactInfo.letter.email : ''}</a>
+                        <a className={`Contact-content-wrapper-upper-texts--social`} rel="noreferrer"
+                           href={`${contactInfo ? contactInfo.social.link : ''}`}
+                           target={"_blank"}>{contactInfo ? contactInfo.social.tag : ''}</a>
                     </div>
-                    <img className={`Contact-content-wrapper-upper--stamp`} src={`${letter ? letter.timbre : ''}`}
-                         alt={`image d'illustration d'un timbre`}/>
+
                 </div>
-                <a className={`Contact-content-wrapper--email`} rel="noreferrer"
-                   href={`mailto:${letter ? letter.email : ''}`}
-                   target={"_blank"}>{letter ? letter.email : ''}</a>
+                <div className={`Contact-content-wrapper-lower`}>
+                    <h2 className={`Contact-content-wrapper-lower--title`}>{contactInfo ? contactInfo.letter.title : ''}</h2>
+                </div>
+            </div>
+            <div className={`Contact-content-stamps`}>
+                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     alt={`image d'illustration d'un timbre`}/>
+                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     alt={`image d'illustration d'un timbre`}/>
+                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     alt={`image d'illustration d'un timbre`}/>
+                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     alt={`image d'illustration d'un timbre`}/>
             </div>
         </div>)
 }

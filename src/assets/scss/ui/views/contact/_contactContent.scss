@@ -1,28 +1,30 @@
 .Contact {
   &-content {
     position: relative;
-    z-index: 10;
+    z-index: 20;
     width: 100%;
     height: 100vh;
-    padding: 0 202px;
-    display: flex;
+    padding: 0 100px;
+    display: grid;
+    grid-auto-flow: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    grid-column-gap: 46px;
+
     &-wrapper {
       padding: 21px;
-      //width: 100%;
-      background-color: $color_primary;
-
       display: grid;
       grid-auto-flow: row;
       row-gap: 100px;
+      margin: auto;
+
       &-upper {
         display: flex;
         height: fit-content;
         flex-direction: row;
         align-content: center;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
 
         &-texts {
           display: grid;
@@ -30,38 +32,68 @@
           row-gap: 41px;
           height: fit-content;
           padding: 0 0 0 calc(58px - 21px);
+          justify-items: end;
 
+          &--subtitle {
+            color: $color_primary;
+            text-align: right;
+            font-family: $ff_1;
+            font-size: 48px;
+            font-weight: 500;
+            text-transform: uppercase;
+            width: max-content;
+          }
 
-          &--item {
-            width: fit-content;
-            height: fit-content;
-            color: $color_secondary;
+          &--email, &--social {
+            color: $color_primary;
             text-align: center;
             font-family: $ff_1;
-            font-size: 40px;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-size: 48px;
+            font-weight: 400;
+            font-style: italic;
+            padding: 0 calc(58px - 21px) calc(31px - 21px);
+            text-decoration: none;
           }
         }
 
-        &--stamp {
-          color: $color_secondary;
-          width: 223px;
-          aspect-ratio: 223.001/289.48;
-        }
+
       }
 
-      &--email {
-        color: $color_secondary;
-        text-align: center;
-        font-family: $ff_2;
-        font-size: 88px;
-        font-weight: 700;
-        font-style: italic;
-        padding: 0 calc(58px - 21px) calc(31px - 21px);
-        text-transform: uppercase;
-        text-decoration: none;
+      &-lower {
+        display: flex;
+        height: fit-content;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        width: 75%;
+
+        &--title {
+          color: $color_primary;
+          font-family: $ff_2;
+          font-size: 200px;
+          font-style: italic;
+          font-weight: 700;
+        }
+      }
+    }
+
+    &-stamps {
+      color: $color_secondary;
+      width: 223px;
+      max-height: 100vh;
+      overflow: hidden;
+      height: 100%;
+      aspect-ratio: 223.001/289.48;
+      display: grid;
+      grid-auto-flow: row;
+      grid-row-gap: 32px;
+      align-items: center;
+      align-content: center;
+      &--item {
+        width: 100%;
       }
     }
   }
+
 }
