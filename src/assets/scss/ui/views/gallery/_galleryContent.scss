@@ -38,7 +38,7 @@
 
       &--item {
         position: relative;
-        filter: blur(4px);
+        filter: blur(8px);
         //transition: transform 300ms linear,box-shadow 300ms linear;
         &-img {
           content: var(--url);
