@@ -1,7 +1,42 @@
 import Link from "../../components/Link.jsx";
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 const GalleryContentView = ({galleryData}) => {
+    const [numberOfItems, setNumberOfItems] = useState(0);
+    const [urls, setUrls] = useState([]);
+
+
+    useEffect(() => {
+        // Collect data first and then update state once
+
+        if (galleryData) {
+
+            let newNumberOfItems = 0;
+            const newUrls = [];
+
+            console.log(galleryData)
+            galleryData.forEach(item => {
+                // console.log(item)
+
+                if (item.url_home_visual) {
+                    newUrls.push(item.url_home_visual);
+                    newNumberOfItems++;
+                    console.log(newNumberOfItems)
+                }
+            });
+
+            // Update state once with the collected data
+            setNumberOfItems(newNumberOfItems);
+            setUrls(newUrls);
+        }
+
+    }, [galleryData]);
+
+
+    useEffect(() => {
+        console.log("urls", urls)
+        console.log("numberOfItems", numberOfItems)
+    }, [urls, numberOfItems]);
     useEffect(() => {
         const handleMouseMove = (e) => {
             const items = document.querySelectorAll('.Gallery-content-cards-column--item');
@@ -29,6 +64,12 @@ const GalleryContentView = ({galleryData}) => {
             document.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
+
+
+    useEffect(() => {
+        console.log(galleryData)
+
+    }, [galleryData]);
 
     function from4To8(total) {
         let middle;
@@ -59,216 +100,73 @@ const GalleryContentView = ({galleryData}) => {
 
     }
 
-    const generateGrid = (totalItems) => {
+    const generateGrid = (totalItems, urls) => {
         let grid = [];
 
         let ImageIndex = 0;
         grid.push([], [], []);
-        if (totalItems <= 10) {
+        if (totalItems > 9) {
+            totalItems = 9
+        }
 
-            const returnValues = from4To8(totalItems);
-            let middle = returnValues[0];
-            let firstSides = returnValues[1];
-            let middleGrid
-            // Check if half is modulable by (number of columns in grid + 2)
-            if (middle / (grid.length + 2) >= 1) {
-                grid.unshift([], []);
-                middleGrid = Math.trunc(grid.length / 2)
+        const returnValues = from4To8(totalItems);
+        let middle = returnValues[0];
+        let firstSides = returnValues[1];
+        let middleGrid
+        // Check if half is modulable by (number of columns in grid + 2)
+        if (middle / (grid.length + 2) >= 1) {
+            grid.unshift([], []);
+            middleGrid = Math.trunc(grid.length / 2)
 
-                const returnValues = from4To8(middle);
-                middle = returnValues[0];
-                let sides = returnValues[1];
-                for (let i = 0; i < sides; i++) {
-                    grid[0].push("item");
-                    grid[grid.length - 1].push("item"); // Push to the last column as well
-                }
-                for (let j = 0; j < middle; j++) {
-                    grid[middleGrid].push("item");
-                }
-            } else {
-                middleGrid = Math.trunc(grid.length / 2)
-
-                for (let j = 0; j < middle; j++) {
-                    grid[middleGrid].push("item");
-
-                }
+            const returnValues = from4To8(middle);
+            middle = returnValues[0];
+            let sides = returnValues[1];
+            for (let i = 0; i < sides; i++) {
+                grid[0].push("item");
+                grid[grid.length - 1].push("item"); // Push to the last column as well
             }
-
-            for (let i = 0; i < firstSides; i++) {
-                grid[middleGrid - 1].push("item");
-                grid[middleGrid + 1].push("item"); // Push to the last column as well
+            for (let j = 0; j < middle; j++) {
+                grid[middleGrid].push("item");
             }
+        } else {
+            middleGrid = Math.trunc(grid.length / 2)
 
-            // console.log("=========================");
-            // console.log("résultat pour ", totalItems);
-            // console.log("middle", middle);
-            // console.log("sides", firstSides);
-            // console.log("grille de " + totalItems, grid);
-            // console.log("=========================");
-        } else if (totalItems <= 32) {
+            for (let j = 0; j < middle; j++) {
+                grid[middleGrid].push("item");
 
-            const returnValues = from4To8(totalItems);
-            let middle = returnValues[0];
-            let firstSides = returnValues[1];
-            let sides
-            let middleGrid
-            // Check if half is modulable by (number of columns in grid + 2)
-            if (middle / (grid.length + 2) > 1) {
-                grid.unshift([], []);
-                middleGrid = Math.trunc(grid.length / 2)
-
-                const returnValues = from4To8(middle);
-                middle = returnValues[0];
-                sides = returnValues[1];
-
-
-                if (middle <= firstSides) {
-
-                    if ((middle - firstSides) >= (middle - sides)) {
-                        middle = middle + 2
-                        sides--
-                    } else {
-
-                        middle = middle + 2
-                        firstSides--
-                    }
-
-                    if (middle / (grid.length) > 1) {
-                        let secondSides = sides;
-
-                        grid.unshift([], []);
-                        middleGrid = Math.trunc(grid.length / 2)
-
-                        const returnValues = from4To8(middle);
-                        middle = returnValues[0];
-                        sides = returnValues[1];
-
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("secondSides", secondSides);
-                        if (middle <= firstSides) {
-
-                            if ((middle - firstSides) >= (middle - secondSides)) {
-                                middle = middle + 2
-                                secondSides--
-                            } else {
-
-                                middle = middle + 2
-                                sides--
-                            }
-
-
-                        }
-
-
-                        for (let i = 0; i < sides; i++) {
-                            grid[0].push("item");
-                            grid[grid.length - 1].push("item"); // Push to the last column as well
-                        }
-
-                        for (let i = 0; i < firstSides; i++) {
-                            grid[middleGrid - 1].push("item");
-                            grid[middleGrid + 1].push("item");  // Push to the last column as well
-                        }
-                        for (let i = 0; i < secondSides; i++) {
-                            grid[middleGrid - 2].push("item");
-                            grid[middleGrid + 2].push("item");  // Push to the last column as well
-                        }
-                        for (let j = 0; j < middle; j++) {
-                            grid[middleGrid].push("item");
-                        }
-
-                        // console.log("=========================");
-                        // console.log("résultat pour ", totalItems);
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("secondSides", secondSides);
-                        // console.log("sides", sides);
-                        // console.log("grille de " + totalItems, grid);
-                        // console.log("=========================");
-                    }
-
-                } else {
-                    if (middle <= firstSides) {
-                        // console.log("before twist ")
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("sides", sides);
-
-                        if ((middle - firstSides) >= (middle - sides)) {
-                            middle = middle + 2
-                            sides--
-                        } else {
-
-                            middle = middle + 2
-                            firstSides--
-                        }
-
-                        // console.log("after twist ")
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("sides", sides);
-
-                    }
-
-                    for (let i = 0; i < sides; i++) {
-                        grid[0].push("item");
-                        grid[grid.length - 1].push("item"); // Push to the last column as well
-                    }
-                    for (let j = 0; j < middle; j++) {
-                        grid[middleGrid].push("item");
-                    }
-
-                    for (let i = 0; i < firstSides; i++) {
-                        grid[middleGrid - 1].push("item");
-                        grid[middleGrid + 1].push("item"); // Push to the last column as well
-                    }
-
-                    // console.log("=========================");
-                    // console.log("résultat pour ", totalItems);
-                    // console.log("middle", middle);
-                    // console.log("firstSides", firstSides);
-                    // console.log("sides", sides);
-                    // console.log("grille de " + totalItems, grid);
-                    // console.log("=========================");
-                }
-            } else {
-                middleGrid = Math.trunc(grid.length / 2)
-
-                for (let j = 0; j < middle; j++) {
-                    grid[middleGrid].push("item");
-
-                }
             }
         }
+
+        for (let i = 0; i < firstSides; i++) {
+            grid[middleGrid - 1].push("item");
+            grid[middleGrid + 1].push("item"); // Push to the last column as well
+        }
+
+
         return (<>
             {/* Generate grid items */}
-            {grid.map((subArray, subIndex) => (
-                <div key={subIndex} className="Gallery-content-cards-column">
+            {grid.map((subArray, subIndex) => (<div key={subIndex} className="Gallery-content-cards-column">
                 {subArray.map((item, index) => {
-                        let url = galleryData[ImageIndex].url
-                        ImageIndex++
-                        return (
-                            <div key={ImageIndex} className={`Gallery-content-cards-column--item`}
+                    let url = urls[ImageIndex]
+                    ImageIndex++
+                    return (<div key={ImageIndex} className={`Gallery-content-cards-column--item`}
                                  style={{"--url": `url("${url}")`}}>
-                                <span className={`Gallery-content-cards-column--item-img`}/>
-                                <span className={`Gallery-content-cards-column--item-overlay`}/>
-                            </div>
-                        )
-                    }
-                )}
+                        <span className={`Gallery-content-cards-column--item-img`}/>
+                        <span className={`Gallery-content-cards-column--item-overlay`}/>
+                    </div>)
+
+                })}
             </div>))}
         </>);
     };
 
 
-
-
-
     return (<div className={`Gallery-content`}>
         <div className={`Gallery-content-cards`}>
-            {galleryData ? generateGrid(9) : <></>}
+            {numberOfItems > 3 ? generateGrid(numberOfItems, urls) : <></>}
+
         </div>
+
 
         <div className={`Gallery-content-scroll`}>
             <Link style={1} text={"Check my gallery"} parentClass={"Gallery-content-scroll"} url={'/gallery'}

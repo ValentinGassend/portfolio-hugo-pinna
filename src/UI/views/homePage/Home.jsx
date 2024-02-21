@@ -113,8 +113,14 @@ const Home = () => {
             const newData = await Promise.all(galleryData.map(async (item) => {
                 if (item.visual) {
                     try {
-                        const url = await projectManager.getUrlOfImage(item.visual);
-                        return {...item, url};
+                        const url_visual = await projectManager.getUrlOfImage(item.visual);
+
+                        if (item.home_gallery_part && item.home_gallery_part.home_visual) {
+                            const url_home_visual = await projectManager.getUrlOfImage(item.home_gallery_part.home_visual);
+                            return {...item, url_visual, url_home_visual};
+                        } else {
+                            return {...item, url_visual};
+                        }
                     } catch (error) {
                         console.error("Erreur lors de la récupération de l'URL de l'image:", error);
                         return item;
