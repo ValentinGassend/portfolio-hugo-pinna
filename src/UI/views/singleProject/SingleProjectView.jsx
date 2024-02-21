@@ -63,6 +63,13 @@ const SingleProjectView = (props) => {
     useEffect(() => {
         console.log("triggers")
         if (isPageReady) {
+
+            const textContent = document.getElementsByClassName("SingleProject-content-wrapper")[0]
+            const sliderContent = document.getElementsByClassName("SingleProject-slider")[0]
+
+            let textContentheight = textContent.getBoundingClientRect().height
+            console.log(textContent.getBoundingClientRect())
+            sliderContent.style.height = "calc(100% - "+textContentheight+"px)"
             gsap.registerPlugin(ScrollTrigger);
 
             const panels = gsap.utils.toArray(".SingleProject-slider-slide");
@@ -83,7 +90,7 @@ const SingleProjectView = (props) => {
                     start: `top top`, // end: "bottom top",
                     endTrigger: panelsContainer,
                     pin: contentContainer,
-                    end: () =>  "+=" + (panelsContainer.scrollWidth - innerWidth),
+                    end: () => "+=" + (panelsContainer.scrollWidth - innerWidth),
                     scrub: 1,
                     onUpdate: (self) => {
                         const scrollY = self.scroll();
@@ -107,34 +114,36 @@ const SingleProjectView = (props) => {
                      alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
             </div>
             <div className={"SingleProject-content"}>
-                <div className={"SingleProject-content-data"}>
-                    <div className={"SingleProject-content-data-item"}>
-                        <h1 className={"SingleProject-content-data-item--name"}>{projectData ? projectData.name : ''}</h1>
+                <div className={"SingleProject-content-wrapper"}>
+                    <div className={"SingleProject-content-data"}>
+                        <div className={"SingleProject-content-data-item"}>
+                            <h1 className={"SingleProject-content-data-item--name"}>{projectData ? projectData.name : ''}</h1>
+                        </div>
+                        <div className={"SingleProject-content-data-item"}>
+                            <p className={"SingleProject-content-data-item--date"}>{projectData ? projectData.year : ''}</p>
+                            <p className={"SingleProject-content-data-item--client"}>{projectData ? projectData.client : ''}</p>
+                        </div>
+                        <div className={"SingleProject-content-data-item"}>
+                            <p className={"SingleProject-content-data-item--type"}>{projectData ? projectData.project_type : ''}</p>
+                        </div>
+                        <div className={"SingleProject-content-data-item"}>
+                            {projectData ? projectData.tags.map((tag, index) => (<span key={index}
+                                                                                       className={"SingleProject-content-data-item--tag"}>[{tag}]</span>)) : ''}
+                        </div>
                     </div>
-                    <div className={"SingleProject-content-data-item"}>
-                        <p className={"SingleProject-content-data-item--date"}>{projectData ? projectData.year : ''}</p>
-                        <p className={"SingleProject-content-data-item--client"}>{projectData ? projectData.client : ''}</p>
+                    <div className={"SingleProject-content-info"}>
+                        {projectData ? projectData.contents.map((content, index) => {
+                            if (content.type === 'title') {
+                                return <h3 key={index}
+                                           className={"SingleProject-content-info--title"}>{content.value}</h3>;
+                            } else if (content.type === 'description') {
+                                return <p key={index}
+                                          className={"SingleProject-content-info--description"}>{content.value}</p>;
+                            } else {
+                                return null; // Handle other types if needed
+                            }
+                        }) : ''}
                     </div>
-                    <div className={"SingleProject-content-data-item"}>
-                        <p className={"SingleProject-content-data-item--type"}>{projectData ? projectData.project_type : ''}</p>
-                    </div>
-                    <div className={"SingleProject-content-data-item"}>
-                        {projectData ? projectData.tags.map((tag, index) => (<span key={index}
-                                                                                           className={"SingleProject-content-data-item--tag"}>[{tag}]</span>))  : ''}
-                    </div>
-                </div>
-                <div className={"SingleProject-content-info"}>
-                    {projectData ? projectData.contents.map((content, index) => {
-                        if (content.type === 'title') {
-                            return <h3 key={index}
-                                       className={"SingleProject-content-info--title"}>{content.value}</h3>;
-                        } else if (content.type === 'description') {
-                            return <p key={index}
-                                      className={"SingleProject-content-info--description"}>{content.value}</p>;
-                        } else {
-                            return null; // Handle other types if needed
-                        }
-                    }) : ''}
                 </div>
                 <div className={"SingleProject-slider"}>
                     <div className={"SingleProject-slider-container"}>
