@@ -38,7 +38,7 @@
     grid-auto-flow: row;
     height: calc(var(--PromotedProjectLength) * 100vh);
     align-content: space-around;
-
+    align-items: start;
     &-card {
       display: flex;
       position: relative;
@@ -48,6 +48,7 @@
       aspect-ratio: 1324/554;
       cursor: pointer;
       text-decoration: none;
+      //transition: height 1s ease-out;
       &:after {
         z-index: 5;
         content: "";
@@ -58,7 +59,7 @@
         backdrop-filter: blur(10px);
       -webkit-mask-image: -webkit-gradient(linear, left top,
               left bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,1)));
-        transition: transform 1000ms ease-out;
+        transition: transform 1000ms ease-out, opacity 300ms ease-out;
       }
       &:hover {
         .Projects-promote-card--img {
@@ -68,7 +69,12 @@
           transform: scale(1.1);
         }
       }
-
+      &.transitioning {
+        pointer-events: none;
+        &:after {
+          opacity: 0;
+        }
+      }
       &--img {
         position: absolute;
         top: 0;

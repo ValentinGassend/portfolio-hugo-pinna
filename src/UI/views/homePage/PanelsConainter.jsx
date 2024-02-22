@@ -12,41 +12,53 @@ const PanelsContainer = ({isPageReady}) => {
     const [panels, setPanels] = useState([]);
 
     const goToSection = (i, force) => {
-        if (i === panels.length - 1 && force) {
-            // User has scrolled to the bottom, smoothly scroll to the first panel without duration
-            gsap.to(window, {
-                scrollTo: {y: snapTriggers.current[i].start, autoKill: false}, duration: 0, onComplete: () => {
-                    scrollTween.current = null
-                    scrollTween.current = gsap.to(window, {
-                        scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: false},
-                        duration: 1,
-                        onComplete: () => (scrollTween.current = null),
-                        overwrite: true,
-                    });
-                }, overwrite: true,
-            });
+        if (document.getElementsByClassName("PanelsContainer").length > 0) {
+            if (i === panels.length - 1 && force) {
+                // User has scrolled to the bottom, smoothly scroll to the first panel without duration
+                gsap.to(window, {
+                    scrollTo: {y: snapTriggers.current[i].start, autoKill: false}, duration: 0, onComplete: () => {
+                        scrollTween.current = null
+                        scrollTween.current = gsap.to(window, {
+                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: true},
+                            duration: 1,
+                            onComplete: () => (scrollTween.current = null),
+                            overwrite: true,
+                        });
+                    }, overwrite: true,
+                });
 
-        } else if (i === 0 && force) {
-            // User has scrolled to the bottom, smoothly scroll to the first panel without duration
-            gsap.to(window, {
-                scrollTo: {y: 1, autoKill: false}, duration: 0, onComplete: () => {
-                    scrollTween.current = null
-                    scrollTween.current = gsap.to(window, {
-                        scrollTo: {y: snapTriggers.current[i + 1].start, autoKill: false},
-                        duration: 1,
-                        onComplete: () => (scrollTween.current = null),
-                        overwrite: true,
-                    });
-                }, overwrite: true,
-            });
-        } else {
-            // Scroll to the specified panel with a duration
-            scrollTween.current = gsap.to(window, {
-                scrollTo: {y: snapTriggers.current[i].start, autoKill: false},
-                duration: force ? 0 : 1,
-                onComplete: () => (scrollTween.current = null),
-                overwrite: true,
-            });
+            } else if (i === 0 && force) {
+                // User has scrolled to the bottom, smoothly scroll to the first panel without duration
+                gsap.to(window, {
+                    scrollTo: {y: 1, autoKill: true}, duration: 0, onComplete: () => {
+                        scrollTween.current = null
+                        scrollTween.current = gsap.to(window, {
+                            scrollTo: {y: snapTriggers.current[i + 1].start, autoKill: true},
+                            duration: 1,
+                            onComplete: () => (scrollTween.current = null),
+                            overwrite: true,
+                        });
+                    }, overwrite: true,
+                });
+            } else {
+                // Scroll to the specified panel with a duration
+
+                scrollTween.current = gsap.to(window, {
+                    scrollTo: {
+                        y: snapTriggers.current[i].start, autoKill: false, onComplete: () => {
+                            console.log(document.getElementsByClassName("PanelsContainer"))
+                            if (document.getElementsByClassName("PanelsContainer").length <= 0) {
+
+                                snapTriggers.current = null
+                            }
+                        }
+                    },
+                    duration: force ? 0 : 1,
+                    onComplete: () => (scrollTween.current = null),
+                    overwrite: false,
+                });
+
+            }
         }
     };
 

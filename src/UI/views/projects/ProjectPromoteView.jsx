@@ -1,11 +1,25 @@
 import ProjectData from "../../../models/project/ProjectData.jsx";
 import ProjectsView from "./ProjectsView.jsx";
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 const ProjectPromoteView = ({index, project, manager}) => {
     const [imageUrl, setImageUrl] = useState(null);
 
+
+    useLayoutEffect(() => {
+        let elements = document.querySelectorAll('.Projects-promote-card');
+        console.log(elements);
+        for (let element of elements) {
+            element.addEventListener('click', function () {
+                if (!element.classList.contains('selected')) {
+                    element.classList.add('selected');
+                }
+            });
+        }
+
+
+    }, []);
     useEffect(() => {
         console.log(project)
         manager
@@ -20,7 +34,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
             })
             .catch((error) => console.error("Erreur générale:", error));
     }, [project.header_image]);
-    return (<Link data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
+    return (<Link refresh="true" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
         <img className={`Projects-promote-card--img`} src={`${imageUrl}`}
              alt={`image d'illustration du projet ${project.name}`}></img>
         <div className={`Projects-promote-card-content`}>

@@ -49,40 +49,32 @@ const SingleProjectView = (props) => {
                 .getUrlOfImage(projectData.header_image)
                 .then((url) => {
                     if (url) {
-                        //console.log("URL de l'image:", url);
+                        ////console.log("URL de l'image:", url);
                         setImageUrl(url);
                     } else {
-                        //console.log("L'image n'existe pas ou une erreur s'est produite.");
+                        ////console.log("L'image n'existe pas ou une erreur s'est produite.");
                     }
                 })
                 .catch((error) => console.error("Erreur générale:", error));
         }
     }, [projectData]);
 
-
     useEffect(() => {
-        console.log("triggers")
+        const textContent = document.getElementsByClassName("SingleProject-content-wrapper")[0]
+        const sliderContent = document.getElementsByClassName("SingleProject-slider")[0]
+
+        let textContentheight = textContent.getBoundingClientRect().height
+        sliderContent.style.height = "calc(100% - " + textContentheight + "px)"
+    }, [projectData]);
+    useEffect(() => {
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const panels = gsap.utils.toArray(".SingleProject-slider-slide");
+        const contentContainer = document.querySelector(".SingleProject-content");
+        const panelsContainer = document.getElementsByClassName("SingleProject-slider-container")[0];
+        const ImageContainer = document.querySelector(".SingleProject-banner--img");
         if (isPageReady) {
-
-            const textContent = document.getElementsByClassName("SingleProject-content-wrapper")[0]
-            const sliderContent = document.getElementsByClassName("SingleProject-slider")[0]
-
-            let textContentheight = textContent.getBoundingClientRect().height
-            console.log(textContent.getBoundingClientRect())
-            sliderContent.style.height = "calc(100% - "+textContentheight+"px)"
-            gsap.registerPlugin(ScrollTrigger);
-
-            const panels = gsap.utils.toArray(".SingleProject-slider-slide");
-            const contentContainer = document.querySelector(".SingleProject-content");
-            const panelsContainer = document.getElementsByClassName("SingleProject-slider-container")[0];
-            const ImageContainer = document.querySelector(".SingleProject-banner--img");
-
-            console.log("contentContainer", contentContainer)
-            console.log("panelsContainer.clientHeight", panelsContainer.clientHeight)
-            console.log("panelsContainer.offsetTop", panelsContainer.offsetTop)
-            console.log("panelsContainer", panelsContainer.scrollWidth)
-            console.log("+=${panelsContainer.offsetTop + panelsContainer.clientHeight}px`", panelsContainer.offsetTop + panelsContainer.clientHeight)
-
 
             gsap.to(panels, {
                 x: () => -1 * (panelsContainer.scrollWidth - window.innerWidth), ease: "none", scrollTrigger: {
@@ -96,8 +88,6 @@ const SingleProjectView = (props) => {
                         const scrollY = self.scroll();
                         const progress = scrollY / (contentContainer.offsetHeight - window.innerHeight);
                         const targetScroll = (panelsContainer.scrollWidth - window.innerWidth) * progress;
-                        console.log(panelsContainer.scrollWidth)
-                        console.log(panelsContainer.scrollWidth)
                         panelsContainer.scrollLeft = targetScroll;
                     }
                 }
@@ -107,7 +97,7 @@ const SingleProjectView = (props) => {
 
 
     return (<>
-        <section className={`SingleProject ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
+        <section className={`SingleProject isPageReady`}>
 
             <div className={"SingleProject-banner"}>
                 <img className={"SingleProject-banner--img"} src={`${imageUrl}`}
@@ -169,8 +159,7 @@ const SingleProjectView = (props) => {
 
         </section>
         <Overlay isHome={false} isDiff={false}/>
-
-        <Loader isPageReady={isPageReady}/>
+        {/*<Loader isPageReady={isPageReady}/>*/}
 
     </>);
 };
