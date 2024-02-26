@@ -34,14 +34,15 @@ const ProjectPromoteView = ({index, project, manager}) => {
             })
             .catch((error) => console.error("Erreur générale:", error));
     }, [project.header_image]);
-    return (<Link refresh="true" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
-        <img className={`Projects-promote-card--img`} src={`${imageUrl}`}
-             alt={`image d'illustration du projet ${project.name}`}></img>
-        <div className={`Projects-promote-card-content`}>
-            <h2 className={`Projects-promote-card-content--date`}>{project.year}</h2>
-            <h1 className={`Projects-promote-card-content--title`}>{project.name}</h1>
-            <h3 className={`Projects-promote-card-content--type`}>{project.project_type}</h3>
-        </div>
-    </Link>)
+    return (<div className={"Projects-promote-item"}>
+        <Link refresh="true" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
+            <img className={`Projects-promote-card--img`} src={`${imageUrl}`}
+                 alt={`image d'illustration du projet ${project.name}`}></img>
+            <div className={`Projects-promote-card-content`}>
+                <h2 className={`Projects-promote-card-content--date`}>{project.year}</h2>
+                <h1 className={`Projects-promote-card-content--title`}>{project.name}</h1>
+                <h3 className={`Projects-promote-card-content--type`}>{project.project_type}</h3>
+            </div>
+        </Link></div>)
 }
 export default ProjectPromoteView

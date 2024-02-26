@@ -169,7 +169,7 @@ const GalleryContentView = ({galleryData}) => {
 
 
         <div className={`Gallery-content-scroll`}>
-            <Link style={1} text={"Check my gallery"} parentClass={"Gallery-content-scroll"} url={'/gallery'}
+            <Link  refresh="true" style={1} text={"Check my gallery"} parentClass={"Gallery-content-scroll"} url={'/gallery'}
                   isTarget={false}></Link>
         </div>
     </div>)

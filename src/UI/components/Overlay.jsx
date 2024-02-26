@@ -34,7 +34,7 @@ const Overlay = ({isHome = true, isDiff = false}) => {
             </div>
             <div className={`Overlay-wrapper-lower`}>
                 <div className={`Overlay-wrapper-lower-item`}>
-                    <Link className={`Overlay-wrapper-lower--text`}  to={"../"}>back to the home</Link>
+                    <Link refresh="true" className={`Overlay-wrapper-lower--text`}  to={"../"}>back to the home</Link>
                 </div>
                 <div className={`Overlay-wrapper-lower-item`}>
                     <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>

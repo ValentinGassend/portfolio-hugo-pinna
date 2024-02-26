@@ -1,0 +1,19 @@
+.Transition {
+  &-secondPart,&-firstPart {
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  &-firstPart {
+    background-color: $color_secondary;
+  }
+  &-secondPart {
+    background-color: $color_primary;
+  }
+  &-thirdPart {
+    background-color: $color_secondary;
+  }
+}

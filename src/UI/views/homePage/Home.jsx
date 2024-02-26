@@ -12,7 +12,6 @@ import Overlay from "../../components/Overlay.jsx";
 import PanelsContainer from "./PanelsConainter.jsx";
 import GalleryPartView from "../gallery/GalleryPartView.jsx";
 import projectManager from "../../../managers/ProjectManager.jsx";
-import Transition from "../../components/Transition.jsx";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);

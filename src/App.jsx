@@ -4,7 +4,6 @@ import {BrowserRouter, createBrowserRouter, Route, Router, RouterProvider, Route
 import React from "react";
 import GalleryPageView from "./UI/views/galleryPage/galleryPageView.jsx";
 import SingleProjectView from "./UI/views/singleProject/SingleProjectView.jsx";
-import {AnimatePresence} from "framer-motion";
 import Routing from "./UI/components/Routing.jsx";
 
 function App() {

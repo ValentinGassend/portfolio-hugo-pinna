@@ -63,7 +63,6 @@ const Loader = ({isPageReady}) => {
 
 
     return (<>
-        {!isDisappeared ? (<>
         <div ref={loader} className={`Loader ${isAppeared ? "" : "appear"} `}>
             <div className={`Loader-title`}>
                 <h1 className={`Loader-title--content`}>Hugo Pinna</h1>
@@ -72,9 +71,6 @@ const Loader = ({isPageReady}) => {
                 <h2 className={`Loader-subtitle--content`}>Art director, Graphic designer, 3d Artist</h2>
             </div>
         </div>
-        </>) : (<></>)
-
-        }
     </>)
 }
 
