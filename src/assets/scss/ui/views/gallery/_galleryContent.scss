@@ -13,6 +13,9 @@
     bottom: 72px;
     display: grid;
     width: fit-content;
+    &--link {
+      @extend .PrimaryLink;
+    }
   }
 
   &-cards {

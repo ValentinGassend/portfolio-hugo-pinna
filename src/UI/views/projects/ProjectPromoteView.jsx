@@ -9,7 +9,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
 
     useLayoutEffect(() => {
         let elements = document.querySelectorAll('.Projects-promote-card');
-        console.log(elements);
+        // console.log(elements);
         for (let element of elements) {
             element.addEventListener('click', function () {
                 if (!element.classList.contains('selected')) {
@@ -21,7 +21,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
 
     }, []);
     useEffect(() => {
-        console.log(project)
+        // console.log(project)
         manager
             .getUrlOfImage(project.header_image)
             .then((url) => {

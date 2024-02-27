@@ -10,7 +10,11 @@
 .Home {
   width: 100%;
   height: 100%;
+  transition: opacity 300ms ease;
+  opacity: 0;
+
   &.isPageReady {
+    opacity: 1;
 
   }
 

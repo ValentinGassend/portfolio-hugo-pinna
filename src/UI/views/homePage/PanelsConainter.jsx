@@ -46,7 +46,7 @@ const PanelsContainer = ({isPageReady}) => {
                 scrollTween.current = gsap.to(window, {
                     scrollTo: {
                         y: snapTriggers.current[i].start, autoKill: false, onComplete: () => {
-                            console.log(document.getElementsByClassName("PanelsContainer"))
+                            // console.log(document.getElementsByClassName("PanelsContainer"))
                             if (document.getElementsByClassName("PanelsContainer").length <= 0) {
 
                                 snapTriggers.current = null

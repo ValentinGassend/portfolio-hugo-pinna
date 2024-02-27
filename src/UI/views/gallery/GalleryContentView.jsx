@@ -1,4 +1,4 @@
-import Link from "../../components/Link.jsx";
+import {Link} from "react-router-dom";
 import React, {useEffect, useRef, useState} from "react";
 
 const GalleryContentView = ({galleryData}) => {
@@ -14,14 +14,14 @@ const GalleryContentView = ({galleryData}) => {
             let newNumberOfItems = 0;
             const newUrls = [];
 
-            console.log(galleryData)
+            // console.log(galleryData)
             galleryData.forEach(item => {
                 // console.log(item)
 
                 if (item.url_home_visual) {
                     newUrls.push(item.url_home_visual);
                     newNumberOfItems++;
-                    console.log(newNumberOfItems)
+                    // console.log(newNumberOfItems)
                 }
             });
 
@@ -34,7 +34,7 @@ const GalleryContentView = ({galleryData}) => {
 
 
     useEffect(() => {
-        console.log("urls", urls)
+        // console.log("urls", urls)
         console.log("numberOfItems", numberOfItems)
     }, [urls, numberOfItems]);
     useEffect(() => {
@@ -166,11 +166,11 @@ const GalleryContentView = ({galleryData}) => {
             {numberOfItems > 3 ? generateGrid(numberOfItems, urls) : <></>}
 
         </div>
-
-
         <div className={`Gallery-content-scroll`}>
-            <Link  refresh="true" style={1} text={"Check my gallery"} parentClass={"Gallery-content-scroll"} url={'/gallery'}
-                  isTarget={false}></Link>
+            <p></p>
+            <Link className={`Gallery-content-scroll--link`} to={`/gallery`}>
+                Check my gallery
+            </Link>
         </div>
     </div>)
 }

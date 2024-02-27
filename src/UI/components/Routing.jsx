@@ -15,9 +15,18 @@ const Routing = () => {
 
         console.log("onEnter");
         console.log(node);
-
-        // jouer sur l'opacity en arrivé quand le get à la BDD est bon
-
+        // if (node === document.getElementsByClassName('SingleProject')[0]) {
+        //     gsap.set(node, {
+        //         opacity: 0,
+        //     });
+        //     // jouer sur l'opacity en arrivé quand le get à la BDD est bon
+        //     //     attendre ça :
+        //     if (node.classList.contains('isPageReady')) {
+        //         gsap.to(node, {
+        //             duration: 1, opacity: 1, delay: 2
+        //         });
+        //     }
+        // }
 
     };
 
@@ -58,21 +67,33 @@ const Routing = () => {
             let cardLeft = projectCard.getBoundingClientRect().x;
             let cardB = projectCard.getBoundingClientRect();
             gsap.to(projectCard, {
-                transform: `translateY(-` + cardTop + `px)`, // y:0,
-                x: 0, width: "100vw", height: "50vh", onStart: function () {
+                transform: `translateY(0%)`,
+                top: 0,
+                x: 0,
+                width: "100vw",
+                height: "50vh",
+                duration: 1,
+                onStartParams: [projectCard],
+                onStart: function () {
                     projectCard.classList.add('transitioning');
-                }, onUpdateParams: [projectCard], onUpdate: () => {
-                    let cardB = projectCard.getBoundingClientRect();
-                    if (cardB.y <= 0) {
-                        // Animation terminée, position y est inférieure ou égale à zéro
-                        window.scrollTo(0, 0);
-                        gsap.killTweensOf(projectCard);
-                        // Effectuez ici d'autres actions si nécessaire
+                    let image = projectCard.querySelector(".Projects-promote-card--img")
+                    if (document.querySelector(".SingleProject-banner--img")) {
+                        document.querySelector(".SingleProject-banner--img").src = image.src
                     }
-                }, onComplete: () => {
+                },
+                onComplete: () => {
                     window.scrollTo(0, 0)
                     gsap.killTweensOf(projectCard);
-                    // node.parentNode.removeChild(node);
+                    if (document.getElementsByClassName('SingleProject')[0]) {
+                        gsap.set(document.getElementsByClassName('SingleProject-content')[0], {
+                            opacity: 0,
+                        });
+                        // jouer sur l'opacity en arrivé quand le get à la BDD est bon
+                        //     attendre ça :
+                        gsap.to(document.getElementsByClassName('SingleProject-content')[0], {
+                            duration: 1, opacity: 1
+                        });
+                    }
                 }
             });
         } else {
@@ -119,8 +140,10 @@ const Routing = () => {
             gsap.fromTo([transitionFirstPart, transitionSecondPart, transitionThirdPart], {
                 y: "100%"
             }, {
-                y: "-100%", duration: 0.8, stagger: 0.1, // Délai entre chaque élément
-                ease: "power4.linear" // Animation easing
+                y: "-100%", duration: 0.8, stagger: 0.1, ease: "power4.linear", onComplete: () => {
+                    window.scrollTo(0, 0)
+                    gsap.killTweensOf([transitionFirstPart, transitionSecondPart, transitionThirdPart]);
+                }
             });
 
         }
@@ -156,8 +179,6 @@ const Routing = () => {
                 key={location.pathname}
                 onExit={onExitHandler}
                 onEnter={onEnterHandler}
-                mountOnEnter={true}
-                unmountOnExit={true}
             >
                 {componentToRender}
             </Transition>

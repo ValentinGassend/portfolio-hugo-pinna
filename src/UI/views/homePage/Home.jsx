@@ -167,7 +167,7 @@ const Home = () => {
             for (let i = 0; i < containers.length; i++) {
 
                 container = document.getElementsByClassName(containers[i] + "-headline")[0].closest("section").classList[0]
-                console.log(document.getElementsByClassName(containers[i] + "-headline")[0].classList.contains('disable'))
+                // console.log(document.getElementsByClassName(containers[i] + "-headline")[0].classList.contains('disable'))
                 gsap.to("." + container + "-headline", {
                     filter: "blur(32px)",
                     scrollTrigger: {

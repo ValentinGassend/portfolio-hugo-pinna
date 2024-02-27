@@ -356,8 +356,6 @@ const GalleryPageView = () => {
             <Overlay isHome={false} isDiff={true}/>
         </section>
 
-        <Loader isPageReady={isPageReady}/>
-
     </>);
 };
 

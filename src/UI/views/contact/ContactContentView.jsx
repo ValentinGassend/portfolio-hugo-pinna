@@ -12,11 +12,11 @@ const ContactContentView = ({contactManager, contactData}) => {
                 if (url) {
                     //console.log("URL de l'asset:" + name, url);
                     data.letter.timbre = url
-                    console.log(contactInfo)
-                    console.log(data)
+                    // console.log(contactInfo)
+                    // console.log(data)
 
                 } else {
-                    console.log("L'image n'existe pas ou une erreur s'est produite.");
+                    // console.log("L'image n'existe pas ou une erreur s'est produite.");
                 }
             })
                 .catch((error) => {

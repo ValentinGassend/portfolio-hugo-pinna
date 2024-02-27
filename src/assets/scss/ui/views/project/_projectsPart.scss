@@ -46,8 +46,8 @@
     }
     &-card {
       margin: auto;
-      top: 0;
-      bottom: 0;
+      transform: translateY(-50%);
+      top: 50%;
       display: flex;
       position: absolute;
       align-items: center;

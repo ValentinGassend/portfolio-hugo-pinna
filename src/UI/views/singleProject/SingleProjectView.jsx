@@ -97,7 +97,7 @@ const SingleProjectView = (props) => {
 
 
     return (<>
-        <section className={`SingleProject isPageReady`}>
+        <section className={`SingleProject  ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
 
             <div className={"SingleProject-banner"}>
                 <img className={"SingleProject-banner--img"} src={`${imageUrl}`}
