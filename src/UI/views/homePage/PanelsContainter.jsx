@@ -12,16 +12,56 @@ const PanelsContainer = ({isPageReady}) => {
     const [panels, setPanels] = useState([]);
 
     const goToSection = (i, force) => {
+
+        var supportsPassive = false;
+        var keys = {37: 1, 38: 1, 39: 1, 40: 1};
+        var wheelOpt = supportsPassive ? { passive: false } : false;
+        var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+        var isScrollDisabled = false; // Variable to track whether scrolling is disabled
+        function preventDefault(e) {
+            e.preventDefault();
+        }
+
+        function preventDefaultForScrollKeys(e) {
+            if (keys[e.keyCode]) {
+                preventDefault(e);
+                return false;
+            }
+        }
+// call this to Disable
+        function disableScroll() {
+            isScrollDisabled = true;
+            window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
+            window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+            window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+            window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+        }
+
+// call this to Enable
+        function enableScroll() {
+            isScrollDisabled = false;
+            window.removeEventListener('DOMMouseScroll', preventDefault, false);
+            window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
+            window.removeEventListener('touchmove', preventDefault, wheelOpt);
+            window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+        }
+
+
+
         if (document.getElementsByClassName("PanelsContainer").length > 0) {
             if (i === panels.length - 1 && force) {
                 // User has scrolled to the bottom, smoothly scroll to the first panel without duration
                 gsap.to(window, {
-                    scrollTo: {y: snapTriggers.current[i].start, autoKill: false}, duration: 0, onComplete: () => {
+                    scrollTo: {y: snapTriggers.current[i].start, autoKill: false}, duration: 0, onStart: disableScroll,
+                    onComplete: () => {
                         scrollTween.current = null
                         scrollTween.current = gsap.to(window, {
                             scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: true},
                             duration: 1,
-                            onComplete: () => (scrollTween.current = null),
+                            onComplete: () => {
+                                scrollTween.current = null;
+                                enableScroll
+                            },
                             overwrite: true,
                         });
                     }, overwrite: true,
@@ -30,12 +70,16 @@ const PanelsContainer = ({isPageReady}) => {
             } else if (i === 0 && force) {
                 // User has scrolled to the bottom, smoothly scroll to the first panel without duration
                 gsap.to(window, {
-                    scrollTo: {y: 1, autoKill: true}, duration: 0, onComplete: () => {
+                    scrollTo: {y: 1, autoKill: true}, duration: 0, onStart: disableScroll, onComplete: () => {
                         scrollTween.current = null
                         scrollTween.current = gsap.to(window, {
                             scrollTo: {y: snapTriggers.current[i + 1].start, autoKill: true},
                             duration: 1,
-                            onComplete: () => (scrollTween.current = null),
+                            onComplete: () => {
+                                scrollTween.current = null;
+                                enableScroll
+
+                            },
                             overwrite: true,
                         });
                     }, overwrite: true,
@@ -45,12 +89,14 @@ const PanelsContainer = ({isPageReady}) => {
 
                 scrollTween.current = gsap.to(window, {
                     scrollTo: {
-                        y: snapTriggers.current[i].start, autoKill: false, onComplete: () => {
+                        y: snapTriggers.current[i].start, autoKill: false, onStart: disableScroll, onComplete: () => {
                             // console.log(document.getElementsByClassName("PanelsContainer"))
                             if (document.getElementsByClassName("PanelsContainer").length <= 0) {
 
                                 snapTriggers.current = null
                             }
+                            enableScroll
+
                         }
                     },
                     duration: force ? 0 : 1,

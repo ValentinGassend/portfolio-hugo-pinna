@@ -9,7 +9,7 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import AssetNames from "./AssetNames.js";
 import Overlay from "../../components/Overlay.jsx";
-import PanelsContainer from "./PanelsConainter.jsx";
+import PanelsContainer from "./PanelsContainter.jsx";
 import GalleryPartView from "../gallery/GalleryPartView.jsx";
 import projectManager from "../../../managers/ProjectManager.jsx";
 
