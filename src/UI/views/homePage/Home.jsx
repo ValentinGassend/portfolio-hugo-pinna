@@ -182,7 +182,7 @@ const Home = () => {
                     onCompleteParams: [containers, overlay, container, overlayLowerItems],
                     onStartParams: [containers, overlay, container, overlayLowerItems],
                     onStart: (containers, overlay, container, overlayLowerItems) => {
-                        // console.log("onStart",container)
+                        console.log("onStart",container)
 
                         if (overlay.classList.contains("hidden")) {
                             overlay.classList.remove("hidden")
@@ -202,25 +202,20 @@ const Home = () => {
 
                         for (let j = 0; j < overlayLowerItems.length; j++) {
                             if (overlayLowerItems[j].textContent === container) {
-                                overlayLowerItems[j].classList.add("currentSection")
+                                overlayLowerItems[j].classList.add("currentSection");
+                                overlayLowerItems[j].classList.add("transitioning");
                             } else {
                                 if (overlayLowerItems[j].classList.contains("currentSection")) {
-                                    overlayLowerItems[j].classList.remove("currentSection")
+                                    overlayLowerItems[j].classList.remove("currentSection");
+                                    overlayLowerItems[j].classList.remove("transitioning");
+                                    overlayLowerItems[j].classList.remove("transitioning-reverse");
                                 }
                             }
-                        }
-                    },
-                    onComplete: (containers, overlay, container, overlayLowerItems) => {
-                        // console.log("onComplete",container)
-                        if (!overlay.classList.contains("hidden")) {
-                            if (container !== containers[containers.length - 1]) {
-                                overlay.classList.remove("visible")
-                                overlay.classList.add("hidden")
-                            }
+
                         }
                     },
                     onReverseComplete: (containers, overlay, container, overlayLowerItems) => {
-                        // console.log("onReverseComplete",container)
+                        console.log("onReverseComplete",container)
 
                         if (!overlay.classList.contains("hidden")) {
                             if (container === containers[0]) {
@@ -243,10 +238,16 @@ const Home = () => {
 
                             if (overlayLowerItems[j].classList.contains("currentSection")) {
                                 overlayLowerItems[j].classList.remove("currentSection")
+                                overlayLowerItems[j].classList.remove("transitioning");
+
+                            }
+                            if (overlayLowerItems[j].classList.contains("transitioning-reverse")) {
+                                overlayLowerItems[j].classList.remove("transitioning-reverse")
                             }
                             if (container !== containers[0]) {
                                 if (overlayLowerItems[j].textContent === containers[i - 1]) {
                                     overlayLowerItems[j].classList.add("currentSection")
+                                    overlayLowerItems[j].classList.add("transitioning-reverse");
                                 }
                             }
                         }

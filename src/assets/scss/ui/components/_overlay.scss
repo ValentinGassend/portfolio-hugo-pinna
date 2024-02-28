@@ -7,34 +7,46 @@
   padding: 32px;
   top: 0;
   left: 0;
-  transition: 300ms opacity linear, 300ms visibility linear;
+  transition: 300ms opacity linear, 300ms visibility 300ms linear;
   pointer-events: none;
 
   &.hidden {
     opacity: 0;
     visibility: hidden;
   }
+
   &.visible {
     opacity: 1;
     visibility: visible;
   }
+
   &.Diff {
     mix-blend-mode: difference;
 
-    .Overlay-wrapper-upper--text,.Overlay-wrapper-lower--text {
-    color: $color_secondary !important;
+    .Overlay-wrapper-upper--text, .Overlay-wrapper-lower--text {
+      color: $color_secondary !important;
     }
   }
+
   &-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
     height: 100%;
+
     &-upper, &-lower {
       display: flex;
+      width: 100%;
+
+      &-item {
+        &:last-child {
+          flex-direction: column;
+        }
+      }
 
       &--text {
+        position: relative;
         font-size: 20px;
         font-weight: 500;
         color: $color_primary;
@@ -42,6 +54,8 @@
         text-decoration: none;
         pointer-events: auto;
         //transition: 300ms font-family linear, 300ms font-weight linear;
+        display: block;
+        width: 100%;
 
         &.uppercase {
           text-transform: uppercase;
@@ -77,14 +91,67 @@
       align-items: flex-end;
 
       &-item {
-        text-align: right;
+        text-align: left;
+        width: 100%;
+
+
+        &:first-child {
+          .Overlay-wrapper-lower--text .transitioning-reverse {
+            &:before {
+              display: none;
+            }
+          }
+        }
+
+        &:last-child {
+          text-align: right;
+
+        }
+      }
+
+      &--text {
+
+        display: flex;
+        align-items: center;
+
+        &:before {
+          content: "";
+          aspect-ratio: 1;
+          border-radius: 100%;
+          width: 24px;
+          background-color: $color_primary;
+          position: absolute;
+          opacity: 0;
+          //transition: opacity 200ms linear, left 500ms ease-out 200ms;
+
+        }
+
+        &.transitioning {
+
+          &:before {
+            animation: 1s slideDot;
+
+          }
+        }
+
+        &.transitioning-reverse {
+
+          &:before {
+            animation: 1s slideDotReverse;
+          }
+        }
+
       }
     }
   }
+
   &.Others {
     //mix-blend-mode: exclusion;
-    .Overlay-wrapper-upper{
+    .Overlay-wrapper-upper {
       width: fit-content;
     }
   }
+}
+.Overlay-wrapper-lower-item:first-child .Overlay-wrapper-lower--text.transitioning::before {
+  display: none;
 }
