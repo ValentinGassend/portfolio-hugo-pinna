@@ -18,3 +18,8 @@
 @import "ui/views/home/home";
 @import "ui/views/singleProject/singleProject";
 @import "ui/views/galleryPage/galleryPage";
+
+body {
+  overflow: hidden;
+  position: absolute;
+}

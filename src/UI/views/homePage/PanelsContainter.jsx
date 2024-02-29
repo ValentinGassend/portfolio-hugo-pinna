@@ -8,16 +8,17 @@ const PanelsContainer = ({isPageReady}) => {
     const snapTriggers = useRef([]);
     const scrollTween = useRef(null);
     const main = useRef(null); // Assuming you have a ref for the main container
-
+    const [isScrollDisabled, setScrollDisabled] = useState(false);
     const [panels, setPanels] = useState([]);
+    const [panelIndex, setPanelIndex] = useState(0);
 
     const goToSection = (i, force) => {
 
         var supportsPassive = false;
         var keys = {37: 1, 38: 1, 39: 1, 40: 1};
-        var wheelOpt = supportsPassive ? { passive: false } : false;
-        var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
-        var isScrollDisabled = false; // Variable to track whether scrolling is disabled
+        var wheelOpt = supportsPassive ? {passive: false} : false;
+        var wheelEvent = 'wheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
         function preventDefault(e) {
             e.preventDefault();
         }
@@ -28,82 +29,52 @@ const PanelsContainer = ({isPageReady}) => {
                 return false;
             }
         }
+
 // call this to Disable
         function disableScroll() {
-            isScrollDisabled = true;
-            window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
-            window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
-            window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
-            window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+            setScrollDisabled(true)
         }
 
 // call this to Enable
         function enableScroll() {
-            isScrollDisabled = false;
-            window.removeEventListener('DOMMouseScroll', preventDefault, false);
-            window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
-            window.removeEventListener('touchmove', preventDefault, wheelOpt);
-            window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+            setScrollDisabled(false)
+
         }
 
 
-
         if (document.getElementsByClassName("PanelsContainer").length > 0) {
-            if (i === panels.length - 1 && force) {
-                // User has scrolled to the bottom, smoothly scroll to the first panel without duration
-                gsap.to(window, {
-                    scrollTo: {y: snapTriggers.current[i].start, autoKill: false}, duration: 0, onStart: disableScroll,
-                    onComplete: () => {
-                        scrollTween.current = null
-                        scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: true},
-                            duration: 1,
-                            onComplete: () => {
-                                scrollTween.current = null;
-                                enableScroll
-                            },
-                            overwrite: true,
-                        });
-                    }, overwrite: true,
-                });
 
-            } else if (i === 0 && force) {
-                // User has scrolled to the bottom, smoothly scroll to the first panel without duration
-                gsap.to(window, {
-                    scrollTo: {y: 1, autoKill: true}, duration: 0, onStart: disableScroll, onComplete: () => {
-                        scrollTween.current = null
-                        scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i + 1].start, autoKill: true},
-                            duration: 1,
-                            onComplete: () => {
-                                scrollTween.current = null;
-                                enableScroll
+            if (!isScrollDisabled) {
+                if (i === panels.length - 1 && force) {
+                    // User has scrolled to the bottom, smoothly scroll to the first panel without duration
+                    gsap.fromTo(document.getElementsByClassName('Home')[0], {
+                        top: -100 * (i) + "vh",
+                    }, {
+                        top: -100 * (i - 1) + "vh", onStart: disableScroll, onComplete: () => {
+                            enableScroll()
+                        }, duration: 1, overwrite: true,
+                    });
 
-                            },
-                            overwrite: true,
-                        });
-                    }, overwrite: true,
-                });
-            } else {
-                // Scroll to the specified panel with a duration
+                } else if (i === 0 && force) {
+                    gsap.fromTo(document.getElementsByClassName('Home')[0], {
+                        top: 0,
+                    }, {
+                        top: "-100vh", onStart: disableScroll, onComplete: () => {
+                            enableScroll()
+                        }, duration: 1, overwrite: true,
+                    });
+                } else {
+                    gsap.fromTo(document.getElementsByClassName('Home')[0], {
+                        top: -100 * panelIndex + "vh",
+                    }, {
+                        top: -100 * i + "vh", onStart: disableScroll, onComplete: () => {
+                            enableScroll()
+                        }, duration: force ? 0 : 1, overwrite: false,
+                    });
+                }
 
-                scrollTween.current = gsap.to(window, {
-                    scrollTo: {
-                        y: snapTriggers.current[i].start, autoKill: false, onStart: disableScroll, onComplete: () => {
-                            // console.log(document.getElementsByClassName("PanelsContainer"))
-                            if (document.getElementsByClassName("PanelsContainer").length <= 0) {
-
-                                snapTriggers.current = null
-                            }
-                            enableScroll
-
-                        }
-                    },
-                    duration: force ? 0 : 1,
-                    onComplete: () => (scrollTween.current = null),
-                    overwrite: false,
-                });
-
+                // Réactiver ScrollTrigger après l'animation
+                ScrollTrigger.refresh();
             }
         }
     };
@@ -111,8 +82,9 @@ const PanelsContainer = ({isPageReady}) => {
     useEffect(() => {
         if (isPageReady) {
             const windowHeight = window.innerHeight;
-            const documentHeight = document.body.scrollHeight;
-            const numberOfPanels = Math.ceil(documentHeight / windowHeight);
+            const HomeHeight = document.getElementsByClassName('Home')[0].scrollHeight;
+            console.log(document.body)
+            const numberOfPanels = Math.ceil(HomeHeight / windowHeight);
             const panelsArray = [];
             for (let i = 0; i < numberOfPanels; i++) {
                 panelsArray.push(<div className="PanelsContainer-item panel" key={i}></div>);
@@ -124,53 +96,53 @@ const PanelsContainer = ({isPageReady}) => {
     useEffect(() => {
         if (!isPageReady) return;
 
-        const panelsArray = gsap.utils.toArray('.panel');
         let scrollStarts = [0];
         let snapScroll = value => value;
 
-        panelsArray.forEach((panel, i) => {
-            snapTriggers.current[i] = ScrollTrigger.create({
-                trigger: panel, start: "top top"
-            });
-        });
 
         const refreshScrollTriggers = () => {
             scrollStarts = snapTriggers.current.map(trigger => trigger.start);
             snapScroll = ScrollTrigger.snapDirectional(scrollStarts);
-            // console.log(snapTriggers.current)
         };
 
-        const handleScroll = self => {
-            if (!scrollTween.current) {
-                const scrollY = self.scrollY();
+        const handleScroll = (event) => {
+
+            event.preventDefault(); // Prevent default scroll behavior during animation
+
+            if (!isScrollDisabled) {
+                const scrollY = panelIndex * window.innerHeight;
                 const windowHeight = window.innerHeight;
-                const documentHeight = document.body.scrollHeight;
-                const bottomOffset = documentHeight - (scrollY + windowHeight);
-                const deltaY = self.deltaY;
-                const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
-                if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
-                    goToSection(snapTriggers.current.length - 1, true); // Go to the last panel
-                } else if (bottomOffset <= 0 && deltaY > 0) {
+                const bottomOffset = document.getElementsByClassName('PanelsContainer')[0].offsetHeight - (scrollY + windowHeight);
+                const deltaY = event.deltaY;
+
+                if (deltaY < 0) {
                     // Bottom of the window hits the bottom of the website
-                    goToSection(0, true); // Go to the first panel
+                    if (panelIndex === 0) {
+                        goToSection(panels.length - 1, true);
+                        setPanelIndex(panels.length - 2)
+                    } else {
+                        goToSection(panelIndex - 1, false);
+                        setPanelIndex(panelIndex - 1)
+                    }
                 } else {
-                    goToSection(scrollStarts.indexOf(scroll), false);
+                    if (bottomOffset <= 0) {
+                        // Bottom of the window hits the bottom of the website
+                        goToSection(0, true); // Go to the first panel
+                        setPanelIndex(1)
+                    } else {
+                        goToSection(panelIndex + 1, false);
+                        setPanelIndex(panelIndex + 1)
+                    }
                 }
             }
         };
 
-        ScrollTrigger.addEventListener("refresh", refreshScrollTriggers);
 
-        ScrollTrigger.observe({
-            type: "wheel,touch", onChangeY: handleScroll
-        });
-
-        ScrollTrigger.refresh();
-
+        document.addEventListener("wheel", handleScroll)
         return () => {
-            ScrollTrigger.removeEventListener("refresh", refreshScrollTriggers);
+            document.removeEventListener("wheel", handleScroll);
         };
-    }, [isPageReady, panels]);
+    }, [isPageReady, panels, panelIndex, isScrollDisabled]);
 
     return (<> {isPageReady ? <div className="PanelsContainer">{panels}</div> : null}</>)
 }
