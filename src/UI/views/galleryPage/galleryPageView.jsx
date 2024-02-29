@@ -110,7 +110,7 @@ const GalleryPageView = () => {
         const updateContainerPosition = () => {
             if (isPageReady) {
                 gsap.to(containerRef.current, {
-                    x: containerPosition.x + "%", y: containerPosition.y + "%", ease: "power1.out", duration: 5
+                    x: containerPosition.x + "%", y: containerPosition.y + "%", ease: "power1.out", duration: 0.5
                 });
             }
             // requestAnimationFrame(updateContainerPosition);
