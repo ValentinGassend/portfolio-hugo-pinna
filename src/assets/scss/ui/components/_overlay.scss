@@ -12,14 +12,16 @@
 
   &.hidden {
     opacity: 0;
-    visibility: hidden;
+    //visibility: hidden;
   }
 
   &.visible {
     opacity: 1;
-    visibility: visible;
+    //visibility: visible;
   }
-
+  &.Home {
+    position: fixed;
+  }
   &.Diff {
     mix-blend-mode: difference;
 
@@ -122,7 +124,7 @@
           content: "";
           aspect-ratio: 1;
           border-radius: 100%;
-          width: 24px;
+          width: 12px;
           background-color: $color_primary;
           position: absolute;
           opacity: 0;
