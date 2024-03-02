@@ -13,6 +13,7 @@ const PanelsContainer = ({isPageReady}) => {
     const [panelIndex, setPanelIndex] = useState(0);
     const [lastVisibleContainer, setLastVisibleContainer] = useState(0);
     const [consecutiveVisibleCount, setConsecutiveVisibleCount] = useState(null);
+    const [lastGoToSectionTime, setLastGoToSectionTime] = useState(0); // Nouvel état pour suivre le temps du dernier goToSection
 
     const goToSection = (i, force, deltaY) => {
 
@@ -249,53 +250,56 @@ const PanelsContainer = ({isPageReady}) => {
     }, [isPageReady]);
 
     useEffect(() => {
-        if (!isPageReady) return;
-
-        let scrollStarts = [0];
-        let snapScroll = value => value;
-
-
-        const refreshScrollTriggers = () => {
-            scrollStarts = snapTriggers.current.map(trigger => trigger.start);
-            snapScroll = ScrollTrigger.snapDirectional(scrollStarts);
-        };
+        if (!isPageReady) return
+        let scrollListenerRemoved = false; // Flag to track if the listener is removed
 
         const handleScroll = (event) => {
 
             event.preventDefault(); // Prevent default scroll behavior during animation
 
             if (!isScrollDisabled) {
+                const currentTime = Date.now();
+                const timeSinceLastGoToSection = currentTime - lastGoToSectionTime;
+                setLastGoToSectionTime(Date.now());
+
                 const scrollY = panelIndex * window.innerHeight;
                 const windowHeight = window.innerHeight;
                 const bottomOffset = document.getElementsByClassName('PanelsContainer')[0].offsetHeight - (scrollY + windowHeight);
-                const deltaY = event.deltaY;
-
-                if (deltaY < 0) {
-                    // Bottom of the window hits the bottom of the website
-                    if (panelIndex === 0) {
-                        goToSection(panels.length - 1, true, deltaY);
-                        setPanelIndex(panels.length - 2)
-                    } else {
-                        goToSection(panelIndex - 1, false, deltaY);
-                        setPanelIndex(panelIndex - 1)
-                    }
-                } else {
-                    if (bottomOffset <= 0) {
+                let deltaY = event.deltaY;
+                if (timeSinceLastGoToSection > 500) { // 500 millisecondes
+                    if (deltaY < 0) {
+                        deltaY = -1
                         // Bottom of the window hits the bottom of the website
-                        goToSection(0, true, deltaY); // Go to the first panel
-                        setPanelIndex(1)
+                        if (panelIndex === 0) {
+                            goToSection(panels.length - 1, true, deltaY);
+                            setPanelIndex(panels.length - 2)
+                        } else {
+                            goToSection(panelIndex - 1, false, deltaY);
+                            setPanelIndex(panelIndex - 1)
+                        }
                     } else {
-                        goToSection(panelIndex + 1, false, deltaY);
-                        setPanelIndex(panelIndex + 1)
+
+                        if (bottomOffset <= 0) {
+                            // Bottom of the window hits the bottom of the website
+                            goToSection(0, true, deltaY); // Go to the first panel
+                            setPanelIndex(1)
+                        } else {
+                            goToSection(panelIndex + 1, false, deltaY);
+                            setPanelIndex(panelIndex + 1)
+                        }
                     }
                 }
             }
+            console.log(event)
+
         };
 
 
         document.addEventListener("wheel", handleScroll)
         return () => {
-            document.removeEventListener("wheel", handleScroll);
+            if (!scrollListenerRemoved) {
+                document.removeEventListener("wheel", handleScroll);
+            }
         };
     }, [isPageReady, panels, panelIndex, isScrollDisabled, consecutiveVisibleCount]);
 
