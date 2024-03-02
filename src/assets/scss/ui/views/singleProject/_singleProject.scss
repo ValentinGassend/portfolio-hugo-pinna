@@ -48,7 +48,7 @@
     position: relative;
     margin: 0 32px;
     width: 100%;
-    height: 100vh;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 
@@ -126,8 +126,8 @@
   }
 
   &-slider {
-    height: 100%;
     padding: 56px 0 32px;
+    height: calc(50vh + 56px + 32px);
 
     &-container {
       height: 100%;
@@ -137,6 +137,8 @@
       width: fit-content;
       object-fit: contain;
       grid-template-rows: 100%;
+      height: calc(50vh + 56px + 32px);
+
 
 
     }

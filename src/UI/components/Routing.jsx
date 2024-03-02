@@ -27,7 +27,17 @@ const Routing = () => {
         //         });
         //     }
         // }
+        var parentElement = document.querySelector('body');
 
+// Vérifier s'il a un enfant avec la classe '.home'
+        if (node.querySelector('.Home')) {
+            // Appliquer la propriété 'overflow: hidden'
+            parentElement.style.overflow = 'hidden';
+        }
+        else {
+            parentElement.style.overflow = 'visible';
+
+        }
     };
 
     const onExitHandler = (node) => {
@@ -155,6 +165,8 @@ const Routing = () => {
         //         duration: 0.3, autoAlpha: 0, opacity: 0
         //     });
         // }
+
+
     };
 
     let componentToRender;

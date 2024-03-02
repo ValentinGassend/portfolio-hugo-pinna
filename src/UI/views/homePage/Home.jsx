@@ -105,6 +105,18 @@ const Home = () => {
             setContact(contactData);
 
         });
+
+
+        var parentElement = document.querySelector('body');
+
+// Vérifier s'il a un enfant avec la classe '.home'
+        if (parentElement.querySelector('.Home')) {
+            // Appliquer la propriété 'overflow: hidden'
+            parentElement.style.overflow = 'hidden';
+        } else {
+            parentElement.style.overflow = 'visible';
+
+        }
     }, []);
 
 
