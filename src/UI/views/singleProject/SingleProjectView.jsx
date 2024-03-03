@@ -90,7 +90,6 @@ const SingleProjectView = (props) => {
                         const targetScroll = (panelsContainer.scrollWidth - window.innerWidth) * progress;
                         panelsContainer.scrollLeft = targetScroll;
                     },
-                    markers:true
                 }
             });
         }

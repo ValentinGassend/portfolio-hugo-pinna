@@ -10,14 +10,23 @@
 
     }
     &-content {
+      opacity: 1;
 
     }
 
   }
 
-  &.isNotPageReady {
+  &.isNotPageReady .SingleProject {
     overflow: hidden;
     height: 100vh;
+    &-banner {
+      opacity: 0;
+
+    }
+    &-content {
+      opacity: 0;
+
+    }
   }
 
   &-banner {
@@ -28,6 +37,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    opacity: 1;
 
     &--img {
       position: relative;
@@ -51,6 +61,7 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
+    transition: opacity 300ms ease-out;
 
     &-wrapper {
 
