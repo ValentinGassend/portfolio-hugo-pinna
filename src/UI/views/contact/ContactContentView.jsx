@@ -1,7 +1,10 @@
 import {useEffect, useState} from "react";
+import gsap from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
 
 const ContactContentView = ({contactManager, contactData}) => {
     const [contactInfo, setContactInfo] = useState(null);
+    gsap.registerPlugin(ScrollTrigger);
 
     useEffect(() => {
         // console.log(contactData)
@@ -27,6 +30,12 @@ const ContactContentView = ({contactManager, contactData}) => {
             setContactInfo(data)
         }
     }, [contactData]);
+
+    useEffect(() => {
+
+
+    }, []);
+
     return (
 
         <div className={`Contact-content`}>
@@ -48,13 +57,17 @@ const ContactContentView = ({contactManager, contactData}) => {
                 </div>
             </div>
             <div className={`Contact-content-stamps`}>
-                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                <img className={`Contact-content-stamps--item`}
+                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
-                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                <img className={`Contact-content-stamps--item`}
+                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
-                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                <img className={`Contact-content-stamps--item`}
+                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
-                <img className={`Contact-content-stamps--item`} src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                <img className={`Contact-content-stamps--item`}
+                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
             </div>
         </div>)

@@ -40,3 +40,15 @@
 
   }
 }
+
+@keyframes loop {
+
+  from {
+    transform: translatey(0);
+  }
+
+  to {
+    transform: translatey(-100%);
+  }
+
+}

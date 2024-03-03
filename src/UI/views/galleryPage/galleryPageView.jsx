@@ -13,6 +13,7 @@ const GalleryPageView = () => {
     const elapsedTimeRef = useRef(0);
     const [isPageReady, setIsPageReady] = useState(false)
     const [isAtRightEdge, setIsAtRightEdge] = useState(false);
+    let [scaleValue, setScaleValue] = useState(1)
 
     const containerRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
@@ -42,21 +43,19 @@ const GalleryPageView = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const newData = await Promise.all(
-                galleryData.map(async (item) => {
-                    if (item.visual) {
-                        try {
-                            const url = await projectManager.getUrlOfImage(item.visual);
-                            return { ...item, url };
-                        } catch (error) {
-                            console.error("Erreur lors de la récupération de l'URL de l'image:", error);
-                            return item;
-                        }
-                    } else {
+            const newData = await Promise.all(galleryData.map(async (item) => {
+                if (item.visual) {
+                    try {
+                        const url = await projectManager.getUrlOfImage(item.visual);
+                        return {...item, url};
+                    } catch (error) {
+                        console.error("Erreur lors de la récupération de l'URL de l'image:", error);
                         return item;
                     }
-                })
-            );
+                } else {
+                    return item;
+                }
+            }));
             setGalleryData(newData);
         };
 
@@ -79,6 +78,7 @@ const GalleryPageView = () => {
     }, []);
 
     useEffect(() => {
+
         const handleWindowResize = () => {
             const container = containerRef.current;
             if (container) {
@@ -110,13 +110,20 @@ const GalleryPageView = () => {
         const updateContainerPosition = () => {
             if (isPageReady) {
                 gsap.to(containerRef.current, {
-                    x: containerPosition.x + "%", y: containerPosition.y + "%", ease: "power1.out", duration: 5
+                    x: containerPosition.x + "%", y: containerPosition.y + "%", ease: "power1.out", duration: 0.5
                 });
             }
             // requestAnimationFrame(updateContainerPosition);
         };
         updateContainerPosition();
     }, [isPageReady, containerPosition]);
+    useEffect(() => {
+        if (scaleValue >=0.1 && scaleValue <=2.5) {
+            document.addEventListener('wheel', toogleZoom)
+            document.querySelector('.GalleryPage-container').style.scale = scaleValue
+        }
+
+    }, [scaleValue]);
 
     function from4To8(total) {
         let middle;
@@ -339,17 +346,27 @@ const GalleryPageView = () => {
                         <img className={`GalleryPage-container-column-item--img`}
                              src={`${url}`} alt={'image de la page contenu'}/>
                     </div>)
-                }
-            )}
+                })}
             </div>))}
         </>);
     };
+
+    function toogleZoom(e) {
+        const decreaseFactor = 1000 / (scaleValue); // Plus la valeur de scaleValue est grande, plus le facteur de diminution est petit
+        const increaseFactor = 1000 / (scaleValue); // Plus la valeur de scaleValue est grande, plus le facteur de diminution est petit
+
+        if (e.deltaY > 0) {
+            setScaleValue(scaleValue - e.deltaY / increaseFactor)
+        } else if (e.deltaY < 0) {
+            setScaleValue(scaleValue - e.deltaY / decreaseFactor)
+        }
+    }
 
     return (<>
         <section className={`GalleryPage ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
             <div ref={containerRef} className={`GalleryPage-container`}
                  style={{left: `${containerPosition.x}%`, top: `${containerPosition.y}%`}}>
-                {galleryData ? generateGrid(galleryData.length): <></>}
+                {galleryData ? generateGrid(galleryData.length) : <></>}
             </div>
 
 

@@ -10,14 +10,23 @@
 
     }
     &-content {
+      opacity: 1;
 
     }
 
   }
 
-  &.isNotPageReady {
+  &.isNotPageReady .SingleProject {
     overflow: hidden;
     height: 100vh;
+    &-banner {
+      opacity: 0;
+
+    }
+    &-content {
+      opacity: 0;
+
+    }
   }
 
   &-banner {
@@ -28,6 +37,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    opacity: 1;
 
     &--img {
       position: relative;
@@ -48,9 +58,10 @@
     position: relative;
     margin: 0 32px;
     width: 100%;
-    height: 100vh;
+    height: fit-content;
     display: flex;
     flex-direction: column;
+    transition: opacity 300ms ease-out;
 
     &-wrapper {
 
@@ -126,8 +137,8 @@
   }
 
   &-slider {
-    height: 100%;
     padding: 56px 0 32px;
+    height: calc(50vh + 56px + 32px);
 
     &-container {
       height: 100%;
@@ -137,6 +148,8 @@
       width: fit-content;
       object-fit: contain;
       grid-template-rows: 100%;
+      height: calc(50vh + 56px + 32px);
+
 
 
     }

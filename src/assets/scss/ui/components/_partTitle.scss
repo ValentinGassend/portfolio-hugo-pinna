@@ -1,16 +1,21 @@
 .partTitle {
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
+    transition: filter 300ms linear;
     &.disable {
         filter: none !important;
         position: absolute !important;
         top: 0 !important;
         transform: none !important;
+    }
+    &.blur {
+        filter: blur(32px);
     }
     &--title {
         text-transform: uppercase;

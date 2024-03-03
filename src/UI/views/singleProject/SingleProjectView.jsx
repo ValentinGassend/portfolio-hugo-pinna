@@ -79,7 +79,7 @@ const SingleProjectView = (props) => {
             gsap.to(panels, {
                 x: () => -1 * (panelsContainer.scrollWidth - window.innerWidth), ease: "none", scrollTrigger: {
                     trigger: contentContainer,
-                    start: `top top`, // end: "bottom top",
+                    start: `bottom bottom`, // end: "bottom top",
                     endTrigger: panelsContainer,
                     pin: contentContainer,
                     end: () => "+=" + (panelsContainer.scrollWidth - innerWidth),
@@ -89,7 +89,7 @@ const SingleProjectView = (props) => {
                         const progress = scrollY / (contentContainer.offsetHeight - window.innerHeight);
                         const targetScroll = (panelsContainer.scrollWidth - window.innerWidth) * progress;
                         panelsContainer.scrollLeft = targetScroll;
-                    }
+                    },
                 }
             });
         }

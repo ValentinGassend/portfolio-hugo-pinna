@@ -25,7 +25,17 @@ const Routing = () => {
         //         });
         //     }
         // }
+        var parentElement = document.querySelector('body');
 
+// Vérifier s'il a un enfant avec la classe '.home'
+        if (node.querySelector('.Home')) {
+            // Appliquer la propriété 'overflow: hidden'
+            parentElement.style.overflow = 'hidden';
+        }
+        else {
+            parentElement.style.overflow = 'visible';
+
+        }
     };
 
     const onExitHandler = (node) => {
@@ -85,6 +95,10 @@ const Routing = () => {
                         });
                         // jouer sur l'opacity en arrivé quand le get à la BDD est bon
                         //     attendre ça :
+
+                        gsap.to(document.getElementsByClassName('SingleProject-banner')[0], {
+                            opacity: 1
+                        });
                         gsap.to(document.getElementsByClassName('SingleProject-content')[0], {
                             duration: 1, opacity: 1
                         });
@@ -150,6 +164,8 @@ const Routing = () => {
         //         duration: 0.3, autoAlpha: 0, opacity: 0
         //     });
         // }
+
+
     };
 
     let componentToRender;

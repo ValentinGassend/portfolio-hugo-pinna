@@ -1,8 +1,18 @@
 import {Link} from "react-router-dom";
+import gsap from "gsap";
 
 const Overlay = ({isHome = true, isDiff = false}) => {
 
-    return (<div className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isDiff ? "Diff" : ""}`}>
+    if (document.querySelector('.SingleProject')) {
+        gsap.to(document.querySelector('.Overlay.Others'), {
+            opacity: 0, duration: 0.3, scrollTrigger: {
+                trigger: '.SingleProject-content', start: 'top top', end: "bottom bottom", overwrite: true, scrub: true,
+            },
+        });
+    }
+
+    return (<div
+        className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isDiff ? "Diff" : ""}`}>
         {isHome ? (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
                 <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
@@ -21,26 +31,35 @@ const Overlay = ({isHome = true, isDiff = false}) => {
                 </div>
                 <div className={`Overlay-wrapper-lower-item`}>
                     <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>
-                    <p className={`Overlay-wrapper-lower--text`}>@hugocuilliere</p>
-                    <p className={`Overlay-wrapper-lower--text`}>hello@hugopinna.com</p>
-                    <p className={`Overlay-wrapper-lower--text`}>2024</p>
+                    <a className={`Overlay-wrapper-lower--text`}
+                       href={`https://www.instagram.com/hugocuillere/`}>@hugocuilliere</a>
+                    <a className={`Overlay-wrapper-lower--text`}
+                       href={`mailto:hello@hugopinna.com`}>hello@hugopinna.com</a>
+                    <p className={`Overlay-wrapper-lower--text italic bold miller`}>2024</p>
                 </div>
             </div>
         </div>) : (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
-                <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
-                <p className={`Overlay-wrapper-upper--text ff2 italic bold`}>Cuillère</p>
 
+
+                <div className={`Overlay-wrapper-upper-item`}>
+                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna</Link>
+                    <Link className={`Overlay-wrapper-upper--text ff2 italic bold`} to={`../`}>Cuillère</Link>
+                </div>
+
+                <div className={`Overlay-wrapper-upper-item`}>
+                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase`} to={"../"}>back to the
+                        home</Link>
+                </div>
             </div>
             <div className={`Overlay-wrapper-lower`}>
                 <div className={`Overlay-wrapper-lower-item`}>
-                    <Link refresh="true" className={`Overlay-wrapper-lower--text`}  to={"../"}>back to the home</Link>
-                </div>
-                <div className={`Overlay-wrapper-lower-item`}>
                     <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>
-                    <p className={`Overlay-wrapper-lower--text`}>@hugocuilliere</p>
-                    <p className={`Overlay-wrapper-lower--text`}>hello@hugopinna.com</p>
-                    <p className={`Overlay-wrapper-lower--text`}>2024</p>
+                    <a className={`Overlay-wrapper-lower--text`}
+                       href={`https://www.instagram.com/hugocuillere/`}>@hugocuilliere</a>
+                    <a className={`Overlay-wrapper-lower--text`}
+                       href={`mailto:hello@hugopinna.com`}>hello@hugopinna.com</a>
+                    <p className={`Overlay-wrapper-lower--text italic bold miller`}>2024</p>
                 </div>
             </div>
         </div>)}
