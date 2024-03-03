@@ -34,10 +34,6 @@ const GalleryContentView = ({galleryData}) => {
 
 
     useEffect(() => {
-        // console.log("urls", urls)
-        console.log("numberOfItems", numberOfItems)
-    }, [urls, numberOfItems]);
-    useEffect(() => {
         const handleMouseMove = (e) => {
             const items = document.querySelectorAll('.Gallery-content-cards-column--item');
 
@@ -64,12 +60,6 @@ const GalleryContentView = ({galleryData}) => {
             document.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
-
-
-    useEffect(() => {
-        console.log(galleryData)
-
-    }, [galleryData]);
 
     function from4To8(total) {
         let middle;

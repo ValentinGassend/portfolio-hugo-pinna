@@ -182,7 +182,6 @@ const Home = () => {
                     onCompleteParams: [containers, overlay, container, overlayLowerItems],
                     onStartParams: [containers, overlay, container, overlayLowerItems],
                     onStart: (containers, overlay, container, overlayLowerItems) => {
-                        console.log("onStart",container)
 
                         if (overlay.classList.contains("hidden")) {
                             overlay.classList.remove("hidden")
@@ -215,8 +214,6 @@ const Home = () => {
                         }
                     },
                     onReverseComplete: (containers, overlay, container, overlayLowerItems) => {
-                        console.log("onReverseComplete",container)
-
                         if (!overlay.classList.contains("hidden")) {
                             if (container === containers[0]) {
                                 overlay.classList.remove("visible")

@@ -13,8 +13,6 @@ const Routing = () => {
 
     const onEnterHandler = (node) => {
 
-        console.log("onEnter");
-        console.log(node);
         // if (node === document.getElementsByClassName('SingleProject')[0]) {
         //     gsap.set(node, {
         //         opacity: 0,
@@ -31,12 +29,9 @@ const Routing = () => {
     };
 
     const onExitHandler = (node) => {
-        console.log("onExit");
-        console.log(node);
 
         if (node === document.getElementsByClassName('Home')[0] && node.querySelector(".Projects-promote-card.selected")) {
             let projectCard = node.querySelector(".Projects-promote-card.selected");
-            console.log(projectCard)
             let elementsToHide = document.body.querySelectorAll(":not(.Projects-promote-card--img)");
             elementsToHide.forEach(element => {
                 if (!element.contains(projectCard) && !element.classList.contains('Projects-promote-card--img')) {
