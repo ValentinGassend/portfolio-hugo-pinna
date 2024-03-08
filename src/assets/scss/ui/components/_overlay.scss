@@ -46,7 +46,7 @@
     &.Diff {
         mix-blend-mode: difference;
 
-        .Overlay-wrapper-upper--text, .Overlay-wrapper-lower--text {
+        .Overlay-wrapper-upper--text, .Overlay-wrapper-lower--text, .Overlay-wrapper-lower--text-span, .Overlay-wrapper-upper--text-span {
             color: $color_secondary !important;
         }
     }
@@ -84,8 +84,26 @@
                 text-decoration: none;
                 pointer-events: auto;
                 //transition: 300ms font-family linear, 300ms font-weight linear;
-                display: block;
+                display: flex;
                 width: 100%;
+
+                &-span {
+                    display: flex;
+                    width: fit-content;
+                    align-items: center;
+                    font-weight: 700;
+                    font-style: italic;
+                    font-family: $ff_2;
+                    &:before {
+                        margin: 0 10px;
+                        display: flex;
+                        content: "";
+                        width: 30px;
+                        height: 2px;
+                        background-color: $color_secondary;
+
+                    }
+                }
 
                 &:after {
                     content: "";
@@ -175,6 +193,7 @@
 
                 display: flex;
                 align-items: center;
+
 
                 &:before {
                     content: "";
