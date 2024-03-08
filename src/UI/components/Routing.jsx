@@ -13,6 +13,8 @@ const Routing = () => {
 
     const onEnterHandler = (node) => {
 
+        console.log("onEnter");
+        console.log(node);
         // if (node === document.getElementsByClassName('SingleProject')[0]) {
         //     gsap.set(node, {
         //         opacity: 0,
@@ -25,23 +27,16 @@ const Routing = () => {
         //         });
         //     }
         // }
-        var parentElement = document.querySelector('body');
 
-// Vérifier s'il a un enfant avec la classe '.home'
-        if (node.querySelector('.Home')) {
-            // Appliquer la propriété 'overflow: hidden'
-            parentElement.style.overflow = 'hidden';
-        }
-        else {
-            parentElement.style.overflow = 'visible';
-
-        }
     };
 
     const onExitHandler = (node) => {
+        console.log("onExit");
+        console.log(node);
 
         if (node === document.getElementsByClassName('Home')[0] && node.querySelector(".Projects-promote-card.selected")) {
             let projectCard = node.querySelector(".Projects-promote-card.selected");
+            console.log(projectCard)
             let elementsToHide = document.body.querySelectorAll(":not(.Projects-promote-card--img)");
             elementsToHide.forEach(element => {
                 if (!element.contains(projectCard) && !element.classList.contains('Projects-promote-card--img')) {
@@ -95,10 +90,6 @@ const Routing = () => {
                         });
                         // jouer sur l'opacity en arrivé quand le get à la BDD est bon
                         //     attendre ça :
-
-                        gsap.to(document.getElementsByClassName('SingleProject-banner')[0], {
-                            opacity: 1
-                        });
                         gsap.to(document.getElementsByClassName('SingleProject-content')[0], {
                             duration: 1, opacity: 1
                         });
@@ -164,8 +155,6 @@ const Routing = () => {
         //         duration: 0.3, autoAlpha: 0, opacity: 0
         //     });
         // }
-
-
     };
 
     let componentToRender;

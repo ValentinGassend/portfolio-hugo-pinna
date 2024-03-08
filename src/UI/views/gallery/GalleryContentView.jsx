@@ -151,7 +151,7 @@ const GalleryContentView = ({galleryData}) => {
     };
 
 
-    return (<div className={`Gallery-content`}>
+    return (<div className={`Gallery-content EnterSmoothScroll`}>
         <div className={`Gallery-content-cards`}>
             {numberOfItems > 3 ? generateGrid(numberOfItems, urls) : <></>}
 

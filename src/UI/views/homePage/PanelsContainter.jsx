@@ -8,20 +8,16 @@ const PanelsContainer = ({isPageReady}) => {
     const snapTriggers = useRef([]);
     const scrollTween = useRef(null);
     const main = useRef(null); // Assuming you have a ref for the main container
-    const [isScrollDisabled, setScrollDisabled] = useState(false);
-    const [panels, setPanels] = useState([]);
-    const [panelIndex, setPanelIndex] = useState(0);
-    const [lastVisibleContainer, setLastVisibleContainer] = useState(0);
-    const [consecutiveVisibleCount, setConsecutiveVisibleCount] = useState(null);
-    const [lastGoToSectionTime, setLastGoToSectionTime] = useState(0); // Nouvel état pour suivre le temps du dernier goToSection
 
-    const goToSection = (i, force, deltaY) => {
+    const [panels, setPanels] = useState([]);
+
+    const goToSection = (i, force) => {
 
         var supportsPassive = false;
         var keys = {37: 1, 38: 1, 39: 1, 40: 1};
         var wheelOpt = supportsPassive ? {passive: false} : false;
-        var wheelEvent = 'wheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
-
+        var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+        var isScrollDisabled = false; // Variable to track whether scrolling is disabled
         function preventDefault(e) {
             e.preventDefault();
         }
@@ -35,202 +31,110 @@ const PanelsContainer = ({isPageReady}) => {
 
 // call this to Disable
         function disableScroll() {
-            setScrollDisabled(true)
+            isScrollDisabled = true;
+            window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
+            window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+            window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+            window.addEventListener('keydown', preventDefaultForScrollKeys, false);
         }
 
 // call this to Enable
-        function enableScroll(deltaY) {
-            setScrollDisabled(false)
-            checkForOthers(deltaY)
+        function enableScroll() {
+            isScrollDisabled = false;
+            window.removeEventListener('DOMMouseScroll', preventDefault, false);
+            window.removeEventListener(wheelEvent, preventDefault, wheelOpt);
+            window.removeEventListener('touchmove', preventDefault, wheelOpt);
+            window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
         }
 
-        function checkForOthers(deltaY) {
-            if (isPageReady) {
-                let partTitleContainer = document.getElementsByClassName('partTitle');
-                let containers = [];
-                let overlay = document.getElementsByClassName('Overlay')[0]
-                let overlayLowerItems = document.getElementsByClassName('Overlay-wrapper-lower--text')
-
-                for (let i = 0; i < partTitleContainer.length; i++) {
-                    let container = partTitleContainer[i].closest('section').classList[0];
-                    containers = [].concat(containers, container);
-                }
-
-                for (let i = 0; i < containers.length; i++) {
-                    let container = containers[i];
-
-                    if (ScrollTrigger.isInViewport("." + container + "-headline")) {
-                        console.log(document.getElementsByClassName(container)[0].offsetTop / window.innerHeight)
-                        console.log(parseInt(document.getElementsByClassName("Home")[0].style.top) / -100)
-                        // Vérifie si le container est visible deux fois consécutives
-                        console.log(document.getElementsByClassName(container + "-headline")[0].getBoundingClientRect())
-
-                        if (deltaY > 0 /* verifie si c'est dans le sens de la descente */) {
-                            // setConsecutiveVisibleCount(consecutiveVisibleCount + 1);
-                            if (overlay.classList.contains("hidden")) {
-                                overlay.classList.remove("hidden")
-                                overlay.classList.add("visible")
-                            }
-                            if (!overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
-                                overlay.classList.remove("visible")
-                                overlay.classList.add("hidden")
-                            }
-                            for (let k = 0; k < containers.length; k++) {
-                                if (overlay.classList.contains(containers[k])) {
-                                    overlay.classList.remove(containers[k])
-                                }
-                            }
-
-                            overlay.classList.add(container)
-
-                            for (let j = 0; j < overlayLowerItems.length; j++) {
-                                if (overlayLowerItems[j].textContent === container) {
-                                    overlayLowerItems[j].classList.add("currentSection");
-                                    overlayLowerItems[j].classList.add("transitioning");
-                                } else {
-                                    if (overlayLowerItems[j].classList.contains("currentSection")) {
-                                        overlayLowerItems[j].classList.remove("currentSection");
-                                        overlayLowerItems[j].classList.remove("transitioning");
-                                        overlayLowerItems[j].classList.remove("transitioning-reverse");
-                                    }
-                                }
-
-                            }
-                            if (container === lastVisibleContainer) {
-                                // Incrémenter le compteur
-                                if (consecutiveVisibleCount === 1) {
-                                    document.getElementsByClassName(container + "-headline")[0].classList.add("blur");
-                                }
-                                console.log(consecutiveVisibleCount)
-                                // Si le compteur atteint 2, ajouter la classe blur
-                            } else {
-                                // Réinitialiser le compteur si le container n'est pas le même que précédemment
-                                if (document.getElementsByClassName(container + "-headline")[0].classList.contains("blur")) {
-                                    document.getElementsByClassName(container + "-headline")[0].classList.remove("blur");
-
-                                }
-
-                                setLastVisibleContainer(container);
-                                setConsecutiveVisibleCount(1);
-                            }
-
-                            if (document.getElementsByClassName(container)[0].offsetTop / window.innerHeight === parseInt(document.getElementsByClassName("Home")[0].style.top) / -100) {
-                                if (document.getElementsByClassName(container + "-headline")[0].classList.contains("blur")) {
-                                    document.getElementsByClassName(container + "-headline")[0].classList.remove("blur");
-                                }
-                                setConsecutiveVisibleCount(1);
-                            } else {
-                                document.getElementsByClassName(container + "-headline")[0].classList.add("blur");
-                            }
-                        } else {
-                            console.log("onReverseComplete", container)
-                            document.getElementsByClassName(container + "-headline")[0].classList.remove("blur");
-
-                            if (!overlay.classList.contains("hidden")) {
-                                if (container === containers[0]) {
-                                    overlay.classList.remove("visible")
-                                    overlay.classList.add("hidden")
-                                }
-                            }
-                            if (overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
-                                overlay.classList.add("visible")
-                                overlay.classList.remove("hidden")
-                            }
-                            overlay.classList.remove(container)
-
-                            for (let k = 0; k < containers.length; k++) {
-                                if (container !== containers[0]) {
-                                    overlay.classList.add(containers[k - 1])
-                                }
-                            }
-                            for (let j = 0; j < overlayLowerItems.length; j++) {
-
-                                if (overlayLowerItems[j].classList.contains("currentSection")) {
-                                    overlayLowerItems[j].classList.remove("currentSection")
-                                    overlayLowerItems[j].classList.remove("transitioning");
-
-                                }
-                                if (overlayLowerItems[j].classList.contains("transitioning-reverse")) {
-                                    overlayLowerItems[j].classList.remove("transitioning-reverse")
-                                }
-                                if (container !== containers[0] && container !== containers[containers.length - 1]) {
-                                    if (overlayLowerItems[j].textContent === containers[i]) {
-                                        overlayLowerItems[j].classList.add("currentSection")
-                                        overlayLowerItems[j].classList.add("transitioning-reverse");
-                                    }
-                                } else {
-
-                                    if (overlay.classList.contains("visible")) {
-                                        overlay.classList.add("visible")
-                                    }
-
-                                }
-                            }
-                            if (document.getElementsByClassName(container)[0].offsetTop / window.innerHeight === parseInt(document.getElementsByClassName("Home")[0].style.top) / -100) {
-                                if (document.getElementsByClassName(container + "-headline")[0].classList.contains("blur")) {
-                                    document.getElementsByClassName(container + "-headline")[0].classList.remove("blur");
-                                }
-                                setConsecutiveVisibleCount(1);
-                            } else {
-                                document.getElementsByClassName(container + "-headline")[0].classList.add("blur");
-                            }
-                        }
-
-
-                    }
-                    if (((document.getElementsByClassName("Home")[0].offsetTop * -1 + document.getElementsByClassName("Home")[0].offsetHeight) === document.getElementsByClassName("Home")[0].scrollHeight) || document.getElementsByClassName("Home")[0].offsetTop === 0) {
-                        if (overlay.classList.contains("visible")) {
-                            overlay.classList.remove("visible")
-                            overlay.classList.add("hidden")
-                        }
-                    }
-                }
-            }
-        }
 
         if (document.getElementsByClassName("PanelsContainer").length > 0) {
+            let elm, scrollX, scrollY, newX, newY, direction, target;
+            /* stash current Window Scroll */
+            scrollX = window.pageXOffset;
+            scrollY = window.pageYOffset;
+            /* scroll to element */
+            window.scrollTo(0,snapTriggers.current[i].trigger.offsetTop);
+            /* calculate new relative element coordinates */
+            newX = 0 - window.pageXOffset;
+            newY = snapTriggers.current[i].trigger.offsetTop - window.pageYOffset;
+            /* grab the element */
+            elm = document.elementFromPoint(newX,newY);
+            /* revert to the previous scroll location */
+            window.scrollTo(scrollX,scrollY);
+            console.log("now", elm)
 
-            if (!isScrollDisabled) {
-                if (i === panels.length - 1 && force) {
-                    // User has scrolled to the bottom, smoothly scroll to the first panel without duration
-                    gsap.fromTo(document.getElementsByClassName('Home')[0], {
-                        top: -100 * (i) + "vh",
-                    }, {
-                        top: -100 * (i - 1) + "vh",
-                        onStart: disableScroll,
-                        onCompleteParams: [deltaY],
-                        onComplete: (deltaY) => {
-                            enableScroll(deltaY)
-                        },
-                        duration: 1,
-                        overwrite: true,
-                    });
-
-                } else if (i === 0 && force) {
-                    gsap.fromTo(document.getElementsByClassName('Home')[0], {
-                        top: 0,
-                    }, {
-                        top: "-100vh", onStart: disableScroll, onCompleteParams: [deltaY], onComplete: (deltaY) => {
-                            enableScroll(deltaY)
-                        }, duration: 1, overwrite: true,
-                    });
+            if (snapTriggers.current[i].direction) {
+                direction = snapTriggers.current[i].direction
+            }
+                if (elm.classList.contains('pin-spacer')) {
+                    // target the children
+                    target = elm.children[0];
                 } else {
-                    gsap.fromTo(document.getElementsByClassName('Home')[0], {
-                        top: -100 * panelIndex + "vh",
-                    }, {
-                        top: -100 * i + "vh",
-                        onStart: disableScroll,
-                        onCompleteParams: [deltaY],
-                        onComplete: (deltaY) => {
-                            enableScroll(deltaY)
-                        },
-                        duration: force ? 0 : 1,
-                        overwrite: false,
+                    target = elm
+                }
+            if (i === panels.length - 1 && force) {
+                // User has scrolled to the bottom, smoothly scroll to the first panel without duration
+                gsap.to(window, {
+                    scrollTo: {y: snapTriggers.current[i].start, autoKill: false},
+                    duration: 0,
+                    onStart: disableScroll,
+                    onComplete: () => {
+                        scrollTween.current = null
+                        scrollTween.current = gsap.to(window, {
+                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: true},
+                            duration: 1,
+                            onComplete: () => {
+                                scrollTween.current = null;
+                                enableScroll
+                            },
+                            overwrite: true,
+                        });
+                    },
+                    overwrite: true,
+                });
+
+            } else if (i === 0 && force) {
+                // User has scrolled to the bottom, smoothly scroll to the first panel without duration
+                gsap.to(window, {
+                    scrollTo: {y: 1, autoKill: true}, duration: 0, onStart: disableScroll, onComplete: () => {
+                        scrollTween.current = null
+                        // if (target.classList.contains('EnterSmoothScroll')) {
+                            scrollTween.current = gsap.to(window, {
+                                scrollTo: {y: snapTriggers.current[i].start, autoKill: true},
+                                duration: 1,
+                                onComplete: () => {
+                                    scrollTween.current = null;
+                                    enableScroll
+
+                                },
+                                overwrite: true,
+                            });
+                        // }
+                    }, overwrite: true,
+                });
+            } else {
+                // Scroll to the specified panel with a duration
+                if (target.classList.contains('EnterSmoothScroll')) {
+
+                    scrollTween.current = gsap.to(window, {
+                        scrollTo: {
+                            y: snapTriggers.current[i].start,
+                            autoKill: false,
+                            onStart: disableScroll,
+                            onComplete: () => {
+                                // console.log(document.getElementsByClassName("PanelsContainer"))
+                                if (document.getElementsByClassName("PanelsContainer").length <= 0) {
+
+                                    snapTriggers.current = null
+                                }
+                                enableScroll
+
+                            }
+                        }, duration: force ? 0 : 1, onComplete: () => (scrollTween.current = null), overwrite: false,
                     });
                 }
 
-                // Réactiver ScrollTrigger après l'animation
-                ScrollTrigger.refresh();
             }
         }
     };
@@ -238,9 +142,8 @@ const PanelsContainer = ({isPageReady}) => {
     useEffect(() => {
         if (isPageReady) {
             const windowHeight = window.innerHeight;
-            const HomeHeight = document.getElementsByClassName('Home')[0].scrollHeight;
-            console.log(document.body)
-            const numberOfPanels = Math.ceil(HomeHeight / windowHeight);
+            const documentHeight = document.body.scrollHeight;
+            const numberOfPanels = Math.ceil(documentHeight / windowHeight);
             const panelsArray = [];
             for (let i = 0; i < numberOfPanels; i++) {
                 panelsArray.push(<div className="PanelsContainer-item panel" key={i}></div>);
@@ -250,59 +153,60 @@ const PanelsContainer = ({isPageReady}) => {
     }, [isPageReady]);
 
     useEffect(() => {
-        if (!isPageReady) return
-        let scrollListenerRemoved = false; // Flag to track if the listener is removed
+        if (!isPageReady) return;
 
-        const handleScroll = (event) => {
+        const panelsArray = gsap.utils.toArray('.panel');
+        let scrollStarts = [0];
+        let snapScroll = value => value;
 
-            event.preventDefault(); // Prevent default scroll behavior during animation
+        panelsArray.forEach((panel, i) => {
+            snapTriggers.current[i] = ScrollTrigger.create({
+                trigger: panel, start: "top top"
+            });
+        });
 
-            if (!isScrollDisabled) {
-                const currentTime = Date.now();
-                const timeSinceLastGoToSection = currentTime - lastGoToSectionTime;
-                setLastGoToSectionTime(Date.now());
+        const refreshScrollTriggers = () => {
+            scrollStarts = snapTriggers.current.map(trigger => trigger.start);
+            snapScroll = ScrollTrigger.snapDirectional(scrollStarts);
+            // console.log(snapTriggers.current)
+        };
 
-                const scrollY = panelIndex * window.innerHeight;
+        const handleScroll = self => {
+            console.log(self)
+
+            // si self.event.target à la class "smoothScrollToMe" alors scroll d'une traite vers lui de facon smooth sinon laisse moi scroll normalement
+
+            if (!scrollTween.current) {
+                const scrollY = self.scrollY();
                 const windowHeight = window.innerHeight;
-                const bottomOffset = document.getElementsByClassName('PanelsContainer')[0].offsetHeight - (scrollY + windowHeight);
-                let deltaY = event.deltaY;
-                if (timeSinceLastGoToSection > 500) { // 500 millisecondes
-                    if (deltaY < 0) {
-                        deltaY = -1
-                        // Bottom of the window hits the bottom of the website
-                        if (panelIndex === 0) {
-                            goToSection(panels.length - 1, true, deltaY);
-                            setPanelIndex(panels.length - 2)
-                        } else {
-                            goToSection(panelIndex - 1, false, deltaY);
-                            setPanelIndex(panelIndex - 1)
-                        }
-                    } else {
-
-                        if (bottomOffset <= 0) {
-                            // Bottom of the window hits the bottom of the website
-                            goToSection(0, true, deltaY); // Go to the first panel
-                            setPanelIndex(1)
-                        } else {
-                            goToSection(panelIndex + 1, false, deltaY);
-                            setPanelIndex(panelIndex + 1)
-                        }
-                    }
+                const documentHeight = document.body.scrollHeight;
+                const bottomOffset = documentHeight - (scrollY + windowHeight);
+                const deltaY = self.deltaY;
+                const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
+                console.log(snapTriggers.current)
+                console.log(scrollStarts.indexOf(scroll))
+                if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
+                    goToSection(snapTriggers.current.length - 1, true); // Go to the last panel
+                } else if (bottomOffset <= 0 && deltaY > 0) {
+                    // Bottom of the window hits the bottom of the website
+                    goToSection(0, true); // Go to the first panel
+                } else {
+                    goToSection(scrollStarts.indexOf(scroll), false);
                 }
             }
-            console.log(event)
-
         };
 
+        ScrollTrigger.addEventListener("refresh", refreshScrollTriggers);
 
-        document.addEventListener("wheel", handleScroll)
+        ScrollTrigger.observe({
+            type: "wheel,touch", onChangeY: handleScroll
+        });
+        ScrollTrigger.refresh();
+
         return () => {
-            if (!scrollListenerRemoved) {
-                document.removeEventListener("wheel", handleScroll);
-            }
+            ScrollTrigger.removeEventListener("refresh", refreshScrollTriggers);
         };
-    }, [isPageReady, panels, panelIndex, isScrollDisabled, consecutiveVisibleCount]);
-
+    }, [isPageReady, panels]);
 
     return (<> {isPageReady ? <div className="PanelsContainer">{panels}</div> : null}</>)
 }

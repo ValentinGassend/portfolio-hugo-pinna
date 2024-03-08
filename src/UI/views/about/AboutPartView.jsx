@@ -6,7 +6,7 @@ const AboutPartView = () => {
 
     return (
         <section className={`About`} id={`about`}>
-            <PartTitle ParentClass={"About"} titleText={"About"}/>
+            <PartTitle ParentClass={"About"} isEnterSmooth={true} titleText={"About"}/>
             <AboutContentView/>
 
 

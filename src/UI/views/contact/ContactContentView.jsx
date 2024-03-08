@@ -38,7 +38,7 @@ const ContactContentView = ({contactManager, contactData}) => {
 
     return (
 
-        <div className={`Contact-content`}>
+        <div className={`Contact-content EnterSmoothScroll`}>
             <div className={`Contact-content-wrapper`}>
                 <div className={`Contact-content-wrapper-upper`}>
                     <div className={`Contact-content-wrapper-upper-texts`}>

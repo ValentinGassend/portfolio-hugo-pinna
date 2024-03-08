@@ -105,18 +105,6 @@ const Home = () => {
             setContact(contactData);
 
         });
-
-
-        var parentElement = document.querySelector('body');
-
-// Vérifier s'il a un enfant avec la classe '.home'
-        if (parentElement.querySelector('.Home')) {
-            // Appliquer la propriété 'overflow: hidden'
-            parentElement.style.overflow = 'hidden';
-        } else {
-            parentElement.style.overflow = 'visible';
-
-        }
     }, []);
 
 
@@ -161,118 +149,115 @@ const Home = () => {
         }
     }, [isAssetReady, isProjectReady, isGalleryReady]);
     useEffect(() => {
-        // if (isPageReady) {
-        //     let partTitleContainer = document.getElementsByClassName('partTitle')
-        //     let overlay = document.getElementsByClassName('Overlay')[0]
-        //     let overlayLowerItems = document.getElementsByClassName('Overlay-wrapper-lower--text')
-        //
-        //     let containers = []
-        //     let container;
-        //     gsap.registerPlugin(ScrollTrigger);
-        //
-        //     for (let i = 0; i < partTitleContainer.length; i++) {
-        //         container = partTitleContainer[i].closest('section').classList[0]
-        //
-        //         containers = [].concat(containers, container)
-        //     }
-        //
-        //     for (let i = 0; i < containers.length; i++) {
-        //
-        //         container = document.getElementsByClassName(containers[i] + "-headline")[0].closest("section").classList[0]
-        //         // console.log(document.getElementsByClassName(containers[i] + "-headline")[0].classList.contains('disable'))
-        //
-        //         console.log(ScrollTrigger.isInViewport("." + container + "-headline"))
-        //
-        //         // gsap.to("." + container + "-headline", {
-        //         //     filter: "blur(32px)",
-        //         //     scrollTrigger: {
-        //         //         trigger: "." + container,
-        //         //         endTrigger: "." + container,
-        //         //         end: "bottom 90%",
-        //         //         markers: true,
-        //         //         overwrite: true,
-        //         //     },
-        //         //     onReverseCompleteParams: [containers, overlay, container, overlayLowerItems],
-        //         //     onCompleteParams: [containers, overlay, container, overlayLowerItems],
-        //         //     onStartParams: [containers, overlay, container, overlayLowerItems],
-        //         //     onStart: (containers, overlay, container, overlayLowerItems) => {
-        //         //         console.log("onStart", container)
-        //         //         document.getElementsByClassName(container + "-headline")[0].classList.add("blur");
-        //         //         if (overlay.classList.contains("hidden")) {
-        //         //             overlay.classList.remove("hidden")
-        //         //             overlay.classList.add("visible")
-        //         //         }
-        //         //         if (!overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
-        //         //             overlay.classList.remove("visible")
-        //         //             overlay.classList.add("hidden")
-        //         //         }
-        //         //         for (let k = 0; k < containers.length; k++) {
-        //         //             if (overlay.classList.contains(containers[k])) {
-        //         //                 overlay.classList.remove(containers[k])
-        //         //             }
-        //         //         }
-        //         //
-        //         //         overlay.classList.add(container)
-        //         //
-        //         //         for (let j = 0; j < overlayLowerItems.length; j++) {
-        //         //             if (overlayLowerItems[j].textContent === container) {
-        //         //                 overlayLowerItems[j].classList.add("currentSection");
-        //         //                 overlayLowerItems[j].classList.add("transitioning");
-        //         //             } else {
-        //         //                 if (overlayLowerItems[j].classList.contains("currentSection")) {
-        //         //                     overlayLowerItems[j].classList.remove("currentSection");
-        //         //                     overlayLowerItems[j].classList.remove("transitioning");
-        //         //                     overlayLowerItems[j].classList.remove("transitioning-reverse");
-        //         //                 }
-        //         //             }
-        //         //
-        //         //         }
-        //         //     },
-        //         //     onReverseComplete: (containers, overlay, container, overlayLowerItems) => {
-        //         //         console.log("onReverseComplete", container)
-        //         //         document.getElementsByClassName(container + "-headline")[0].classList.remove("blur");
-        //         //
-        //         //         if (!overlay.classList.contains("hidden")) {
-        //         //             if (container === containers[0]) {
-        //         //                 overlay.classList.remove("visible")
-        //         //                 overlay.classList.add("hidden")
-        //         //             }
-        //         //         }
-        //         //         if (overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
-        //         //             overlay.classList.add("visible")
-        //         //             overlay.classList.remove("hidden")
-        //         //         }
-        //         //         overlay.classList.remove(container)
-        //         //
-        //         //         for (let k = 0; k < containers.length; k++) {
-        //         //             if (container !== containers[0]) {
-        //         //                 overlay.classList.add(containers[k - 1])
-        //         //             }
-        //         //         }
-        //         //         for (let j = 0; j < overlayLowerItems.length; j++) {
-        //         //
-        //         //             if (overlayLowerItems[j].classList.contains("currentSection")) {
-        //         //                 overlayLowerItems[j].classList.remove("currentSection")
-        //         //                 overlayLowerItems[j].classList.remove("transitioning");
-        //         //
-        //         //             }
-        //         //             if (overlayLowerItems[j].classList.contains("transitioning-reverse")) {
-        //         //                 overlayLowerItems[j].classList.remove("transitioning-reverse")
-        //         //             }
-        //         //             if (container !== containers[0]) {
-        //         //                 if (overlayLowerItems[j].textContent === containers[i - 1]) {
-        //         //                     overlayLowerItems[j].classList.add("currentSection")
-        //         //                     overlayLowerItems[j].classList.add("transitioning-reverse");
-        //         //                 }
-        //         //             }
-        //         //         }
-        //         //
-        //         //     }
-        //         // })
-        //     }
-        //
-        //
-        // }
+        if (isPageReady) {
+            let partTitleContainer = document.getElementsByClassName('partTitle')
+            let overlay = document.getElementsByClassName('Overlay')[0]
+            let overlayLowerItems = document.getElementsByClassName('Overlay-wrapper-lower--text')
+
+            let containers = []
+            let container;
+            gsap.registerPlugin(ScrollTrigger);
+
+            for (let i = 0; i < partTitleContainer.length; i++) {
+                container = partTitleContainer[i].closest('section').classList[0]
+
+                containers = [].concat(containers, container)
+            }
+
+            for (let i = 0; i < containers.length; i++) {
+
+                container = document.getElementsByClassName(containers[i] + "-headline")[0].closest("section").classList[0]
+                // console.log(document.getElementsByClassName(containers[i] + "-headline")[0].classList.contains('disable'))
+                gsap.to("." + container + "-headline", {
+                    filter: "blur(32px)",
+                    scrollTrigger: {
+                        pinSpacing: false,
+                        endTrigger: "." + container,
+                        pin: "." + container + "-headline",
+                        scrub: 0.2,
+                        start: "center 51%",
+                        end: "bottom 90%",
+                    },
+                    onReverseCompleteParams: [containers, overlay, container, overlayLowerItems],
+                    onCompleteParams: [containers, overlay, container, overlayLowerItems],
+                    onStartParams: [containers, overlay, container, overlayLowerItems],
+                    onStart: (containers, overlay, container, overlayLowerItems) => {
+                        console.log("onStart",container)
+
+                        if (overlay.classList.contains("hidden")) {
+                            overlay.classList.remove("hidden")
+                            overlay.classList.add("visible")
+                        }
+                        if (!overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
+                            overlay.classList.remove("visible")
+                            overlay.classList.add("hidden")
+                        }
+                        for (let k = 0; k < containers.length; k++) {
+                            if (overlay.classList.contains(containers[k])) {
+                                overlay.classList.remove(containers[k])
+                            }
+                        }
+
+                        overlay.classList.add(container)
+
+                        for (let j = 0; j < overlayLowerItems.length; j++) {
+                            if (overlayLowerItems[j].textContent === container) {
+                                overlayLowerItems[j].classList.add("currentSection");
+                                overlayLowerItems[j].classList.add("transitioning");
+                            } else {
+                                if (overlayLowerItems[j].classList.contains("currentSection")) {
+                                    overlayLowerItems[j].classList.remove("currentSection");
+                                    overlayLowerItems[j].classList.remove("transitioning");
+                                    overlayLowerItems[j].classList.remove("transitioning-reverse");
+                                }
+                            }
+
+                        }
+                    },
+                    onReverseComplete: (containers, overlay, container, overlayLowerItems) => {
+                        console.log("onReverseComplete",container)
+
+                        if (!overlay.classList.contains("hidden")) {
+                            if (container === containers[0]) {
+                                overlay.classList.remove("visible")
+                                overlay.classList.add("hidden")
+                            }
+                        }
+                        if (overlay.classList.contains("hidden") && container === containers[containers.length - 1]) {
+                            overlay.classList.add("visible")
+                            overlay.classList.remove("hidden")
+                        }
+                        overlay.classList.remove(container)
+
+                        for (let k = 0; k < containers.length; k++) {
+                            if (container !== containers[0]) {
+                                overlay.classList.add(containers[k - 1])
+                            }
+                        }
+                        for (let j = 0; j < overlayLowerItems.length; j++) {
+
+                            if (overlayLowerItems[j].classList.contains("currentSection")) {
+                                overlayLowerItems[j].classList.remove("currentSection")
+                                overlayLowerItems[j].classList.remove("transitioning");
+
+                            }
+                            if (overlayLowerItems[j].classList.contains("transitioning-reverse")) {
+                                overlayLowerItems[j].classList.remove("transitioning-reverse")
+                            }
+                            if (container !== containers[0]) {
+                                if (overlayLowerItems[j].textContent === containers[i - 1]) {
+                                    overlayLowerItems[j].classList.add("currentSection")
+                                    overlayLowerItems[j].classList.add("transitioning-reverse");
+                                }
+                            }
+                        }
+
+                    }
+                })
+            }
+
+
+        }
     }, [isPageReady]);
     useEffect(() => {
         //console.log("assetsUrl ", assetsUrl)
@@ -287,9 +272,9 @@ const Home = () => {
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView/>
             <ContactPartView contactManager={projectManager} contactData={contactData}/>
+            <GalleryPartView galleryData={galleryData}/>
             <Overlay/>
             <Loader isPageReady={isPageReady}/>
-            <GalleryPartView galleryData={galleryData}/>
             <Landing assetsUrl={assetsUrl}/>
 
         </div>

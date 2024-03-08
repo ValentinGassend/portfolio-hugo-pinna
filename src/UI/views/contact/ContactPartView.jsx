@@ -6,7 +6,7 @@ const ProjectsPartView = ({contactManager,contactData}) => {
 
     return (
         <section className={`Contact`} id={`contact`}>
-            <PartTitle ParentClass={"Contact"} titleText={"Contact"}/>
+            <PartTitle ParentClass={"Contact"} isEnterSmooth={true} titleText={"Contact"}/>
             <ContactContentView contactManager={contactManager} contactData={contactData}/>
 
 

@@ -3,7 +3,7 @@ import ProjectsView from "./ProjectsView.jsx";
 const ProjectListView = ({projects}) => {
 
 
-    return (<div className={`Projects-list`}>
+    return (<div className={`Projects-list EnterSmoothScroll`}>
         {projects.map((project, index) => (
             <ProjectsView key={project.id} index={index} project={project}/>))}
     </div>);
