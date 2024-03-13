@@ -370,7 +370,7 @@ const GalleryPageView = () => {
             </div>
 
 
-            <Overlay isHome={false} isDiff={true}/>
+            <Overlay isHome={false} isGallery={true}/>
         </section>
 
     </>);

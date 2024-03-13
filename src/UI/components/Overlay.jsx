@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import gsap from "gsap";
 
-const Overlay = ({isHome = true, isDiff = false}) => {
+const Overlay = ({isHome = true, isGallery = false}) => {
 
     if (document.querySelector('.SingleProject')) {
         gsap.to(document.querySelector('.Overlay.Others'), {
@@ -12,7 +12,7 @@ const Overlay = ({isHome = true, isDiff = false}) => {
     }
 
     return (<div
-        className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isDiff ? "Diff" : ""}`}>
+        className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isGallery ? "Diff" : ""}`}>
         {isHome ? (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
                 <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
@@ -43,8 +43,10 @@ const Overlay = ({isHome = true, isDiff = false}) => {
 
 
                 <div className={`Overlay-wrapper-upper-item`}>
-                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna</Link>
-                    <Link className={`Overlay-wrapper-upper--text ff2 italic bold`} to={`../`}>Cuillère</Link>
+                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna {isGallery ? (
+                        <span className={"Overlay-wrapper-upper--text-span italic bold"}>
+                        the wall</span>) : (<></>)}</Link>
+                    <Link className={`Overlay-wrapper-upper--text miller italic bold`} to={`../`}>Cuillère</Link>
                 </div>
 
                 <div className={`Overlay-wrapper-upper-item`}>
