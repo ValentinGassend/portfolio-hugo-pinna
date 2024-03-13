@@ -32,6 +32,15 @@ const PanelsContainer = ({isPageReady}) => {
 
         function disableScroll() {
             setIsScrollDisable(true);
+            // Get the current page scroll position
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+            // if any scroll is attempted,
+            // set this to the previous value
+            window.onscroll = function () {
+                window.scrollTo(scrollLeft, scrollTop);
+            };
             window.addEventListener('DOMMouseScroll', preventDefault, {passive: false}); // older FF
             window.addEventListener(wheelEvent, preventDefault, {passive: false}); // modern desktop
             window.addEventListener('touchmove', preventDefault, {passive: false}); // mobile
@@ -40,13 +49,15 @@ const PanelsContainer = ({isPageReady}) => {
 
         function enableScroll() {
             setIsScrollDisable(false);
+            window.onscroll = function () {
+            };
             window.removeEventListener('DOMMouseScroll', preventDefault, {passive: false});
             window.removeEventListener(wheelEvent, preventDefault, {passive: false});
             window.removeEventListener('touchmove', preventDefault, {passive: false});
             window.removeEventListener('keydown', preventDefaultForScrollKeys, {passive: false});
         }
 
-
+        // console.log("isScrollDisabled", isScrollDisabled)
         if (document.getElementsByClassName("PanelsContainer").length > 0) {
             let nextElm, currentElm, scrollX, scrollY, newX, newY, nextTarget, currentTarget;
             /* stash current Window Scroll */
@@ -61,6 +72,7 @@ const PanelsContainer = ({isPageReady}) => {
             nextElm = document.elementFromPoint(newX, newY);
             /* revert to the previous scroll location */
             window.scrollTo(scrollX, scrollY);
+
             if (direction > 0) {
 
                 currentElm = document.elementFromPoint(0, 0);
@@ -69,12 +81,13 @@ const PanelsContainer = ({isPageReady}) => {
 
             }
 
-
-            if (nextElm.classList.contains('pin-spacer')) {
-                // nextTarget the children
-                nextTarget = nextElm.children[0];
-            } else {
-                nextTarget = nextElm
+            if (nextElm) {
+                if (nextElm.classList.contains('pin-spacer')) {
+                    // nextTarget the children
+                    nextTarget = nextElm.children[0];
+                } else {
+                    nextTarget = nextElm
+                }
             }
 
             if (currentElm.classList.contains('pin-spacer')) {
@@ -89,11 +102,10 @@ const PanelsContainer = ({isPageReady}) => {
                     scrollTo: {y: snapTriggers.current[i].start, autoKill: false},
                     duration: 0,
                     onStart: () => disableScroll(),
-                    onUpdate: () => disableScroll(),
                     onComplete: () => {
                         scrollTween.current = null
                         scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: true},
+                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: false},
                             duration: 1,
                             onComplete: () => {
                                 scrollTween.current = null;
@@ -111,12 +123,11 @@ const PanelsContainer = ({isPageReady}) => {
                     scrollTo: {y: 1, autoKill: true},
                     duration: 0,
                     onStart: () => disableScroll(),
-                    onUpdate: () => disableScroll(),
                     onComplete: () => {
                         scrollTween.current = null
                         // if (nextTarget.classList.contains('EnterSmoothScroll')) {
                         scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i].start, autoKill: true},
+                            scrollTo: {y: snapTriggers.current[i].start, autoKill: false},
                             duration: 1,
                             onComplete: () => {
                                 scrollTween.current = null;
@@ -150,14 +161,10 @@ const PanelsContainer = ({isPageReady}) => {
                                     enableScroll()
 
                                 }
-                            }, onStart: () => disableScroll(),
+                            },
 
-                            onUpdate: () => disableScroll(),
-
-                            duration: force ? 0 : 1,
-                            onComplete: () => {
+                            duration: force ? 0 : 1, onComplete: () => {
                                 scrollTween.current = null;
-                                enableScroll()
 
                             }, overwrite: false,
                         });
@@ -166,8 +173,6 @@ const PanelsContainer = ({isPageReady}) => {
                     if (currentTarget.classList.contains('EnterSmoothScroll')) {
 
                         scrollTween.current = gsap.to(window, {
-                            onStart: () => disableScroll(),
-
                             scrollTo: {
                                 y: snapTriggers.current[i].start,
                                 autoKill: false,
@@ -185,14 +190,12 @@ const PanelsContainer = ({isPageReady}) => {
                                 },
                                 overwrite: false,
 
-                            }, onUpdate: () => disableScroll(),
+                            },
 
                             duration: force ? 0 : 1, onComplete: () => {
                                 scrollTween.current = null;
-                                enableScroll()
 
-                            },
-                            overwrite: false,
+                            }, overwrite: false,
                         });
                     }
                 }
@@ -223,7 +226,7 @@ const PanelsContainer = ({isPageReady}) => {
 
         panelsArray.forEach((panel, i) => {
             snapTriggers.current[i] = ScrollTrigger.create({
-                trigger: panel, start: "top top"
+                trigger: panel, start: "top top",
             });
         });
 
@@ -237,34 +240,36 @@ const PanelsContainer = ({isPageReady}) => {
 
             // si self.event.target à la class "smoothScrollToMe" alors scroll d'une traite vers lui de facon smooth sinon laisse moi scroll normalement
 
-            const scrollY = self.scrollY();
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.body.scrollHeight;
-            const bottomOffset = documentHeight - (scrollY + windowHeight);
-            const deltaY = self.deltaY;
-            const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
-            if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
-                goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
-            } else if (bottomOffset <= 0 && deltaY > 0) {
-                // Bottom of the window hits the bottom of the website
-                goToSection(0, true, deltaY); // Go to the first panel
-            } else {
-                goToSection(scrollStarts.indexOf(scroll), false, deltaY);
+            if (!isScrollDisabled) {
+
+                const scrollY = self.scrollY();
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.body.scrollHeight;
+                const bottomOffset = documentHeight - (scrollY + windowHeight);
+                const deltaY = self.deltaY;
+                const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
+                if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
+                    goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
+                } else if (bottomOffset <= 0 && deltaY > 0) {
+                    // Bottom of the window hits the bottom of the website
+                    goToSection(0, true, deltaY); // Go to the first panel
+                } else {
+                    goToSection(scrollStarts.indexOf(scroll), false, deltaY);
+                }
             }
+
         };
 
         ScrollTrigger.addEventListener("refresh", refreshScrollTriggers);
-        if (!isScrollDisabled) {
-            ScrollTrigger.observe({
-                type: "wheel,touch", onChangeY: handleScroll
-            });
-        }
+        ScrollTrigger.observe({
+            type: "wheel,touch", onChangeY: handleScroll
+        });
         ScrollTrigger.refresh();
 
         return () => {
             ScrollTrigger.removeEventListener("refresh", refreshScrollTriggers);
         };
-    }, [isPageReady, panels]);
+    }, [isPageReady, panels, isScrollDisabled]);
 
     return (<> {isPageReady ? <div className="PanelsContainer">{panels}</div> : null}</>)
 }
