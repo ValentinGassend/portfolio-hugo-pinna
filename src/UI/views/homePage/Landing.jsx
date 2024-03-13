@@ -3,6 +3,7 @@ import LoadingManager from "../../../managers/LoadingManager.jsx";
 import {useEffect, useState} from "react";
 import Link from "../../components/Link.jsx";
 import AssetNames from "./AssetNames.js";
+import gsap from "gsap";
 
 const Landing = ({assetsUrl}) => {
     const [mousePosition, setMousePosition] = useState({x: null, y: null});
@@ -22,6 +23,14 @@ const Landing = ({assetsUrl}) => {
             if (document.getElementsByClassName('Landing')[1]) {
                 document.getElementsByClassName('Landing')[1].addEventListener("mousemove", handleMouseMove);
             }
+            document.querySelector('.Landing-scroll-link').addEventListener('click', (evt) => {
+                evt.preventDefault()
+                gsap.to(window, {
+                    scrollTo: {y: document.querySelector('.Landing-scroll-link--url').hash, autoKill: false},
+                    duration: 1,
+                    overwrite: true,
+                });
+            });
         }
         setSize(200)
         // Clean up event listener when component unmounts
@@ -35,12 +44,13 @@ const Landing = ({assetsUrl}) => {
                 }
             }
         };
+
     }, []);
 
+
+
     return (<section className={`Landing`} style={{
-        '--size': size + "px",
-        '--mousePY': mousePosition.y + "px",
-        '--mousePX': mousePosition.x + "px"
+        '--size': size + "px", '--mousePY': mousePosition.y + "px", '--mousePX': mousePosition.x + "px"
     }}>
         <div className={`Landing-grid`}>
             <div className={`Landing-grid-name`}>
