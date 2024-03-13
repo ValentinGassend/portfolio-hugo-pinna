@@ -1,7 +1,7 @@
 
 .Overlay {
     position: fixed;
-    z-index: 10;
+    z-index: 100;
     height: 100vh;
     width: 100vw;
     padding: 32px;
@@ -14,7 +14,12 @@
         opacity: 0;
         pointer-events: none;
 
+        .Overlay-wrapper-upper--text {
+            pointer-events: none;
+
+        }
         .Overlay-wrapper-lower--text {
+            pointer-events: none;
 
         }
     }
@@ -108,6 +113,9 @@
                 &:after {
                     content: "";
                     //aspect-ratio: 1;
+                    z-index: 1;
+                    pointer-events: none;
+                    cursor: default;
                     width: 100%;
                     height: 100%;
                     background-color: $color_secondary;
@@ -160,6 +168,9 @@
 
         &-upper {
             flex-direction: column;
+            &--text {
+                cursor: pointer;
+            }
         }
 
         &-lower {

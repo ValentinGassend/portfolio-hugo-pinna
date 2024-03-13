@@ -22,7 +22,7 @@ const Overlay = ({isHome = true, isGallery = false}) => {
             });
         });
     });
-    let overlayUpperTexts = document.querySelectorAll('.Overlay-wrapper-upper--text');
+    let overlayUpperTexts = document.querySelectorAll('p.Overlay-wrapper-upper--text');
 
     overlayUpperTexts.forEach(function (element) {
         element.addEventListener('click', evt => {
