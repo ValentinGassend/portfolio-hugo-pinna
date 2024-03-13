@@ -9,6 +9,7 @@
       opacity: 1;
 
     }
+
     &-content {
       opacity: 1;
 
@@ -19,10 +20,12 @@
   &.isNotPageReady .SingleProject {
     overflow: hidden;
     height: 100vh;
+
     &-banner {
       opacity: 0;
 
     }
+
     &-content {
       opacity: 0;
 
@@ -39,7 +42,7 @@
     overflow: hidden;
     opacity: 1;
 
-    &--img {
+    &--img, &--video {
       position: relative;
       top: 0;
       width: 100vw;
@@ -151,7 +154,6 @@
       height: calc(50vh + 56px + 32px);
 
 
-
     }
 
     &-slide {
@@ -163,7 +165,7 @@
         margin-right: 32px;
       }
 
-      &--img {
+      &--img, &--video {
 
         height: 100%;
         width: auto;
