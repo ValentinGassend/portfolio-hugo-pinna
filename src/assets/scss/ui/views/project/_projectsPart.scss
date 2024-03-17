@@ -73,6 +73,9 @@
         .Projects-promote-card--img {
           transform: scale(1.1);
         }
+        .Projects-promote-card--video {
+          transform: scale(1.1);
+        }
         &:after {
           transform: scale(1.1);
         }
@@ -83,7 +86,7 @@
           opacity: 0;
         }
       }
-      &--img {
+      &--img, &--video {
         position: absolute;
         top: 0;
         left: 0;

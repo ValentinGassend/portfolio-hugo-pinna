@@ -18,6 +18,8 @@ const SingleProjectView = (props) => {
     const elapsedTimeRef = useRef(0);
     const [isPageReady, setIsPageReady] = useState(false)
     const [imageUrl, setImageUrl] = useState(null);
+    const [mediaType, setMediaType] = useState("image"); // Default media type is image
+
     useEffect(() => {
         if (id) {
             const startTime = Date.now(); // Enregistrez le temps de début
@@ -51,6 +53,8 @@ const SingleProjectView = (props) => {
                     if (url) {
                         ////console.log("URL de l'image:", url);
                         setImageUrl(url);
+                        setMediaType(getMediaType(url));
+
                     } else {
                         ////console.log("L'image n'existe pas ou une erreur s'est produite.");
                     }
@@ -94,14 +98,45 @@ const SingleProjectView = (props) => {
             });
         }
     }, [isPageReady]);
+    const getMediaType = (url) => {
+        // Using regular expression to extract file extension
+        const extensionMatch = url.match(/\.([^.?#]+)(?:[?#]|$)/i);
 
+        // Checking if a valid extension is found
+        if (extensionMatch && extensionMatch[1]) {
+            const extension = extensionMatch[1].toLowerCase();
+
+            // Logging for debugging purposes
+            console.log('Extension:', extension);
+            console.log('Original URL:', url);
+
+            // Checking if the extension corresponds to a video format
+            if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {
+                return 'video';
+            } else {
+                return 'image';
+            }
+        } else {
+            // If no extension is found, default to 'image'
+            return 'image';
+        }
+    };
 
     return (<>
         <section className={`SingleProject  ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
 
             <div className={"SingleProject-banner"}>
+            {mediaType === 'image' ? (
+
                 <img className={"SingleProject-banner--img"} src={`${imageUrl}`}
                      alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
+            ) : (
+                <video className={`SingleProject-banner--video`} autoPlay loop muted>
+                <source src={`${imageUrl}`} type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`} />
+                Your browser does not support the video tag.
+                </video>
+            )}
+
             </div>
             <div className={"SingleProject-content"}>
                 <div className={"SingleProject-content-wrapper"}>
