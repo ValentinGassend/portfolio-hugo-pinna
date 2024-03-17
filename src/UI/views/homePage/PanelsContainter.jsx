@@ -120,10 +120,7 @@ const PanelsContainer = ({isPageReady}) => {
             } else if (i === 0 && force) {
                 // User has scrolled to the bottom, smoothly scroll to the first panel without duration
                 gsap.to(window, {
-                    scrollTo: {y: 1, autoKill: true},
-                    duration: 0,
-                    onStart: () => disableScroll(),
-                    onComplete: () => {
+                    scrollTo: {y: 1, autoKill: true}, duration: 0, onStart: () => disableScroll(), onComplete: () => {
                         scrollTween.current = null
                         // if (nextTarget.classList.contains('EnterSmoothScroll')) {
                         scrollTween.current = gsap.to(window, {
@@ -137,8 +134,7 @@ const PanelsContainer = ({isPageReady}) => {
                             overwrite: true,
                         });
                         // }
-                    },
-                    overwrite: true,
+                    }, overwrite: true,
                 });
             } else {
                 // Scroll to the specified panel with a duration
@@ -238,25 +234,24 @@ const PanelsContainer = ({isPageReady}) => {
 
         const handleScroll = self => {
 
-            // si self.event.target à la class "smoothScrollToMe" alors scroll d'une traite vers lui de facon smooth sinon laisse moi scroll normalement
+            if (self.deltaY !== 1 && self.deltaY !== -1 && self.deltaY !== 100 && self.deltaY !== -100) return;
 
-            if (!isScrollDisabled) {
+            const scrollY = self.scrollY();
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.body.scrollHeight;
+            const bottomOffset = documentHeight - (scrollY + windowHeight);
+            const deltaY = self.deltaY;
+            const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
+            if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
+                goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
+            } else if (bottomOffset <= 0 && deltaY > 0) {
+                // Bottom of the window hits the bottom of the website
+                goToSection(0, true, deltaY); // Go to the first panel
+            } else {
 
-                const scrollY = self.scrollY();
-                const windowHeight = window.innerHeight;
-                const documentHeight = document.body.scrollHeight;
-                const bottomOffset = documentHeight - (scrollY + windowHeight);
-                const deltaY = self.deltaY;
-                const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
-                if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
-                    goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
-                } else if (bottomOffset <= 0 && deltaY > 0) {
-                    // Bottom of the window hits the bottom of the website
-                    goToSection(0, true, deltaY); // Go to the first panel
-                } else {
-                    goToSection(scrollStarts.indexOf(scroll), false, deltaY);
-                }
+                goToSection(scrollStarts.indexOf(scroll), false, deltaY);
             }
+            // }
 
         };
 
