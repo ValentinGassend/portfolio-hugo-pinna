@@ -105,16 +105,16 @@ const PanelsContainer = ({isPageReady}) => {
             if (i === panels.length - 1 && force) {
                 // User has scrolled to the bottom, smoothly scroll to the first panel without duration
                 gsap.to(window, {
-                    scrollTo: {y: snapTriggers.current[i].start, autoKill: false},
+                    scrollTo: {y: snapTriggers.current[i].start, autoKill: true},
                     duration: 0,
                     onStart: () => disableScroll(),
                     onComplete: () => {
                         scrollTween.current = null
                         scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: false},
+                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: true},
                             duration: 1,
                             onComplete: () => {
-                                scrollTween.current = null;
+                                // scrollTween.current = null;
                                 enableScroll()
                             },
                             overwrite: true,
@@ -130,10 +130,10 @@ const PanelsContainer = ({isPageReady}) => {
                         scrollTween.current = null
                         // if (nextTarget.classList.contains('EnterSmoothScroll')) {
                         scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i].start, autoKill: false},
+                            scrollTo: {y: snapTriggers.current[i + 1].start, autoKill: true},
                             duration: 1,
                             onComplete: () => {
-                                scrollTween.current = null;
+                                // scrollTween.current = null;
                                 enableScroll()
 
                             },
@@ -150,7 +150,7 @@ const PanelsContainer = ({isPageReady}) => {
                         scrollTween.current = gsap.to(window, {
                             scrollTo: {
                                 y: snapTriggers.current[i].start,
-                                autoKill: false,
+                                autoKill: true,
                                 onStart: () => disableScroll(),
                                 onUpdate: () => disableScroll(),
 
@@ -168,7 +168,7 @@ const PanelsContainer = ({isPageReady}) => {
                             duration: force ? 0 : 1, onComplete: () => {
                                 scrollTween.current = null;
 
-                            }, overwrite: false,
+                            }, overwrite: true,
                         });
                     }
                 } else {
@@ -177,7 +177,7 @@ const PanelsContainer = ({isPageReady}) => {
                         scrollTween.current = gsap.to(window, {
                             scrollTo: {
                                 y: snapTriggers.current[i].start,
-                                autoKill: false,
+                                autoKill: true,
                                 onStart: () => disableScroll(),
                                 onUpdate: () => disableScroll(),
 
@@ -190,14 +190,14 @@ const PanelsContainer = ({isPageReady}) => {
                                     enableScroll()
 
                                 },
-                                overwrite: false,
+                                overwrite: true,
 
                             },
 
                             duration: force ? 0 : 1, onComplete: () => {
                                 scrollTween.current = null;
 
-                            }, overwrite: false,
+                            }, overwrite: true,
                         });
                     }
                 }
@@ -238,6 +238,12 @@ const PanelsContainer = ({isPageReady}) => {
             // //console.log(snapTriggers.current)
         };
         const resetDetection = () => {
+            // oldTime = 0;
+            // newTime = 0;
+            // setIsTrackPad(undefined);
+            // setIsTrackPadDefined(false);
+            // eventCount = 0;
+            // eventCountStart = undefined;
         };
         const detectTrackpad = () => {
             // let isTrackPadDefined = isTrackPad || typeof isTrackPad !== "undefined";
@@ -276,7 +282,9 @@ const PanelsContainer = ({isPageReady}) => {
         const handleScroll = self => {
             if (isTrackPad === null) {
                 detectTrackpad(self)
-            } else {
+            }
+
+            if (isTrackPad !== null) {
                 console.log(self)
                 console.log(self.deltaY)
                 console.log(isTrackPad)
@@ -293,11 +301,12 @@ const PanelsContainer = ({isPageReady}) => {
                 const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
                 if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
                     goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
-                } else if (bottomOffset <= 0 && deltaY > 0) {
+                } else if (bottomOffset <= 50 && deltaY > 0) {
                     // Bottom of the window hits the bottom of the website
                     goToSection(0, true, deltaY); // Go to the first panel
                 } else {
                     if (isTrackPad && Math.abs(self.deltaY) !== 1) return;
+                    if (!isTrackPad && Math.abs(self.deltaY) !== 100) return;
                     goToSection(scrollStarts.indexOf(scroll), false, deltaY);
                 }
             }
@@ -307,7 +316,7 @@ const PanelsContainer = ({isPageReady}) => {
 
         ScrollTrigger.addEventListener("refresh", refreshScrollTriggers);
         ScrollTrigger.observe({
-            type: "wheel,touch", onChangeY: handleScroll
+            type: "wheel,mousewheel", onChangeY: handleScroll
         });
         ScrollTrigger.refresh();
 
