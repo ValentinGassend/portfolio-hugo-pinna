@@ -51,12 +51,12 @@ const SingleProjectView = (props) => {
                 .getUrlOfImage(projectData.header_image)
                 .then((url) => {
                     if (url) {
-                        ////console.log("URL de l'image:", url);
+                        //////console.log("URL de l'image:", url);
                         setImageUrl(url);
                         setMediaType(getMediaType(url));
 
                     } else {
-                        ////console.log("L'image n'existe pas ou une erreur s'est produite.");
+                        //////console.log("L'image n'existe pas ou une erreur s'est produite.");
                     }
                 })
                 .catch((error) => console.error("Erreur générale:", error));
@@ -107,8 +107,8 @@ const SingleProjectView = (props) => {
             const extension = extensionMatch[1].toLowerCase();
 
             // Logging for debugging purposes
-            console.log('Extension:', extension);
-            console.log('Original URL:', url);
+            //console.log('Extension:', extension);
+            //console.log('Original URL:', url);
 
             // Checking if the extension corresponds to a video format
             if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {

@@ -194,12 +194,12 @@ const GalleryPageView = () => {
                 grid[middleGrid + 1].push("item"); // Push to the last column as well
             }
 
-            // console.log("=========================");
-            // console.log("résultat pour ", totalItems);
-            // console.log("middle", middle);
-            // console.log("sides", firstSides);
-            // console.log("grille de " + totalItems, grid);
-            // console.log("=========================");
+            // //console.log("=========================");
+            // //console.log("résultat pour ", totalItems);
+            // //console.log("middle", middle);
+            // //console.log("sides", firstSides);
+            // //console.log("grille de " + totalItems, grid);
+            // //console.log("=========================");
         } else if (totalItems <= 32) {
 
             const returnValues = from4To8(totalItems);
@@ -238,9 +238,9 @@ const GalleryPageView = () => {
                         middle = returnValues[0];
                         sides = returnValues[1];
 
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("secondSides", secondSides);
+                        // //console.log("middle", middle);
+                        // //console.log("firstSides", firstSides);
+                        // //console.log("secondSides", secondSides);
                         if (middle <= firstSides) {
 
                             if ((middle - firstSides) >= (middle - secondSides)) {
@@ -273,22 +273,22 @@ const GalleryPageView = () => {
                             grid[middleGrid].push("item");
                         }
 
-                        // console.log("=========================");
-                        // console.log("résultat pour ", totalItems);
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("secondSides", secondSides);
-                        // console.log("sides", sides);
-                        // console.log("grille de " + totalItems, grid);
-                        // console.log("=========================");
+                        // //console.log("=========================");
+                        // //console.log("résultat pour ", totalItems);
+                        // //console.log("middle", middle);
+                        // //console.log("firstSides", firstSides);
+                        // //console.log("secondSides", secondSides);
+                        // //console.log("sides", sides);
+                        // //console.log("grille de " + totalItems, grid);
+                        // //console.log("=========================");
                     }
 
                 } else {
                     if (middle <= firstSides) {
-                        // console.log("before twist ")
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("sides", sides);
+                        // //console.log("before twist ")
+                        // //console.log("middle", middle);
+                        // //console.log("firstSides", firstSides);
+                        // //console.log("sides", sides);
 
                         if ((middle - firstSides) >= (middle - sides)) {
                             middle = middle + 2
@@ -299,10 +299,10 @@ const GalleryPageView = () => {
                             firstSides--
                         }
 
-                        // console.log("after twist ")
-                        // console.log("middle", middle);
-                        // console.log("firstSides", firstSides);
-                        // console.log("sides", sides);
+                        // //console.log("after twist ")
+                        // //console.log("middle", middle);
+                        // //console.log("firstSides", firstSides);
+                        // //console.log("sides", sides);
 
                     }
 
@@ -319,13 +319,13 @@ const GalleryPageView = () => {
                         grid[middleGrid + 1].push("item"); // Push to the last column as well
                     }
 
-                    // console.log("=========================");
-                    // console.log("résultat pour ", totalItems);
-                    // console.log("middle", middle);
-                    // console.log("firstSides", firstSides);
-                    // console.log("sides", sides);
-                    // console.log("grille de " + totalItems, grid);
-                    // console.log("=========================");
+                    // //console.log("=========================");
+                    // //console.log("résultat pour ", totalItems);
+                    // //console.log("middle", middle);
+                    // //console.log("firstSides", firstSides);
+                    // //console.log("sides", sides);
+                    // //console.log("grille de " + totalItems, grid);
+                    // //console.log("=========================");
                 }
             } else {
                 middleGrid = Math.trunc(grid.length / 2)

@@ -15,7 +15,7 @@ const Overlay = ({isHome = true, isGallery = false}) => {
 
     overlayTexts.forEach(function (element) {
         element.addEventListener('click', evt => {
-            console.log(element)
+            //console.log(element)
             evt.preventDefault()
             gsap.to(window, {
                 scrollTo: {y: element.hash, autoKill: false}, duration: 1, overwrite: true,

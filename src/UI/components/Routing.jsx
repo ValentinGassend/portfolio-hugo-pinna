@@ -13,8 +13,8 @@ const Routing = () => {
 
     const onEnterHandler = (node) => {
 
-        console.log("onEnter");
-        console.log(node);
+        //console.log("onEnter");
+        //console.log(node);
         // if (node === document.getElementsByClassName('SingleProject')[0]) {
         //     gsap.set(node, {
         //         opacity: 0,
@@ -31,15 +31,15 @@ const Routing = () => {
     };
 
     const onExitHandler = (node) => {
-        console.log("onExit");
-        console.log(node);
+        //console.log("onExit");
+        //console.log(node);
 
         if (node === document.getElementsByClassName('Home')[0] && node.querySelector(".Projects-promote-card.selected")) {
             let projectCard = node.querySelector(".Projects-promote-card.selected");
-            console.log(projectCard)
+            //console.log(projectCard)
             if (projectCard.querySelectorAll(".Projects-promote-card--img").length > 0) {
-                console.log("isImage")
-                console.log("projectCard.querySelectorAll(\".Projects-promote-card--img\").length > 0", projectCard.querySelectorAll(".Projects-promote-card--img").length > 0)
+                //console.log("isImage")
+                //console.log("projectCard.querySelectorAll(\".Projects-promote-card--img\").length > 0", projectCard.querySelectorAll(".Projects-promote-card--img").length > 0)
                 let elementsToHide = document.body.querySelectorAll(":not(.Projects-promote-card--img)");
                 elementsToHide.forEach(element => {
                     if (!element.contains(projectCard) && !element.classList.contains('Projects-promote-card--img')) {
@@ -59,12 +59,12 @@ const Routing = () => {
                     }
                 });
             } else if (projectCard.querySelectorAll(".Projects-promote-card--video--source").length > 0) {
-                console.log("projectCard", projectCard)
-                console.log("isVideo")
+                //console.log("projectCard", projectCard)
+                //console.log("isVideo")
 
                 let elementsToHide = document.body.querySelectorAll(":not(.Projects-promote-card--video--source)");
                 elementsToHide.forEach(element => {
-                    console.log("element", element)
+                    //console.log("element", element)
                     if (!element.contains(projectCard) && !element.classList.contains('Projects-promote-card--video') && !element.classList.contains('Projects-promote-card--video--source')) {
                         if (element.classList.contains('home') || element.closest('.Home')) {
                             gsap.killTweensOf(element);
@@ -105,14 +105,14 @@ const Routing = () => {
                     projectCard.classList.add('transitioning');
                     if (projectCard.querySelector(".Projects-promote-card--img")) {
                         let image = projectCard.querySelector(".Projects-promote-card--img")
-                        console.log("isImage", image)
+                        //console.log("isImage", image)
 
                         if (document.querySelector(".SingleProject-banner--img")) {
                             document.querySelector(".SingleProject-banner--img").src = image.src
                         }
                     } else if (projectCard.querySelector(".Projects-promote-card--video") && projectCard.querySelector(".Projects-promote-card--video--source")) {
                         let video = projectCard.querySelector(".Projects-promote-card--video--source")
-                        console.log("isVideo", video)
+                        //console.log("isVideo", video)
 
                         if (document.querySelector(".SingleProject-banner--video") && document.querySelector(".SingleProject-banner--video--source")) {
                             document.querySelector(".SingleProject-banner--video--source").src = video.src

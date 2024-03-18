@@ -10,7 +10,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
 
     useLayoutEffect(() => {
         let elements = document.querySelectorAll('.Projects-promote-card');
-        // console.log(elements);
+        // //console.log(elements);
         for (let element of elements) {
             element.addEventListener('click', function () {
                 if (!element.classList.contains('selected')) {
@@ -22,16 +22,16 @@ const ProjectPromoteView = ({index, project, manager}) => {
 
     }, []);
     useEffect(() => {
-        // console.log(project)
+        // //console.log(project)
         manager
             .getUrlOfImage(project.header_image)
             .then((url) => {
                 if (url) {
-                    //console.log("URL de l'image:", url);
+                    ////console.log("URL de l'image:", url);
                     setImageUrl(url);
                     setMediaType(getMediaType(url));
                 } else {
-                    //console.log("L'image n'existe pas ou une erreur s'est produite.");
+                    ////console.log("L'image n'existe pas ou une erreur s'est produite.");
                 }
             })
             .catch((error) => console.error("Erreur générale:", error));
@@ -46,8 +46,8 @@ const ProjectPromoteView = ({index, project, manager}) => {
             const extension = extensionMatch[1].toLowerCase();
 
             // Logging for debugging purposes
-            console.log('Extension:', extension);
-            console.log('Original URL:', url);
+            //console.log('Extension:', extension);
+            //console.log('Original URL:', url);
 
             // Checking if the extension corresponds to a video format
             if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {

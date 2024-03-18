@@ -32,7 +32,7 @@ const Home = () => {
         setAssetsUrl(assetsUrl => ({
             ...assetsUrl, [name]: url,
         }));
-        //console.log(assetsUrl)
+        ////console.log(assetsUrl)
     };
 
     useEffect(() => {
@@ -45,11 +45,11 @@ const Home = () => {
                         return projectManager.getUrlOfImage(assetPath)
                             .then((url) => {
                                 if (url) {
-                                    //console.log("URL de l'asset:" + name, url);
+                                    ////console.log("URL de l'asset:" + name, url);
                                     addAssetUrl(name, url);
                                     return {name, url}; // Return the result for Promise.all
                                 } else {
-                                    //console.log("L'image n'existe pas ou une erreur s'est produite.");
+                                    ////console.log("L'image n'existe pas ou une erreur s'est produite.");
                                     return null; // Return null for failed promises
                                 }
                             })
@@ -167,7 +167,7 @@ const Home = () => {
             for (let i = 0; i < containers.length; i++) {
 
                 container = document.getElementsByClassName(containers[i] + "-headline")[0].closest("section").classList[0]
-                // console.log(document.getElementsByClassName(containers[i] + "-headline")[0].classList.contains('disable'))
+                // //console.log(document.getElementsByClassName(containers[i] + "-headline")[0].classList.contains('disable'))
                 gsap.to("." + container + "-headline", {
                     filter: "blur(32px)",
                     scrollTrigger: {
@@ -182,7 +182,7 @@ const Home = () => {
                     onCompleteParams: [containers, overlay, container, overlayLowerItems],
                     onStartParams: [containers, overlay, container, overlayLowerItems],
                     onStart: (containers, overlay, container, overlayLowerItems) => {
-                        // console.log("onStart",container)
+                        // //console.log("onStart",container)
 
                         if (overlay.classList.contains("hidden")) {
                             overlay.classList.remove("hidden")
@@ -215,7 +215,7 @@ const Home = () => {
                         }
                     },
                     onReverseComplete: (containers, overlay, container, overlayLowerItems) => {
-                        // console.log("onReverseComplete",container)
+                        // //console.log("onReverseComplete",container)
 
                         if (!overlay.classList.contains("hidden")) {
                             if (container === containers[0]) {
@@ -260,7 +260,7 @@ const Home = () => {
         }
     }, [isPageReady]);
     useEffect(() => {
-        //console.log("assetsUrl ", assetsUrl)
+        ////console.log("assetsUrl ", assetsUrl)
     }, [assetsUrl]);
 
 

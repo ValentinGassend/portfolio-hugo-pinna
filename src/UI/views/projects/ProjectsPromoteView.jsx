@@ -1,7 +1,7 @@
 import ProjectPromoteView from "./ProjectPromoteView.jsx";
 
 const ProjectsPromoteView = ({projectsPromoted, manager}) => {
-    console.log(projectsPromoted)
+    //console.log(projectsPromoted)
 
     return (<div className={`Projects-promote EnterSmoothScroll`}  style={{ '--PromotedProjectLength': projectsPromoted.length }}>
         {projectsPromoted.map((project, index) => (

@@ -14,14 +14,14 @@ const GalleryContentView = ({galleryData}) => {
             let newNumberOfItems = 0;
             const newUrls = [];
 
-            // console.log(galleryData)
+            // //console.log(galleryData)
             galleryData.forEach(item => {
-                // console.log(item)
+                // //console.log(item)
 
                 if (item.url_home_visual) {
                     newUrls.push(item.url_home_visual);
                     newNumberOfItems++;
-                    // console.log(newNumberOfItems)
+                    // //console.log(newNumberOfItems)
                 }
             });
 

@@ -9,7 +9,7 @@ const PanelsContainer = ({isPageReady}) => {
     const scrollTween = useRef(null);
     const main = useRef(null); // Assuming you have a ref for the main container
     const [isScrollDisabled, setIsScrollDisable] = useState(false); // Variable to track whether scrolling is disabled
-    const [isTrackPad, setIsTrackPad] = useState(undefined);
+    const [isTrackPad, setIsTrackPad] = useState(null);
     const [isTrackPadDefined, setIsTrackPadDefined] = useState(false);
     const [panels, setPanels] = useState([]);
 
@@ -62,7 +62,7 @@ const PanelsContainer = ({isPageReady}) => {
             window.removeEventListener('keydown', preventDefaultForScrollKeys, {passive: false});
         }
 
-        // console.log("isScrollDisabled", isScrollDisabled)
+        // //console.log("isScrollDisabled", isScrollDisabled)
         if (document.getElementsByClassName("PanelsContainer").length > 0) {
             let nextElm, currentElm, scrollX, scrollY, newX, newY, nextTarget, currentTarget;
             /* stash current Window Scroll */
@@ -74,7 +74,7 @@ const PanelsContainer = ({isPageReady}) => {
             newX = 0 - window.pageXOffset;
             newY = snapTriggers.current[i].trigger.offsetTop - window.pageYOffset;
             /* grab the element */
-            console.log("window", window)
+            //console.log("window", window)
             nextElm = document.elementFromPoint(newX, newY);
             /* revert to the previous scroll location */
             window.scrollTo(scrollX, scrollY);
@@ -155,7 +155,7 @@ const PanelsContainer = ({isPageReady}) => {
                                 onUpdate: () => disableScroll(),
 
                                 onComplete: () => {
-                                    // console.log(document.getElementsByClassName("PanelsContainer"))
+                                    // //console.log(document.getElementsByClassName("PanelsContainer"))
                                     if (document.getElementsByClassName("PanelsContainer").length <= 0) {
 
                                         snapTriggers.current = null
@@ -182,7 +182,7 @@ const PanelsContainer = ({isPageReady}) => {
                                 onUpdate: () => disableScroll(),
 
                                 onComplete: () => {
-                                    // console.log(document.getElementsByClassName("PanelsContainer"))
+                                    // //console.log(document.getElementsByClassName("PanelsContainer"))
                                     if (document.getElementsByClassName("PanelsContainer").length <= 0) {
 
                                         snapTriggers.current = null
@@ -235,23 +235,16 @@ const PanelsContainer = ({isPageReady}) => {
         const refreshScrollTriggers = () => {
             scrollStarts = snapTriggers.current.map(trigger => trigger.start);
             snapScroll = ScrollTrigger.snapDirectional(scrollStarts);
-            // console.log(snapTriggers.current)
+            // //console.log(snapTriggers.current)
         };
         const resetDetection = () => {
-            // oldTime = 0;
-            // newTime = 0;
-            // setIsTrackPad(undefined);
-            // setIsTrackPadDefined(false);
-            // eventCount = 0;
-            // eventCountStart = undefined;
         };
-        const detectTrackpad = evt => {
+        const detectTrackpad = () => {
             // let isTrackPadDefined = isTrackPad || typeof isTrackPad !== "undefined";
-            console.log("isTrackPad", isTrackPad)
+            //console.log("isTrackPad", isTrackPad)
 
-            console.log(isTrackPad !== undefined)
-            console.log(isTrackPad)
-            if (isTrackPad !== undefined) return;
+            //console.log(isTrackPad !== undefined)
+            //console.log(isTrackPad)
             if (isTrackPadDefined) return;
 
             if (eventCount === 0) {
@@ -259,21 +252,21 @@ const PanelsContainer = ({isPageReady}) => {
             }
 
             eventCount++;
-            console.log("performance.now()", performance.now())
-            console.log("eventCountStart", eventCountStart)
-            console.log("performance.now() - eventCountStart", performance.now() - eventCountStart)
-            console.log("performance.now() - eventCountStart > 66", performance.now() - eventCountStart > 66)
+            //console.log("performance.now()", performance.now())
+            //console.log("eventCountStart", eventCountStart)
+            //console.log("performance.now() - eventCountStart", performance.now() - eventCountStart)
+            //console.log("performance.now() - eventCountStart > 66", performance.now() - eventCountStart > 66)
             if (performance.now() - eventCountStart > 66) {
                 if (eventCount > 5) {
                     setIsTrackPad(true);
                     setIsTrackPadDefined(true)
 
-                    console.log("Using trackpad");
+                    //console.log("Using trackpad");
                 } else {
                     setIsTrackPad(false);
                     setIsTrackPadDefined(true)
 
-                    console.log("Using mouse");
+                    //console.log("Using mouse");
                 }
                 setTimeout(resetDetection, 2000);
             }
@@ -281,27 +274,32 @@ const PanelsContainer = ({isPageReady}) => {
 
         };
         const handleScroll = self => {
-            detectTrackpad(self)
-
-
-            // if (Math.abs(self.deltaY) !== 1 && Math.abs(self.deltaY) !== 100) return;
-
-            // if it's trackpad && Math.abs(self.deltaY) !== 1 return;
-            const scrollY = self.scrollY();
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.body.scrollHeight;
-            const bottomOffset = documentHeight - (scrollY + windowHeight);
-            const deltaY = self.deltaY;
-            const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
-            if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
-                goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
-            } else if (bottomOffset <= 0 && deltaY > 0) {
-                // Bottom of the window hits the bottom of the website
-                goToSection(0, true, deltaY); // Go to the first panel
+            if (isTrackPad === null) {
+                detectTrackpad(self)
             } else {
-                if (isTrackPad && Math.abs(self.deltaY) !== 1) return;
+                console.log(self)
+                console.log(self.deltaY)
+                console.log(isTrackPad)
+                console.log("(isTrackPad && Math.abs(self.deltaY) !== 1)", (isTrackPad && Math.abs(self.deltaY) !== 1))
 
-                goToSection(scrollStarts.indexOf(scroll), false, deltaY);
+                // if (Math.abs(self.deltaY) !== 1 && Math.abs(self.deltaY) !== 100) return;
+
+                // if it's trackpad && Math.abs(self.deltaY) !== 1 return;
+                const scrollY = self.scrollY();
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.body.scrollHeight;
+                const bottomOffset = documentHeight - (scrollY + windowHeight);
+                const deltaY = self.deltaY;
+                const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
+                if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
+                    goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
+                } else if (bottomOffset <= 0 && deltaY > 0) {
+                    // Bottom of the window hits the bottom of the website
+                    goToSection(0, true, deltaY); // Go to the first panel
+                } else {
+                    if (isTrackPad && Math.abs(self.deltaY) !== 1) return;
+                    goToSection(scrollStarts.indexOf(scroll), false, deltaY);
+                }
             }
             // }
 
