@@ -9,7 +9,7 @@ const PanelsContainer = ({isPageReady}) => {
     const scrollTween = useRef(null);
     const main = useRef(null); // Assuming you have a ref for the main container
     const [isScrollDisabled, setIsScrollDisable] = useState(false); // Variable to track whether scrolling is disabled
-
+    const [isTrackPad, setIsTrackPad] = useState(false);
     const [panels, setPanels] = useState([]);
 
     const goToSection = (i, force, direction) => {
@@ -69,6 +69,7 @@ const PanelsContainer = ({isPageReady}) => {
             newX = 0 - window.pageXOffset;
             newY = snapTriggers.current[i].trigger.offsetTop - window.pageYOffset;
             /* grab the element */
+            console.log("window", window)
             nextElm = document.elementFromPoint(newX, newY);
             /* revert to the previous scroll location */
             window.scrollTo(scrollX, scrollY);
@@ -232,10 +233,40 @@ const PanelsContainer = ({isPageReady}) => {
             // console.log(snapTriggers.current)
         };
 
+        const detectTrackpad = evt => {
+            let eventCount=0
+            let oldTime = undefined
+            let newTime = undefined
+            const now = performance.now();
+
+            if (!isTrackPad) {
+                if (now - newTime > 66) {
+                    let eventCount = 0;
+                }
+
+                eventCount++;
+                newTime = now;
+
+                if (eventCount === 1) {
+                    oldTime = now;
+                }
+
+                if (now - oldTime < 33) {
+                    setIsTrackPad(true);
+                    console.log("Using trackpad");
+                } else if (eventCount > 5) {
+                    setIsTrackPad(false);
+                    console.log("Using mouse");
+                }
+            }
+        };
         const handleScroll = self => {
+            detectTrackpad(self)
 
-            if (self.deltaY !== 1 && self.deltaY !== -1 && self.deltaY !== 100 && self.deltaY !== -100) return;
 
+            // if (Math.abs(self.deltaY) !== 1 && Math.abs(self.deltaY) !== 100) return;
+
+            // if it's trackpad && Math.abs(self.deltaY) !== 1 return;
             const scrollY = self.scrollY();
             const windowHeight = window.innerHeight;
             const documentHeight = document.body.scrollHeight;
@@ -248,6 +279,7 @@ const PanelsContainer = ({isPageReady}) => {
                 // Bottom of the window hits the bottom of the website
                 goToSection(0, true, deltaY); // Go to the first panel
             } else {
+                if (isTrackPad && Math.abs(self.deltaY) !== 1) return;
 
                 goToSection(scrollStarts.indexOf(scroll), false, deltaY);
             }
