@@ -44,11 +44,10 @@ const GalleryContentView = ({galleryData}) => {
                 const deltaX = e.clientX - centerX;
                 const deltaY = e.clientY - centerY;
 
-                const angleX = -deltaY * 0.02;
-                const shadowPX = -deltaX * 0.02;
-                const angleY = deltaX * 0.02;
-                const shadowPY = -deltaY * 0.02;
-
+                const angleX = Math.min(Math.max(-deltaY * 0.02, -24), 24);
+                const shadowPX = Math.min(Math.max(-deltaX * 0.02, -24), 24);
+                const angleY = Math.min(Math.max(deltaX * 0.02, -24), 24);
+                const shadowPY = Math.min(Math.max(-deltaY * 0.02, -24), 24);
                 item.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
                 item.style.boxShadow = `${shadowPX}px ${shadowPY}px 24px rgba(0,0,0,0.12)`;
             });
