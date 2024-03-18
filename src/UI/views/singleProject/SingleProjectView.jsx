@@ -132,7 +132,7 @@ const SingleProjectView = (props) => {
                      alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
             ) : (
                 <video className={`SingleProject-banner--video`} autoPlay loop muted>
-                <source src={`${imageUrl}`} type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`} />
+                <source className={`SingleProject-banner--video--source`} src={`${imageUrl}`} type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`} />
                 Your browser does not support the video tag.
                 </video>
             )}

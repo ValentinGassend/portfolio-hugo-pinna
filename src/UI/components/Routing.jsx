@@ -37,24 +37,51 @@ const Routing = () => {
         if (node === document.getElementsByClassName('Home')[0] && node.querySelector(".Projects-promote-card.selected")) {
             let projectCard = node.querySelector(".Projects-promote-card.selected");
             console.log(projectCard)
-            let elementsToHide = document.body.querySelectorAll(":not(.Projects-promote-card--img)");
-            elementsToHide.forEach(element => {
-                if (!element.contains(projectCard) && !element.classList.contains('Projects-promote-card--img')) {
-                    if (element.classList.contains('home') || element.closest('.Home')) {
-                        gsap.killTweensOf(element);
-                        gsap.set(element, {
-                            opacity: 1,
-                        });
-                        gsap.to(element, {
-                            duration: 1, opacity: 0, onCompleteParams: [node], onComplete: (node) => {
-                                gsap.killTweensOf(node);
-                                gsap.killTweensOf(window);
-                                gsap.killTweensOf(document);
-                            }
-                        });
+            if (projectCard.querySelectorAll(".Projects-promote-card--img").length > 0) {
+                console.log("isImage")
+                console.log("projectCard.querySelectorAll(\".Projects-promote-card--img\").length > 0", projectCard.querySelectorAll(".Projects-promote-card--img").length > 0)
+                let elementsToHide = document.body.querySelectorAll(":not(.Projects-promote-card--img)");
+                elementsToHide.forEach(element => {
+                    if (!element.contains(projectCard) && !element.classList.contains('Projects-promote-card--img')) {
+                        if (element.classList.contains('home') || element.closest('.Home')) {
+                            gsap.killTweensOf(element);
+                            gsap.set(element, {
+                                opacity: 1,
+                            });
+                            gsap.to(element, {
+                                duration: 1, opacity: 0, onCompleteParams: [node], onComplete: (node) => {
+                                    gsap.killTweensOf(node);
+                                    gsap.killTweensOf(window);
+                                    gsap.killTweensOf(document);
+                                }
+                            });
+                        }
                     }
-                }
-            });
+                });
+            } else if (projectCard.querySelectorAll(".Projects-promote-card--video--source").length > 0) {
+                console.log("projectCard", projectCard)
+                console.log("isVideo")
+
+                let elementsToHide = document.body.querySelectorAll(":not(.Projects-promote-card--video--source)");
+                elementsToHide.forEach(element => {
+                    console.log("element", element)
+                    if (!element.contains(projectCard) && !element.classList.contains('Projects-promote-card--video') && !element.classList.contains('Projects-promote-card--video--source')) {
+                        if (element.classList.contains('home') || element.closest('.Home')) {
+                            gsap.killTweensOf(element);
+                            gsap.set(element, {
+                                opacity: 1,
+                            });
+                            gsap.to(element, {
+                                duration: 1, opacity: 0, onCompleteParams: [node], onComplete: (node) => {
+                                    gsap.killTweensOf(node);
+                                    gsap.killTweensOf(window);
+                                    gsap.killTweensOf(document);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
             // Set initial position and styles
             // Create the animation for the incoming component
             // gsap.to(node, {
@@ -76,9 +103,20 @@ const Routing = () => {
                 onStartParams: [projectCard],
                 onStart: function () {
                     projectCard.classList.add('transitioning');
-                    let image = projectCard.querySelector(".Projects-promote-card--img")
-                    if (document.querySelector(".SingleProject-banner--img")) {
-                        document.querySelector(".SingleProject-banner--img").src = image.src
+                    if (projectCard.querySelector(".Projects-promote-card--img")) {
+                        let image = projectCard.querySelector(".Projects-promote-card--img")
+                        console.log("isImage", image)
+
+                        if (document.querySelector(".SingleProject-banner--img")) {
+                            document.querySelector(".SingleProject-banner--img").src = image.src
+                        }
+                    } else if (projectCard.querySelector(".Projects-promote-card--video") && projectCard.querySelector(".Projects-promote-card--video--source")) {
+                        let video = projectCard.querySelector(".Projects-promote-card--video--source")
+                        console.log("isVideo", video)
+
+                        if (document.querySelector(".SingleProject-banner--video") && document.querySelector(".SingleProject-banner--video--source")) {
+                            document.querySelector(".SingleProject-banner--video--source").src = video.src
+                        }
                     }
                 },
                 onComplete: () => {
@@ -90,6 +128,11 @@ const Routing = () => {
                         });
                         // jouer sur l'opacity en arrivé quand le get à la BDD est bon
                         //     attendre ça :
+
+                        gsap.set(document.getElementsByClassName('SingleProject-banner')[0], {
+                            opacity: 1
+                        });
+
                         gsap.to(document.getElementsByClassName('SingleProject-content')[0], {
                             duration: 1, opacity: 1
                         });

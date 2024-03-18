@@ -61,12 +61,12 @@ const ProjectPromoteView = ({index, project, manager}) => {
         }
     };
     return (<div className={"Projects-promote-item"}>
-        <Link refresh="true" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
+        <Link refresh="false" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
             {mediaType === 'image' ? (
                 <img className={`Projects-promote-card--img`} src={`${imageUrl}`} alt={`Illustration of ${project.name}`} />
             ) : (
                 <video className={`Projects-promote-card--video`} autoPlay loop muted>
-                    <source src={`${imageUrl}`} type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`} />
+                    <source className={`Projects-promote-card--video--source`} src={`${imageUrl}`} type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`} />
                     Your browser does not support the video tag.
                 </video>
             )}
