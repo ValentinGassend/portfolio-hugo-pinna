@@ -23,5 +23,17 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    @include media("<=extra-large") {
+      font-size: 36px;
+      margin: 0 100px;
+
+    }
+
+    @include media("<=medium") {
+      font-size: 24px;
+      margin: 0 18px;
+
+    }
   }
 }

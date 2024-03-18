@@ -23,6 +23,15 @@
         font-family: $ff_2;
         font-weight: bold;
         font-size: 148px;
+        @include media("<=extra-large") {
+            font-size: 96px;
+
+        }
+
+        @include media("<=medium") {
+            font-size: 48px;
+
+        }
         font-style: italic;
         width: fit-content;
 

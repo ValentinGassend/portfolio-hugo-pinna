@@ -1,3 +1,6 @@
+@import "vendor/normalize";
+@import "vendor/include-media";
+
 @import "abstract/placeholders.scss";
 @import "abstract/variables.scss";
 
@@ -6,15 +9,15 @@
 @import "base/typography.scss";
 @import "base/animation.scss";
 
+
+@import "layout/footer.scss";
+@import "layout/header.scss";
+
 @import "ui/components/overlay.scss";
 @import "ui/components/transition.scss";
 @import "ui/components/button.scss";
 @import "ui/components/link.scss";
 @import "ui/components/partTitle.scss";
-
-@import "layout/footer.scss";
-@import "layout/header.scss";
-
 @import "ui/views/home/home";
 @import "ui/views/singleProject/singleProject";
 @import "ui/views/galleryPage/galleryPage";

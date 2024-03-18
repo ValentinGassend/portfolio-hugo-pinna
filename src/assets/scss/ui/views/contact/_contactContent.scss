@@ -10,6 +10,15 @@
     align-items: center;
     justify-content: space-between;
     grid-column-gap: 46px;
+    @include media("<=extra-large") {
+      padding: 0 64px;
+
+    }
+
+    @include media("<=medium") {
+      padding: 0 18px;
+
+    }
     //align-content: center;
     &-wrapper {
       padding: 21px;
@@ -42,6 +51,15 @@
             font-weight: 500;
             text-transform: uppercase;
             width: max-content;
+            @include media("<=extra-large") {
+              font-size: 36px;
+
+            }
+
+            @include media("<=medium") {
+              font-size: 24px;
+
+            }
           }
 
           &--email, &--social {
@@ -53,6 +71,15 @@
             font-style: italic;
             padding: 0 calc(58px - 21px) calc(31px - 21px);
             text-decoration: none;
+            @include media("<=extra-large") {
+              font-size: 36px;
+
+            }
+
+            @include media("<=medium") {
+              font-size: 24px;
+
+            }
           }
         }
 
@@ -74,6 +101,15 @@
           font-style: italic;
           font-weight: 700;
           text-transform: uppercase;
+          @include media("<=extra-large") {
+            font-size: 148px;
+
+          }
+
+          @include media("<=medium") {
+            font-size: 60px;
+
+          }
         }
       }
     }

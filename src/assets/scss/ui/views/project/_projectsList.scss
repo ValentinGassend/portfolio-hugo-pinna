@@ -1,0 +1,30 @@
+&-list {
+    display: grid;
+    grid-template-columns: 100% 1fr 100%;
+    grid-column-gap: 46px;
+    grid-row-gap: 12px;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100vh;
+    &--separator {
+        height: 100%;
+        width: 2px;
+        background-color: $color_primary;
+    }
+
+    &-project {
+        width: 100%;
+
+        &--title {
+            color: $color_primary;
+            font-size: 40px;
+            font-family: $ff_1;
+            font-weight: 500;
+            text-decoration: none;
+        }
+    }
+
+}
