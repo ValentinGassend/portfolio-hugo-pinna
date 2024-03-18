@@ -9,9 +9,14 @@ const PanelsContainer = ({isPageReady}) => {
     const scrollTween = useRef(null);
     const main = useRef(null); // Assuming you have a ref for the main container
     const [isScrollDisabled, setIsScrollDisable] = useState(false); // Variable to track whether scrolling is disabled
-    const [isTrackPad, setIsTrackPad] = useState(false);
+    const [isTrackPad, setIsTrackPad] = useState(undefined);
+    const [isTrackPadDefined, setIsTrackPadDefined] = useState(false);
     const [panels, setPanels] = useState([]);
 
+    let oldTime = 0;
+    let newTime = 0;
+    let eventCount = 0;
+    let eventCountStart = undefined;
     const goToSection = (i, force, direction) => {
 
         var supportsPassive = false;
@@ -232,33 +237,48 @@ const PanelsContainer = ({isPageReady}) => {
             snapScroll = ScrollTrigger.snapDirectional(scrollStarts);
             // console.log(snapTriggers.current)
         };
-
+        const resetDetection = () => {
+            // oldTime = 0;
+            // newTime = 0;
+            // setIsTrackPad(undefined);
+            // setIsTrackPadDefined(false);
+            // eventCount = 0;
+            // eventCountStart = undefined;
+        };
         const detectTrackpad = evt => {
-            let eventCount=0
-            let oldTime = undefined
-            let newTime = undefined
-            const now = performance.now();
+            // let isTrackPadDefined = isTrackPad || typeof isTrackPad !== "undefined";
+            console.log("isTrackPad", isTrackPad)
 
-            if (!isTrackPad) {
-                if (now - newTime > 66) {
-                    let eventCount = 0;
-                }
+            console.log(isTrackPad !== undefined)
+            console.log(isTrackPad)
+            if (isTrackPad !== undefined) return;
+            if (isTrackPadDefined) return;
 
-                eventCount++;
-                newTime = now;
+            if (eventCount === 0) {
+                eventCountStart = performance.now();
+            }
 
-                if (eventCount === 1) {
-                    oldTime = now;
-                }
-
-                if (now - oldTime < 33) {
+            eventCount++;
+            console.log("performance.now()", performance.now())
+            console.log("eventCountStart", eventCountStart)
+            console.log("performance.now() - eventCountStart", performance.now() - eventCountStart)
+            console.log("performance.now() - eventCountStart > 66", performance.now() - eventCountStart > 66)
+            if (performance.now() - eventCountStart > 66) {
+                if (eventCount > 5) {
                     setIsTrackPad(true);
+                    setIsTrackPadDefined(true)
+
                     console.log("Using trackpad");
-                } else if (eventCount > 5) {
+                } else {
                     setIsTrackPad(false);
+                    setIsTrackPadDefined(true)
+
                     console.log("Using mouse");
                 }
+                setTimeout(resetDetection, 2000);
             }
+
+
         };
         const handleScroll = self => {
             detectTrackpad(self)
@@ -293,10 +313,11 @@ const PanelsContainer = ({isPageReady}) => {
         });
         ScrollTrigger.refresh();
 
+
         return () => {
             ScrollTrigger.removeEventListener("refresh", refreshScrollTriggers);
         };
-    }, [isPageReady, panels, isScrollDisabled]);
+    }, [isPageReady, panels, isScrollDisabled, isTrackPadDefined]);
 
     return (<> {isPageReady ? <div className="PanelsContainer">{panels}</div> : null}</>)
 }
