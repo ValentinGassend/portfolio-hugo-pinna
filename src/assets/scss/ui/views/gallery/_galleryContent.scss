@@ -1,79 +1,81 @@
 .Gallery-content {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  display: grid;
-  align-items: end;
-  justify-content: center;
-  justify-items: center;
-
-  &-scroll {
+    width: 100%;
+    height: 100vh;
     position: absolute;
-    bottom: 72px;
+    top: 0;
     display: grid;
-    width: fit-content;
-    &--link {
-      @extend .PrimaryLink;
-    }
-  }
-
-  &-cards {
-    z-index: -1;
-    display: grid;
-    column-gap: 16px;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 0.33fr));
-    align-items: center;
-    align-content: center;
+    align-items: end;
     justify-content: center;
     justify-items: center;
-    margin: auto;
 
-    &-column {
-      position: relative;
-      display: grid;
-      row-gap: 16px;
-      grid-auto-flow: row;
+    &-scroll {
+        position: absolute;
+        bottom: 72px;
+        display: grid;
+        width: fit-content;
 
-      width: fit-content;
-      height: fit-content;
-      transform: skewX(-12deg);
-      &--item {
-        position: relative;
-        filter: blur(8px);
-        aspect-ratio: 244/332;
-
-        //transition: transform 300ms linear,box-shadow 300ms linear;
-        &-img {
-          content: var(--url);
-          position: relative;
-          display: block;
-          width: 100%;
-          height: 100%;
-          aspect-ratio: 244/332;
-          max-height: 250px;
-          object-fit: cover;
+        &--link {
+            @extend .PrimaryLink;
         }
+    }
 
-        &-overlay {
-          content: "";
-          display: block;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: $color_primary;
-          opacity: 0.16;
-          mix-blend-mode: multiply; /* Blending mode to blend with the image */
+    &-cards {
+        z-index: -1;
+        display: grid;
+        column-gap: 16px;
+        grid-auto-flow: column;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 0.33fr));
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        justify-items: center;
+        margin: auto;
+
+        &-column {
+            position: relative;
+            display: grid;
+            row-gap: 16px;
+            grid-auto-flow: row;
+
+            width: fit-content;
+            height: fit-content;
+            transform: skewX(-12deg);
+
+            &--item {
+                position: relative;
+                filter: blur(8px);
+                aspect-ratio: 244/332;
+                max-height: calc(100vh / 4);
+                //transition: transform 300ms linear,box-shadow 300ms linear;
+                &-img {
+                    content: var(--url);
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    aspect-ratio: 244/332;
+                    max-height: 250px;
+                    object-fit: cover;
+                }
+
+                &-overlay {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: $color_primary;
+                    opacity: 0.16;
+                    mix-blend-mode: multiply; /* Blending mode to blend with the image */
+                }
+            }
+
+
         }
-      }
 
 
     }
-
-
-  }
 }
 
