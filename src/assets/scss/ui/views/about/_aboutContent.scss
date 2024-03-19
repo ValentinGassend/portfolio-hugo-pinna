@@ -9,10 +9,18 @@
   justify-content: center;
   row-gap: 60px;
 
+  @include media("<=small") {
+    row-gap: 48px;
+  }
   &--img {
     width: 300px;
     aspect-ratio: 1;
     object-fit: contain;
+    @include media("<=small") {
+      max-width: 182px;
+      object-fit: cover;
+
+    }
   }
 
   &--text {

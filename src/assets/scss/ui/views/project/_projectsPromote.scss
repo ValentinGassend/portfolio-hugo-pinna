@@ -19,6 +19,7 @@
             margin: 0;
 
         }
+
     }
     &-card {
         margin: auto;
@@ -32,6 +33,11 @@
         aspect-ratio: 1324/554;
         cursor: pointer;
         text-decoration: none;
+
+        @include media("<=small") {
+            height: 100%;
+            align-items: flex-end;
+        }
         //transition: height 1s ease-out;
         &:after {
             z-index: 5;
@@ -83,6 +89,9 @@
             text-align: center;
             z-index: 10;
 
+            @include media("<=small") {
+                margin-bottom: 140px;
+            }
 
             &--date, &--type {
                 color: $color_primary;
@@ -119,7 +128,12 @@
                 }
 
                 @include media("<=medium") {
-                    font-size: 20px;
+                    font-size: 64px;
+
+                }
+
+                @include media("<=small") {
+                    font-size: 48px;
 
                 }
             }
