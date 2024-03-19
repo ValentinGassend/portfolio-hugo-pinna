@@ -283,8 +283,6 @@
 
                 display: flex;
                 align-items: center;
-                justify-content: flex-end;
-
                 @include media("<=small") {
                     justify-content: flex-end;
                     transform: translateY(-100%);
