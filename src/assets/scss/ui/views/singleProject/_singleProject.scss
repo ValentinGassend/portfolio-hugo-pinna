@@ -1,175 +1,179 @@
 .SingleProject {
-  position: relative;
-  height: fit-content;
-  overflow: hidden;
-
-
-  &.isPageReady .SingleProject {
-    &-banner {
-      opacity: 1;
-
-    }
-
-    &-content {
-      opacity: 1;
-
-    }
-
-  }
-
-  &.isNotPageReady .SingleProject {
-    overflow: hidden;
-    height: 100vh;
-
-    &-banner {
-      opacity: 0;
-
-    }
-
-    &-content {
-      opacity: 0;
-
-    }
-  }
-
-  &-banner {
     position: relative;
-    width: 100%;
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    opacity: 1;
-
-    &--img, &--video {
-      position: relative;
-      top: 0;
-      width: 100vw;
-
-      height: fit-content;
-      object-fit: cover;
-    }
-
-    &-header {
-      position: absolute;
-      top: 0;
-    }
-  }
-
-  &-content {
-    position: relative;
-    margin: 0 32px;
-    width: 100%;
     height: fit-content;
-    display: flex;
-    flex-direction: column;
-    transition: opacity 300ms ease-out;
+    overflow: hidden;
 
-    &-wrapper {
+
+    &.isPageReady .SingleProject {
+        &-banner {
+            opacity: 1;
+
+        }
+
+        &-content {
+            opacity: 1;
+
+        }
 
     }
 
-    &-data {
-      margin-top: 16px;
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      height: fit-content;
+    &.isNotPageReady .SingleProject {
+        overflow: hidden;
+        height: 100vh;
 
-      &-item {
-        text-align: left;
+        &-banner {
+            opacity: 0;
+
+        }
+
+        &-content {
+            opacity: 0;
+
+        }
+    }
+
+    &-banner {
         position: relative;
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        opacity: 1;
+        @include media("<=small") {
+            height: fit-content;
+
+        }
+
+        &--img, &--video {
+            position: relative;
+            top: 0;
+            width: 100vw;
+
+            height: fit-content;
+            object-fit: cover;
+        }
+
+        &-header {
+            position: absolute;
+            top: 0;
+        }
+    }
+
+    &-content {
+        position: relative;
+        margin: 0 32px;
+        width: 100%;
         height: fit-content;
+        display: flex;
+        flex-direction: column;
+        transition: opacity 300ms ease-out;
 
-        &:last-child {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          text-align: right;
-          height: 0;
-          right: 64px;
+        &-wrapper {
 
         }
 
-        &--name, &--date, &--client, &--type, &--tag {
-          font-size: 24px;
-          font-weight: 400;
-          color: $color_primary;
-          font-family: $ff_1;
-          font-style: italic;
+        &-data {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            height: fit-content;
+
+            &-item {
+                text-align: left;
+                position: relative;
+                height: fit-content;
+
+                &:last-child {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    text-align: right;
+                    height: 0;
+                    right: 64px;
+
+                }
+
+                &--name, &--date, &--client, &--type, &--tag {
+                    font-size: 24px;
+                    font-weight: 400;
+                    color: $color_primary;
+                    font-family: $ff_1;
+                    font-style: italic;
+                }
+
+                &--name {
+                    text-transform: uppercase;
+                    font-size: 48px;
+                    font-family: $ff_2;
+                    font-weight: 700;
+                }
+
+                &--date {
+                    font-family: $ff_2;
+                    font-weight: 700;
+                }
+            }
         }
 
-        &--name {
-          text-transform: uppercase;
-          font-size: 48px;
-          font-family: $ff_2;
-          font-weight: 700;
+        &-info {
+            margin-top: 24px;
+
+            &--title {
+                max-width: 55vw;
+                font-size: 20px;
+                font-weight: 600;
+                color: $color_primary;
+                font-family: $ff_1;
+                text-transform: uppercase;
+                white-space: pre-line;
+            }
+
+            &--description {
+                padding-top: 16px;
+                max-width: 50vw;
+                font-size: 20px;
+                font-weight: 400;
+                color: $color_primary;
+                font-family: $ff_1;
+                white-space: pre-line;
+            }
+        }
+    }
+
+    &-slider {
+        padding: 56px 0 32px;
+        height: calc(50vh + 56px + 32px);
+
+        &-container {
+            height: 100%;
+            display: grid;
+            grid-auto-flow: column;
+            grid-column-gap: 16px;
+            width: fit-content;
+            object-fit: contain;
+            grid-template-rows: 100%;
+            height: calc(50vh + 56px + 32px);
+
+
         }
 
-        &--date {
-          font-family: $ff_2;
-          font-weight: 700;
+        &-slide {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+
+            &:last-child {
+                margin-right: 32px;
+            }
+
+            &--img, &--video {
+
+                height: 100%;
+                width: auto;
+            }
         }
-      }
     }
-
-    &-info {
-      margin-top: 24px;
-
-      &--title {
-        max-width: 55vw;
-        font-size: 20px;
-        font-weight: 600;
-        color: $color_primary;
-        font-family: $ff_1;
-        text-transform: uppercase;
-        white-space: pre-line;
-      }
-
-      &--description {
-        padding-top: 16px;
-        max-width: 50vw;
-        font-size: 20px;
-        font-weight: 400;
-        color: $color_primary;
-        font-family: $ff_1;
-        white-space: pre-line;
-      }
-    }
-  }
-
-  &-slider {
-    padding: 56px 0 32px;
-    height: calc(50vh + 56px + 32px);
-
-    &-container {
-      height: 100%;
-      display: grid;
-      grid-auto-flow: column;
-      grid-column-gap: 16px;
-      width: fit-content;
-      object-fit: contain;
-      grid-template-rows: 100%;
-      height: calc(50vh + 56px + 32px);
-
-
-    }
-
-    &-slide {
-      height: 100%;
-      width: auto;
-      object-fit: contain;
-
-      &:last-child {
-        margin-right: 32px;
-      }
-
-      &--img, &--video {
-
-        height: 100%;
-        width: auto;
-      }
-    }
-  }
 }

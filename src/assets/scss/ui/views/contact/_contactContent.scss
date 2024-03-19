@@ -36,7 +36,7 @@
                 height: 100%;
                 padding: 0;
                 align-content: space-between;
-                row-gap: 140px;
+                row-gap: unset;
 
             }
 
@@ -49,7 +49,7 @@
                 align-items: center;
                 justify-content: flex-end;
                 @include media("<=small") {
-                    margin-top: 196px;
+                    margin-top: 20vh;
                 }
 
                 &-texts {
@@ -60,6 +60,14 @@
                     padding: 0 0 0 calc(58px - 21px);
                     justify-items: end;
 
+                    @include media("<=medium") {
+                        row-gap: 32px;
+
+                    }
+                    @include media("<=small") {
+                        row-gap: 8px;
+
+                    }
                     &--subtitle {
                         color: $color_primary;
                         text-align: right;
@@ -77,11 +85,12 @@
                             font-size: 24px;
 
                         }
-                        @include media("<=small") {
+                        @include media("<=extra-small") {
                             width: fit-content;
-
+                            font-size: 20px;
 
                         }
+
                     }
 
                     &--email, &--social {
@@ -129,7 +138,13 @@
                     }
 
                     @include media("<=medium") {
-                        font-size: 60px;
+                        font-size: 64px;
+
+                    }
+
+                    @include media("<=extra-small") {
+                        width: fit-content;
+                        font-size: 48px;
 
                     }
                 }
