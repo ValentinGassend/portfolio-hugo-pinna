@@ -19,6 +19,9 @@ const SingleProjectView = (props) => {
     const [isPageReady, setIsPageReady] = useState(false)
     const [imageUrl, setImageUrl] = useState(null);
     const [mediaType, setMediaType] = useState("image"); // Default media type is image
+    const [sliderImagesInfo, setSliderImagesInfo] = useState([]);
+
+// Utilisez la méthode map pour créer un tableau d'objets avec les informations nécessaires pour chaque image
 
     useEffect(() => {
         if (id) {
@@ -61,6 +64,35 @@ const SingleProjectView = (props) => {
                 })
                 .catch((error) => console.error("Erreur générale:", error));
         }
+    }, [projectData]);
+    useEffect(() => {
+
+        if (projectData) {
+
+            const fetchSliderImagesInfo = async () => {
+                console.log(projectData)
+                const imagesInfo = await Promise.all(projectData.slider_image.map(async imageUrl => {
+                    const imageNameMatch = imageUrl.match(/\/([^_]+)_(.+)\.(\w+)$/);
+                    const imageName = imageNameMatch ? imageNameMatch[2] : '';
+
+                    try {
+                        const url = await projectManager.getUrlOfImage(imageUrl);
+                        return {
+                            name: imageName, url: url, mediaType: getMediaType(url)
+                        };
+                    } catch (error) {
+                        console.error("Error fetching image URL:", error);
+                        return {
+                            name: imageName, url: imageUrl, mediaType: 'image'
+                        };
+                    }
+                }));
+                setSliderImagesInfo(imagesInfo);
+            };
+            fetchSliderImagesInfo()
+        }
+
+
     }, [projectData]);
 
     useEffect(() => {
@@ -126,16 +158,15 @@ const SingleProjectView = (props) => {
         <section className={`SingleProject  ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
 
             <div className={"SingleProject-banner"}>
-            {mediaType === 'image' ? (
+                {mediaType === 'image' ? (
 
-                <img className={"SingleProject-banner--img"} src={`${imageUrl}`}
-                     alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
-            ) : (
-                <video className={`SingleProject-banner--video`} autoPlay loop muted>
-                <source className={`SingleProject-banner--video--source`} src={`${imageUrl}`} type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`} />
-                Your browser does not support the video tag.
-                </video>
-            )}
+                    <img className={"SingleProject-banner--img"} src={`${imageUrl}`}
+                         alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (
+                    <video className={`SingleProject-banner--video`} autoPlay loop muted>
+                        <source className={`SingleProject-banner--video--source`} src={`${imageUrl}`}
+                                type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                        Your browser does not support the video tag.
+                    </video>)}
 
             </div>
             <div className={"SingleProject-content"}>
@@ -171,22 +202,35 @@ const SingleProjectView = (props) => {
                     </div>
                 </div>
                 <div className={"SingleProject-slider"}>
-                    <div className={"SingleProject-slider-container"}>
-                        <div className={"SingleProject-slider-slide"}>
-                            <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}
-                                 alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
-                        </div>
-                        <div className={"SingleProject-slider-slide"}>
-                            <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}
-                                 alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
-                        </div>
-                        <div className={"SingleProject-slider-slide"}>
-                            <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}
-                                 alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
-                        </div>
-                        <div className={"SingleProject-slider-slide"}>
-                            <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}
-                                 alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>
+                    <div className={"SingleProject-slider"}>
+                        <div className={"SingleProject-slider-container"}>
+                            {console.log(sliderImagesInfo)}
+                            <div className={"SingleProject-slider-slide"}>
+                                {mediaType === 'image' ? (
+                                    <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}
+                                         alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (
+                                    <video className={`SingleProject-slider-slide--video`} autoPlay loop muted>
+                                        <source className={`SingleProject-slider-slide--video--source`}
+                                                src={`${imageUrl}`}
+                                                type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                                        Your browser does not support the video tag.
+                                    </video>)}
+
+                            </div>
+                            {sliderImagesInfo.length > 0 ? sliderImagesInfo && sliderImagesInfo.map((image, index) => (
+                                <div key={index} className={"SingleProject-slider-slide"}>
+                                    {console.log(image)}
+                                    {image.mediaType === 'image' ? (
+                                        <img className={"SingleProject-slider-slide--img"} src={image.url}
+                                             alt={`Image ${index}`}/>) : (
+                                        <video className={"SingleProject-slider-slide--video"} autoPlay loop muted>
+                                            <source src={image.url}
+                                                    type={`video/${image.mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                                            Your browser does not support the video tag.
+                                        </video>)}
+                                </div>)) : (<>
+                            </>)}
+
                         </div>
                     </div>
                 </div>
