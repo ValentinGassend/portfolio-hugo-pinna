@@ -13,7 +13,8 @@
     left: 0;
     z-index: 110;
     background-color: $color_secondary;
-
+    overflow-x: hidden;
+    overflow-y: visible;
     &-title, &-subtitle {
         width: 110%;
         overflow: hidden;
