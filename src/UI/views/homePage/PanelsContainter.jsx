@@ -122,73 +122,72 @@ const PanelsContainer = ({isPageReady}) => {
                         scrollTween.current = null
                         // if (nextTarget.classList.contains('EnterSmoothScroll')) {
 
-                            },
-                            overwrite: true,
-                        });
-                        // }
                     }, overwrite: true,
                 });
-            } else {
-                // Scroll to the specified panel with a duration
-                if (direction > 0) {
-                    if (nextTarget.classList.contains('EnterSmoothScroll')) {
-
-                        scrollTween.current = gsap.to(window, {
-                            scrollTo: {
-                                y: snapTriggers.current[i].start,
-                                autoKill: true,
-                                onStart: () => disableScroll(),
-                                onUpdate: () => disableScroll(),
-
-                                onComplete: () => {
-                                    // //console.log(document.getElementsByClassName("PanelsContainer"))
-                                    if (document.getElementsByClassName("PanelsContainer").length <= 0) {
-
-                                        snapTriggers.current = null
-                                    }
-                                    enableScroll()
-
-                                }
-                            },
-
-                            duration: force ? 0 : 1, onComplete: () => {
-                                scrollTween.current = null;
-
-                            }, overwrite: true,
-                        });
-                    }
-                } else {
-                    if (currentTarget.classList.contains('EnterSmoothScroll')) {
-
-                        scrollTween.current = gsap.to(window, {
-                            scrollTo: {
-                                y: snapTriggers.current[i].start,
-                                autoKill: true,
-                                onStart: () => disableScroll(),
-                                onUpdate: () => disableScroll(),
-
-                                onComplete: () => {
-                                    // //console.log(document.getElementsByClassName("PanelsContainer"))
-                                    if (document.getElementsByClassName("PanelsContainer").length <= 0) {
-
-                                        snapTriggers.current = null
-                                    }
-                                    enableScroll()
-
-                                },
-                                overwrite: true,
-
-                            },
-
-                            duration: force ? 0 : 1, onComplete: () => {
-                                scrollTween.current = null;
-
-                            }, overwrite: true,
-                        });
-                    }
-                }
-
+                // }
             }
+
+
+        } else {
+            // Scroll to the specified panel with a duration
+            if (direction > 0) {
+                if (nextTarget.classList.contains('EnterSmoothScroll')) {
+
+                    scrollTween.current = gsap.to(window, {
+                        scrollTo: {
+                            y: snapTriggers.current[i].start,
+                            autoKill: true,
+                            onStart: () => disableScroll(),
+                            onUpdate: () => disableScroll(),
+
+                            onComplete: () => {
+                                // //console.log(document.getElementsByClassName("PanelsContainer"))
+                                if (document.getElementsByClassName("PanelsContainer").length <= 0) {
+
+                                    snapTriggers.current = null
+                                }
+                                enableScroll()
+
+                            }
+                        },
+
+                        duration: force ? 0 : 1, onComplete: () => {
+                            scrollTween.current = null;
+
+                        }, overwrite: true,
+                    });
+                }
+            } else {
+                if (currentTarget.classList.contains('EnterSmoothScroll')) {
+
+                    scrollTween.current = gsap.to(window, {
+                        scrollTo: {
+                            y: snapTriggers.current[i].start,
+                            autoKill: true,
+                            onStart: () => disableScroll(),
+                            onUpdate: () => disableScroll(),
+
+                            onComplete: () => {
+                                // //console.log(document.getElementsByClassName("PanelsContainer"))
+                                if (document.getElementsByClassName("PanelsContainer").length <= 0) {
+
+                                    snapTriggers.current = null
+                                }
+                                enableScroll()
+
+                            },
+                            overwrite: true,
+
+                        },
+
+                        duration: force ? 0 : 1, onComplete: () => {
+                            scrollTween.current = null;
+
+                        }, overwrite: true,
+                    });
+                }
+            }
+
         }
     };
 
