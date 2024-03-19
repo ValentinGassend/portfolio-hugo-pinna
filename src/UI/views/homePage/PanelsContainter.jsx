@@ -294,7 +294,7 @@ const PanelsContainer = ({isPageReady}) => {
                     goToSection(0, true, deltaY); // Go to the first panel
                 } else {
                     if (isTrackPad && Math.abs(self.deltaY) !== 1) return;
-                    // if (!isTrackPad && Math.abs(self.deltaY) !== 100) return;
+                    if (self.event instanceof TouchEvent) return;
                     goToSection(scrollStarts.indexOf(scroll), false, deltaY);
                 }
             }
