@@ -5,22 +5,54 @@ import {Link} from "react-router-dom";
 
 const ProjectPromoteView = ({index, project, manager}) => {
     const [imageUrl, setImageUrl] = useState(null);
+    const [isScrolling, setIsScrolling] = useState(false);
     const [mediaType, setMediaType] = useState("image"); // Default media type is image
+    const timeout = setTimeout(() => {
+        setIsScrolling(false)
+    }, 500);
+    // This useEffect listens for scrolling events and sets isScrolling to true
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolling(true);
 
+            // Clear the timeout when scrolling occurs
+            clearTimeout(timeout);
+        };
 
-    useLayoutEffect(() => {
+        // Attach scroll event listener to document
+        document.addEventListener('scroll', handleScroll);
         let elements = document.querySelectorAll('.Projects-promote-card');
-        // //console.log(elements);
+
         for (let element of elements) {
-            element.addEventListener('click', function () {
-                if (!element.classList.contains('selected')) {
-                    element.classList.add('selected');
-                }
-            });
+            element.addEventListener('click', handleClick);
         }
 
+        // Clean up event listeners when component unmounts
+        return () => {
+            elements.forEach(element => {
+                element.removeEventListener('click', handleClick);
+            });
+        };
+
+    }, [isScrolling]);
+
+    // This useLayoutEffect listens for click events on .Projects-promote-card elements
+    useEffect(() => {
 
     }, []);
+
+    // Function to handle click events on .Projects-promote-card elements
+    const handleClick = (e) => {
+        // Check if scrolling is happening
+        if (isScrolling) {
+            e.preventDefault(); // Prevent default behavior if scrolling is occurring
+        } else {
+            // Add 'selected' class if not already present
+            if (!e.currentTarget.classList.contains('selected')) {
+                e.currentTarget.classList.add('selected');
+            }
+        }
+    };
     useEffect(() => {
         // //console.log(project)
         manager
@@ -62,14 +94,13 @@ const ProjectPromoteView = ({index, project, manager}) => {
     };
     return (<div className={"Projects-promote-item"}>
         <Link refresh="false" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
-            {mediaType === 'image' ? (
-                <img className={`Projects-promote-card--img`} src={`${imageUrl}`} alt={`Illustration of ${project.name}`} />
-            ) : (
+            {mediaType === 'image' ? (<img className={`Projects-promote-card--img`} src={`${imageUrl}`}
+                                           alt={`Illustration of ${project.name}`}/>) : (
                 <video className={`Projects-promote-card--video`} autoPlay loop muted>
-                    <source className={`Projects-promote-card--video--source`} src={`${imageUrl}`} type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`} />
+                    <source className={`Projects-promote-card--video--source`} src={`${imageUrl}`}
+                            type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
                     Your browser does not support the video tag.
-                </video>
-            )}
+                </video>)}
             <div className={`Projects-promote-card-content`}>
                 <h2 className={`Projects-promote-card-content--date`}>{project.year}</h2>
                 <h1 className={`Projects-promote-card-content--title`}>{project.name}</h1>

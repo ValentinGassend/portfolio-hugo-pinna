@@ -125,69 +125,69 @@ const PanelsContainer = ({isPageReady}) => {
                     }, overwrite: true,
                 });
                 // }
-            }
-
-
-        } else {
-            // Scroll to the specified panel with a duration
-            if (direction > 0) {
-                if (nextTarget.classList.contains('EnterSmoothScroll')) {
-
-                    scrollTween.current = gsap.to(window, {
-                        scrollTo: {
-                            y: snapTriggers.current[i].start,
-                            autoKill: true,
-                            onStart: () => disableScroll(),
-                            onUpdate: () => disableScroll(),
-
-                            onComplete: () => {
-                                // //console.log(document.getElementsByClassName("PanelsContainer"))
-                                if (document.getElementsByClassName("PanelsContainer").length <= 0) {
-
-                                    snapTriggers.current = null
-                                }
-                                enableScroll()
-
-                            }
-                        },
-
-                        duration: force ? 0 : 1, onComplete: () => {
-                            scrollTween.current = null;
-
-                        }, overwrite: true,
-                    });
-                }
             } else {
-                if (currentTarget.classList.contains('EnterSmoothScroll')) {
+                // Scroll to the specified panel with a duration
+                console.log("classic scroll")
 
-                    scrollTween.current = gsap.to(window, {
-                        scrollTo: {
-                            y: snapTriggers.current[i].start,
-                            autoKill: true,
-                            onStart: () => disableScroll(),
-                            onUpdate: () => disableScroll(),
+                if (direction > 0) {
+                    if (nextTarget.classList.contains('EnterSmoothScroll')) {
+                        console.log("EnterSmoothScroll", nextTarget)
+                        scrollTween.current = gsap.to(window, {
+                            scrollTo: {
+                                y: snapTriggers.current[i].start,
+                                autoKill: isTrackPad ?? false,
+                                onStart: () => disableScroll(),
+                                onUpdate: () => disableScroll(),
 
-                            onComplete: () => {
-                                // //console.log(document.getElementsByClassName("PanelsContainer"))
-                                if (document.getElementsByClassName("PanelsContainer").length <= 0) {
+                                onComplete: () => {
+                                    // //console.log(document.getElementsByClassName("PanelsContainer"))
+                                    if (document.getElementsByClassName("PanelsContainer").length <= 0) {
 
-                                    snapTriggers.current = null
+                                        snapTriggers.current = null
+                                    }
+                                    enableScroll()
+
                                 }
-                                enableScroll()
+                            },
+
+                            duration: force ? 0 : 1, onComplete: () => {
+                                // scrollTween.current = null;
+
+                            }, overwrite: true,
+                        });
+                    }
+                } else {
+                    if (currentTarget.classList.contains('EnterSmoothScroll')) {
+
+                        scrollTween.current = gsap.to(window, {
+                            scrollTo: {
+                                y: snapTriggers.current[i].start,
+                                autoKill: isTrackPad ?? false,
+                                onStart: () => disableScroll(),
+                                onUpdate: () => disableScroll(),
+
+                                onComplete: () => {
+                                    // //console.log(document.getElementsByClassName("PanelsContainer"))
+                                    if (document.getElementsByClassName("PanelsContainer").length <= 0) {
+
+                                        snapTriggers.current = null
+                                    }
+                                    enableScroll()
+
+                                },
+                                overwrite: true,
 
                             },
-                            overwrite: true,
 
-                        },
+                            duration: force ? 0 : 1, onComplete: () => {
+                                scrollTween.current = null;
 
-                        duration: force ? 0 : 1, onComplete: () => {
-                            scrollTween.current = null;
-
-                        }, overwrite: true,
-                    });
+                            }, overwrite: true,
+                        });
+                    }
                 }
-            }
 
+            }
         }
     };
 
@@ -282,7 +282,10 @@ const PanelsContainer = ({isPageReady}) => {
                 const windowHeight = window.innerHeight;
                 const documentHeight = document.body.scrollHeight;
                 const bottomOffset = documentHeight - (scrollY + windowHeight);
-                const deltaY = self.deltaY;
+                let deltaY = self.deltaY;
+                if (self.event instanceof TouchEvent) {
+                    deltaY = -deltaY
+                }
                 const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
                 if (scrollY < 50 && deltaY < 0 && scroll !== undefined) {
                     goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
@@ -291,7 +294,7 @@ const PanelsContainer = ({isPageReady}) => {
                     goToSection(0, true, deltaY); // Go to the first panel
                 } else {
                     if (isTrackPad && Math.abs(self.deltaY) !== 1) return;
-                    if (!isTrackPad && Math.abs(self.deltaY) !== 100) return;
+                    // if (!isTrackPad && Math.abs(self.deltaY) !== 100) return;
                     goToSection(scrollStarts.indexOf(scroll), false, deltaY);
                 }
             }
@@ -301,7 +304,7 @@ const PanelsContainer = ({isPageReady}) => {
 
         ScrollTrigger.addEventListener("refresh", refreshScrollTriggers);
         ScrollTrigger.observe({
-            type: "wheel,mousewheel", onChangeY: handleScroll
+            type: "wheel,mousewheel,touch", onChangeY: handleScroll
         });
         ScrollTrigger.refresh();
 
