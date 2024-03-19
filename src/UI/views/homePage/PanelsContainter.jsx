@@ -110,15 +110,7 @@ const PanelsContainer = ({isPageReady}) => {
                     onStart: () => disableScroll(),
                     onComplete: () => {
                         scrollTween.current = null
-                        scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i - 1].start, autoKill: true},
-                            duration: 1,
-                            onComplete: () => {
-                                // scrollTween.current = null;
-                                enableScroll()
-                            },
-                            overwrite: true,
-                        });
+
                     },
                     overwrite: true,
                 });
@@ -129,12 +121,6 @@ const PanelsContainer = ({isPageReady}) => {
                     scrollTo: {y: 1, autoKill: true}, duration: 0, onStart: () => disableScroll(), onComplete: () => {
                         scrollTween.current = null
                         // if (nextTarget.classList.contains('EnterSmoothScroll')) {
-                        scrollTween.current = gsap.to(window, {
-                            scrollTo: {y: snapTriggers.current[i + 1].start, autoKill: true},
-                            duration: 1,
-                            onComplete: () => {
-                                // scrollTween.current = null;
-                                enableScroll()
 
                             },
                             overwrite: true,
@@ -299,7 +285,7 @@ const PanelsContainer = ({isPageReady}) => {
                 const bottomOffset = documentHeight - (scrollY + windowHeight);
                 const deltaY = self.deltaY;
                 const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
-                if (scrollY === 0 && deltaY < 0 && scroll !== undefined) {
+                if (scrollY < 50 && deltaY < 0 && scroll !== undefined) {
                     goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
                 } else if (bottomOffset <= 50 && deltaY > 0) {
                     // Bottom of the window hits the bottom of the website
