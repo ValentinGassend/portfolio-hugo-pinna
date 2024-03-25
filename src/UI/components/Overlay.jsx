@@ -39,7 +39,7 @@ const Overlay = ({isHome = true, isGallery = false}) => {
         {isHome ? (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
                 <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
-                <p className={`Overlay-wrapper-upper--text ff2 italic bold`}>Cuillère</p>
+                <p className={`Overlay-wrapper-upper--text miller italic bold`}>Cuillère</p>
 
             </div>
             <div className={`Overlay-wrapper-lower`}>

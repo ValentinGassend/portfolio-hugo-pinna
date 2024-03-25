@@ -14,38 +14,6 @@ const Landing = ({assetsUrl}) => {
         setMousePosition({x: clientX - (size / 2), y: clientY - (size / 2)});
     };
 
-    useEffect(() => {
-        // Add event listener to track mouse movement
-        if (document.getElementsByClassName('Landing')) {
-            if (document.getElementsByClassName('Landing')[0]) {
-                document.getElementsByClassName('Landing')[0].addEventListener("mousemove", handleMouseMove);
-            }
-            if (document.getElementsByClassName('Landing')[1]) {
-                document.getElementsByClassName('Landing')[1].addEventListener("mousemove", handleMouseMove);
-            }
-            document.querySelector('.Landing-scroll-link').addEventListener('click', (evt) => {
-                evt.preventDefault()
-                gsap.to(window, {
-                    scrollTo: {y: document.querySelector('.Landing-scroll-link--url').hash, autoKill: false},
-                    duration: 1,
-                    overwrite: true,
-                });
-            });
-        }
-        setSize(200)
-        // Clean up event listener when component unmounts
-        return () => {
-            if (document.getElementsByClassName('Landing')) {
-                if (document.getElementsByClassName('Landing')[0]) {
-                    document.getElementsByClassName('Landing')[0].removeEventListener("mousemove", handleMouseMove);
-                }
-                if (document.getElementsByClassName('Landing')[1]) {
-                    document.getElementsByClassName('Landing')[1].removeEventListener("mousemove", handleMouseMove);
-                }
-            }
-        };
-
-    }, []);
 
 
 

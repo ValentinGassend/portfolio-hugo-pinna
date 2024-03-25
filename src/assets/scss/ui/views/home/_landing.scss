@@ -9,21 +9,6 @@
   left: 0;
   overflow: hidden;
 
-  &:after {
-    z-index: 5;
-    position: absolute;
-    left: calc(var(--mousePX) - calc(var(--size) / 2));
-    top: calc(var(--mousePY) - calc(var(--size) / 2));
-    content: "";
-    width: var(--size);
-    height: var(--size);
-    border-radius: 100%;
-    pointer-events: none;
-    background: radial-gradient(circle calc(var(--size) / 2) at center, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.1) 80%, rgba(255, 255, 255, 0) 100%);
-
-
-  }
-
   &-grid {
     display: grid;
     //grid-template-columns: repeat(664, calc((1 / 664) * 100%));
@@ -49,6 +34,7 @@
         span {
           &:first-child {
             padding-top: 12px;
+            padding-left: 4px;
           }
         }
       }
@@ -106,7 +92,7 @@
 
   &-scroll {
     position: absolute;
-    bottom: 128px;
+    bottom: 126px;
     margin: auto;
     left: 0;
     right: 0;
