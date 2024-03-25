@@ -72,7 +72,7 @@ const Landing = ({assetsUrl}) => {
                 <span className={`Landing-grid--element bold miller bigText`}>cuillère</span>
 
                 <div className={`Landing-grid-line--subgrid`}>
-                    <span className={`Landing-grid--element bold miller `}>designer 3d</span>
+                    <span className={`Landing-grid--element bold miller `}>3D Designer</span>
                     <span className={`Landing-grid--element`}>freelance</span>
                 </div>
             </div>
