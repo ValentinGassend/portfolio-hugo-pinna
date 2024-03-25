@@ -7,14 +7,56 @@
     display: flex;
     flex-direction: column;
     width: fit-content;
+    overflow: hidden;
     &--url {
         color: $color_primary;
         text-decoration: none;
 
     }
     &--decoration {
+        position: relative;
         width: 100%;
         height: 2px;
-        background-color: $color_primary;
+        &:before,&:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: $color_primary;
+            transform-origin: right;
+        }
+        &:before {
+            width: 100%;
+            left: 0;
+            transition: width 300ms 500ms;
+
+        }
+        &:after {
+            transition: left 300ms, width 300ms 500ms;
+            width: 0;
+            left: 100%;
+
+
+        }
+    }
+    &:hover {
+       .PrimaryLink--decoration {
+           &:before {
+               left: 100%;
+               width: 0;
+               transition: left 300ms, width 300ms 500ms;
+
+           }
+           &:after {
+               width: 100%;
+               left: 0;
+               transition: width 300ms 500ms;
+
+           }
+
+       }
     }
 }

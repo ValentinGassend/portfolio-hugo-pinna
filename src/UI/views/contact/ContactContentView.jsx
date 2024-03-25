@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
+import AssetNames from "../homePage/AssetNames.js";
 
-const ContactContentView = ({contactManager, contactData}) => {
+const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
     const [contactInfo, setContactInfo] = useState(null);
     gsap.registerPlugin(ScrollTrigger);
 
@@ -45,10 +46,19 @@ const ContactContentView = ({contactManager, contactData}) => {
                         <h2 className={`Contact-content-wrapper-upper-texts--subtitle`}>{contactInfo ? contactInfo.letter.subtitle : ''}</h2>
                         <a className={`Contact-content-wrapper-upper-texts--email`} rel="noreferrer"
                            href={`mailto:${contactInfo ? contactInfo.letter.email : ''}`}
-                           target={"_blank"}>{contactInfo ? contactInfo.letter.email : ''}</a>
+                           target={"_blank"}>{assetsUrl[AssetNames.ARROW] ? (<img
+                            className={`Contact-content-wrapper-upper-texts--email---element`}
+                            src={assetsUrl[AssetNames.ARROW]}
+                            alt={`${AssetNames.ARROW}`}
+                        />) : (<></>)} {contactInfo ? contactInfo.letter.email : ''}</a>
+
                         <a className={`Contact-content-wrapper-upper-texts--social`} rel="noreferrer"
                            href={`${contactInfo ? contactInfo.social.link : ''}`}
-                           target={"_blank"}>{contactInfo ? contactInfo.social.tag : ''}</a>
+                           target={"_blank"}>{assetsUrl[AssetNames.ARROW] ? (<img
+                            className={`Contact-content-wrapper-upper-texts--social---element`}
+                            src={assetsUrl[AssetNames.ARROW]}
+                            alt={`${AssetNames.ARROW}`}
+                        />) : (<></>)} {contactInfo ? contactInfo.social.tag : ''}</a>
                     </div>
 
                 </div>

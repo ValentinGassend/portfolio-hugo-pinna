@@ -1,18 +1,21 @@
 @import "galleryContent";
 
 .Gallery {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   overflow-x: hidden;
-  overflow-y: visible;
+  overflow-y: hidden;
   &-headline {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    left: 0 !important;
+
     &--title {
       text-align: center;
       margin: 0 25%;
+
       @include media("<=small") {
         margin: 0 48px;
 

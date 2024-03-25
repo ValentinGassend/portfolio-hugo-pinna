@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom";
 import React, {useEffect, useRef, useState} from "react";
+import MyLink from "../../components/MyLink.jsx";
 
 const GalleryContentView = ({galleryData}) => {
     const [numberOfItems, setNumberOfItems] = useState(0);
@@ -159,10 +159,8 @@ const GalleryContentView = ({galleryData}) => {
 
         </div>
         <div className={`Gallery-content-scroll`}>
-            <p></p>
-            <Link className={`Gallery-content-scroll--link`} to={`/gallery`}>
-                The wall
-            </Link>
+            <MyLink style={1} text={"The wall"} parentClass={"Gallery-content-scroll"} url={`/gallery`}
+                  isTarget={false}></MyLink>
         </div>
     </div>)
 }

@@ -2,7 +2,7 @@
     position: relative;
     height: fit-content;
     overflow: hidden;
-
+    max-width: unset;
 
     &.isPageReady .SingleProject {
         &-banner {
@@ -134,10 +134,10 @@
             &--description {
                 padding-top: 16px;
                 max-width: 50vw;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 400;
                 color: $color_primary;
-                font-family: $ff_1;
+                font-family: $ff_3;
                 white-space: pre-line;
             }
         }
@@ -145,7 +145,7 @@
 
     &-slider {
         padding: 56px 0 32px;
-        height: calc(50vh + 56px + 32px);
+        height: calc(75vh + 56px + 32px);
 
         &-container {
             height: 100%;
@@ -155,7 +155,7 @@
             width: fit-content;
             object-fit: contain;
             grid-template-rows: 100%;
-            height: calc(50vh + 56px + 32px);
+            height: 100%;
 
 
         }

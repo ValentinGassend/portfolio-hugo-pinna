@@ -1,7 +1,7 @@
 import Loader from "../../components/Loader.jsx";
 import LoadingManager from "../../../managers/LoadingManager.jsx";
 import {useEffect, useState} from "react";
-import Link from "../../components/Link.jsx";
+import MyLink from "../../components/MyLink.jsx";
 import AssetNames from "./AssetNames.js";
 import gsap from "gsap";
 
@@ -58,8 +58,8 @@ const Landing = ({assetsUrl}) => {
             </div>
         </div>
         <div className={`Landing-scroll`}>
-            <Link style={1} text={"scroll to discover"} parentClass={"Landing-scroll"} url={'#projects'}
-                  isTarget={false}></Link>
+            <MyLink style={1} text={"scroll to discover"} parentClass={"Landing-scroll"} url={'#projects'}
+                  isTarget={false}></MyLink>
         </div>
     </section>)
 }

@@ -26,11 +26,12 @@
   &--text {
     color: $color_primary;
     margin: 0 202px;
-    font-family: $ff_1;
+    font-family: $ff_3;
     font-size: 48px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    max-width: 1200px;
 
     @include media("<=extra-large") {
       font-size: 36px;

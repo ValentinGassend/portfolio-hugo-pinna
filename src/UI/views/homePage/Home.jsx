@@ -271,7 +271,7 @@ const Home = () => {
             <Landing assetsUrl={assetsUrl}/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView/>
-            <ContactPartView contactManager={projectManager} contactData={contactData}/>
+            <ContactPartView contactManager={projectManager} contactData={contactData} assetsUrl={assetsUrl}/>
             <GalleryPartView galleryData={galleryData}/>
             <Overlay/>
             <Loader isPageReady={isPageReady}/>

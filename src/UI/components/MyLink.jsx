@@ -1,16 +1,17 @@
 import StyleLinkManager from "../../managers/StyleLinkManager.jsx";
+import {Link} from "react-router-dom";
 
-const Link = ({url, text = "", style, parentClass, isTarget = true}) => {
+const MyLink = ({url, text = "", style, parentClass, isTarget = true}) => {
 
     const linkClass = StyleLinkManager(style)
     return (
         <>
             {url ? (
                 <div className={`${parentClass}-link ${linkClass}`}>
-                    <a className={`${parentClass}-link--url  ${linkClass}--url`} href={url}
+                    <Link className={`${parentClass}-link--url  ${linkClass}--url`} to={url}
                        target={isTarget ? "_blank" : ""} rel="noopener noreferrer">
                         {text}
-                    </a>
+                    </Link>
                     <span className={`${parentClass}-link--decoration  ${linkClass}--decoration`}></span>
                 </div>
             ) : (
@@ -20,4 +21,4 @@ const Link = ({url, text = "", style, parentClass, isTarget = true}) => {
         </>
     );
 };
-export default Link
+export default MyLink
