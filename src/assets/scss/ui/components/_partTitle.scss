@@ -23,6 +23,7 @@
         font-family: $ff_2;
         font-weight: bold;
         font-size: 148px;
+        letter-spacing: -4px;
         @include media("<=extra-large") {
             font-size: 96px;
 

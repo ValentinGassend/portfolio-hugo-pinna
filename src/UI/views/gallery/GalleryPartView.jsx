@@ -6,7 +6,7 @@ const GalleryPartView = ({galleryData}) => {
 
     return (
         <section className={`Gallery`} id={`gallery`}>
-            <PartTitle ParentClass={"Gallery"} titleText={"Want to see more of my works ?"} scrollable={false}/>
+            <PartTitle ParentClass={"Gallery"} titleText={"Tu veux voir plus de mes travaux ?"} scrollable={false}/>
             <GalleryContentView galleryData={galleryData}/>
 
 

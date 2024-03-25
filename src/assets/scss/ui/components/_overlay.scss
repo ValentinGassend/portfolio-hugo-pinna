@@ -113,12 +113,12 @@
                 display: flex;
                 width: 100%;
                 @include media("<=extra-large") {
-                    font-size: 22px;
+                    font-size: 20px;
 
                 }
 
                 @include media("<=medium") {
-                    font-size: 20px;
+                    font-size: 18px;
 
                 }
 

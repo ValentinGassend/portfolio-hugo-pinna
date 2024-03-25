@@ -40,14 +40,41 @@ const GalleryPageView = () => {
         fetchProject();
 
     }, []);
+    const getMediaType = (url) => {
+        // Using regular expression to extract file extension
+        const extensionMatch = url.match(/\.([^.?#]+)(?:[?#]|$)/i);
 
+        // Checking if a valid extension is found
+        if (extensionMatch && extensionMatch[1]) {
+            const extension = extensionMatch[1].toLowerCase();
+
+            // Logging for debugging purposes
+            //console.log('Extension:', extension);
+            //console.log('Original URL:', url);
+
+            // Checking if the extension corresponds to a video format
+            if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {
+                return 'video';
+            } else {
+                return 'image';
+            }
+        } else {
+            // If no extension is found, default to 'image'
+            return 'image';
+        }
+    };
     useEffect(() => {
         const fetchData = async () => {
             const newData = await Promise.all(galleryData.map(async (item) => {
                 if (item.visual) {
                     try {
                         const url = await projectManager.getUrlOfImage(item.visual);
-                        return {...item, url};
+
+                        const media = getMediaType(url);
+                        console.log(item)
+                        console.log(url)
+                        console.log(media)
+                        return {...item, url, media};
                     } catch (error) {
                         console.error("Erreur lors de la récupération de l'URL de l'image:", error);
                         return item;
@@ -118,7 +145,7 @@ const GalleryPageView = () => {
         updateContainerPosition();
     }, [isPageReady, containerPosition]);
     useEffect(() => {
-        if (scaleValue >=0.1 && scaleValue <=2.5) {
+        if (scaleValue >= 0.1 && scaleValue <= 2.5) {
             document.addEventListener('wheel', toogleZoom)
             document.querySelector('.GalleryPage-container').style.scale = scaleValue
         }
@@ -153,6 +180,7 @@ const GalleryPageView = () => {
         return [middle, sides, half, quart];
 
     }
+
 
     const generateGrid = (totalItems) => {
         let grid = [];
@@ -341,11 +369,21 @@ const GalleryPageView = () => {
             {grid.map((subArray, subIndex) => (<div key={subIndex} className="GalleryPage-container-column">
                 {subArray.map((item, index) => {
                     let url = galleryData[ImageIndex].url
+                    let media = galleryData[ImageIndex].media
                     ImageIndex++
                     return (<div key={index} className="GalleryPage-container-column-item">
-                        <img className={`GalleryPage-container-column-item--img`}
-                             src={`${url}`} alt={'image de la page contenu'}/>
-                    </div>)
+                        {media === "image" ? (<img
+                            className={`GalleryPage-container-column-item--img`}
+                            src={url}
+                            alt={'image de la page contenu'}
+                        />) : media === "video" ? (<video
+                            className={`GalleryPage-container-column-item--video`}
+                            autoPlay loop muted
+                        >
+                            <source src={url} type="video/mp4"/>
+                            Your browser does not support the video tag.
+                        </video>) : (<></>)}
+                    </div>);
                 })}
             </div>))}
         </>);

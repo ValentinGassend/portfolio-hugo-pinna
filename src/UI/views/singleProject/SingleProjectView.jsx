@@ -70,7 +70,7 @@ const SingleProjectView = (props) => {
         if (projectData) {
 
             const fetchSliderImagesInfo = async () => {
-                console.log(projectData)
+                // console.log(projectData)
                 const imagesInfo = await Promise.all(projectData.slider_image.map(async imageUrl => {
                     const imageNameMatch = imageUrl.match(/\/([^_]+)_(.+)\.(\w+)$/);
                     const imageName = imageNameMatch ? imageNameMatch[2] : '';
@@ -204,7 +204,6 @@ const SingleProjectView = (props) => {
                 <div className={"SingleProject-slider"}>
                     <div className={"SingleProject-slider"}>
                         <div className={"SingleProject-slider-container"}>
-                            {console.log(sliderImagesInfo)}
                             <div className={"SingleProject-slider-slide"}>
                                 {mediaType === 'image' ? (
                                     <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}
@@ -219,7 +218,6 @@ const SingleProjectView = (props) => {
                             </div>
                             {sliderImagesInfo.length > 0 ? sliderImagesInfo && sliderImagesInfo.map((image, index) => (
                                 <div key={index} className={"SingleProject-slider-slide"}>
-                                    {console.log(image)}
                                     {image.mediaType === 'image' ? (
                                         <img className={"SingleProject-slider-slide--img"} src={image.url}
                                              alt={`Image ${index}`}/>) : (

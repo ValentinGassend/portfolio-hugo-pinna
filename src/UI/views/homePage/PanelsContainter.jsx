@@ -127,11 +127,11 @@ const PanelsContainer = ({isPageReady}) => {
                 // }
             } else {
                 // Scroll to the specified panel with a duration
-                console.log("classic scroll")
+                // console.log("classic scroll")
 
                 if (direction > 0) {
                     if (nextTarget.classList.contains('EnterSmoothScroll')) {
-                        console.log("EnterSmoothScroll", nextTarget)
+                        // console.log("EnterSmoothScroll", nextTarget)
                         scrollTween.current = gsap.to(window, {
                             scrollTo: {
                                 y: snapTriggers.current[i].start,
@@ -270,10 +270,10 @@ const PanelsContainer = ({isPageReady}) => {
             }
 
             if (isTrackPad !== null) {
-                console.log(self)
-                console.log(self.deltaY)
-                console.log(isTrackPad)
-                console.log("(isTrackPad && Math.abs(self.deltaY) !== 1)", (isTrackPad && Math.abs(self.deltaY) !== 1))
+                // console.log(self)
+                // console.log(self.deltaY)
+                // console.log(isTrackPad)
+                // console.log("(isTrackPad && Math.abs(self.deltaY) !== 1)", (isTrackPad && Math.abs(self.deltaY) !== 1))
 
                 // if (Math.abs(self.deltaY) !== 1 && Math.abs(self.deltaY) !== 100) return;
 

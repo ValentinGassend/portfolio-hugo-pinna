@@ -16,12 +16,15 @@ const GalleryContentView = ({galleryData}) => {
 
             // //console.log(galleryData)
             galleryData.forEach(item => {
-                // //console.log(item)
+                console.log(item)
 
                 if (item.url_home_visual) {
                     newUrls.push(item.url_home_visual);
                     newNumberOfItems++;
                     // //console.log(newNumberOfItems)
+                } else {
+                    newUrls.push(item.url_visual);
+
                 }
             });
 
@@ -158,7 +161,7 @@ const GalleryContentView = ({galleryData}) => {
         <div className={`Gallery-content-scroll`}>
             <p></p>
             <Link className={`Gallery-content-scroll--link`} to={`/gallery`}>
-                Check my gallery
+                The wall
             </Link>
         </div>
     </div>)

@@ -53,54 +53,40 @@ const Landing = ({assetsUrl}) => {
         '--size': size + "px", '--mousePY': mousePosition.y + "px", '--mousePX': mousePosition.x + "px"
     }}>
         <div className={`Landing-grid`}>
-            <div className={`Landing-grid-name`}>
-                <span className={`Landing-grid--element uppercase italic bold miller`}>Hugo</span>
-                <span className={`Landing-grid--element uppercase`}>Pinna</span>
-                <span className={`Landing-grid--element uppercase italic bold miller`}>Cuillère</span>
+            <div className={`Landing-grid-line`}>
+                <div className={`Landing-grid-line--subgrid`}>
+                <span className={`Landing-grid--element`}></span>
+                <span className={`Landing-grid--element `}>je suis</span>
+                </div>
+                <span className={`Landing-grid--element bold miller bigText`}>HUGO</span>
+                <div className={`Landing-grid-line--subgrid`}>
+                    <span className={`Landing-grid--element`}>directeur artistique</span>
+                    <span className={`Landing-grid--element`}>designer graphique</span>
+                </div>
             </div>
-            <div className={`Landing-grid-domain`}>
-                <span className={`Landing-grid--element uppercase`}>Art director</span>
-                <span className={`Landing-grid--element uppercase`}>Graphic designer</span>
-                <span className={`Landing-grid--element uppercase italic bold miller`}>3d artist</span>
+            <div className={`Landing-grid-line`}>
+                <img className={`Landing-grid--element img`} src={``}/>
+                <span className={`Landing-grid--element bigText`}>Pinna</span>
             </div>
-            <div className={`Landing-grid-location`}>
-                <span className={`Landing-grid--element uppercase`}>Genève</span>
+            <div className={`Landing-grid-line`}>
+                <span className={`Landing-grid--element bold miller bigText`}>cuillère</span>
 
+                <div className={`Landing-grid-line--subgrid`}>
+                    <span className={`Landing-grid--element bold miller `}>designer 3d</span>
+                    <span className={`Landing-grid--element`}>freelance</span>
+                </div>
+            </div>
+            <div className={`Landing-grid-line`}>
+                    <span className={`Landing-grid--element`}>
+
+                        genève</span>
                 {assetsUrl[AssetNames.ARROW] ? (<img
                     className={`Landing-grid--element`}
                     src={assetsUrl[AssetNames.ARROW]}
                     alt={`${AssetNames.ARROW}`}
                 />) : (<></>)}
-                <span className={`Landing-grid--element uppercase`}>Annecy</span>
-            </div>
-            <div className={`Landing-grid-baseline`}>
-                <span className={`Landing-grid--element uppercase italic bold miller`}>“Baseline un peu cool”</span>
-            </div>
-            <div className={`Landing-grid-support`}>
-                <span className={`Landing-grid--element`}>Portfolio</span>
-            </div>
-            <div className={`Landing-grid-instagram`}>
-                <span className={`Landing-grid--element`}>@hugocuillère</span>
-            </div>
-            <div className={`Landing-grid-work`}>
-                    <span className={`Landing-grid--element uppercase italic bold miller`}>
-                        {assetsUrl[AssetNames.DOT_AVAILABLE] ? (<img
-                            className={`Landing-grid--element`}
-                            src={assetsUrl[AssetNames.DOT_AVAILABLE]}
-                            alt={`${AssetNames.DOT_AVAILABLE}`}
-                        />) : (<></>)}
-                        Open to work</span>
-                {assetsUrl[AssetNames.ARROW] ? (<img
-                    className={`Landing-grid--element`}
-                    src={assetsUrl[AssetNames.ARROW]}
-                    alt={`${AssetNames.ARROW}`}
-                />) : (<></>)}
-                <span className={`Landing-grid--element`}>hugopinna@free.fr</span>
-            </div>
-            <div className={`Landing-grid-status`}>
-                <span className={`Landing-grid--element uppercase italic`}>Freelance</span>
-                <span
-                    className={`Landing-grid--element uppercase italic bold miller`}>{new Date().getFullYear()}</span>
+                <span className={`Landing-grid--element`}>Annecy</span>
+                <span className={`Landing-grid--element`}> </span>
             </div>
         </div>
         <div className={`Landing-scroll`}>

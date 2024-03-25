@@ -38,7 +38,7 @@
       grid-row-gap: 8px;
 
       &-item {
-        &--img {
+        &--img,&--video {
           width: 447px;
           height: fit-content;
           object-fit: cover;
