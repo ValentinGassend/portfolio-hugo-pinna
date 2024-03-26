@@ -171,20 +171,24 @@ const SingleProjectView = (props) => {
             </div>
             <div className={"SingleProject-content"}>
                 <div className={"SingleProject-content-wrapper"}>
-                    <div className={"SingleProject-content-data"}>
-                        <div className={"SingleProject-content-data-item"}>
-                            <h1 className={"SingleProject-content-data-item--name"}>{projectData ? projectData.name : ''}</h1>
+                    <div className={"SingleProject-content-header"}>
+                        <div className={"SingleProject-content-header-data"}>
+                            <div className={"SingleProject-content-header-data-item"}>
+                                <h1 className={"SingleProject-content-header-data-item--name"}>{projectData ? projectData.name : ''}</h1>
+                            </div>
+                            <div className={"SingleProject-content-header-data-item"}>
+                                <p className={"SingleProject-content-header-data-item--date"}>{projectData ? projectData.year : ''}</p>
+                                <p className={"SingleProject-content-header-data-item--client"}>{projectData ? projectData.client : ''}</p>
+                            </div>
+                            <div className={"SingleProject-content-header-data-item"}>
+                                <p className={"SingleProject-content-header-data-item--type"}>{projectData ? projectData.project_type : ''}</p>
+                            </div>
+
+
                         </div>
-                        <div className={"SingleProject-content-data-item"}>
-                            <p className={"SingleProject-content-data-item--date"}>{projectData ? projectData.year : ''}</p>
-                            <p className={"SingleProject-content-data-item--client"}>{projectData ? projectData.client : ''}</p>
-                        </div>
-                        <div className={"SingleProject-content-data-item"}>
-                            <p className={"SingleProject-content-data-item--type"}>{projectData ? projectData.project_type : ''}</p>
-                        </div>
-                        <div className={"SingleProject-content-data-item"}>
+                        <div className={"SingleProject-content-header-tags"}>
                             {projectData ? projectData.tags.map((tag, index) => (<span key={index}
-                                                                                       className={"SingleProject-content-data-item--tag"}>[{tag}]</span>)) : ''}
+                                                                                       className={"SingleProject-content-header-tags--tag"}>[{tag}]</span>)) : ''}
                         </div>
                     </div>
                     <div className={"SingleProject-content-info"}>
