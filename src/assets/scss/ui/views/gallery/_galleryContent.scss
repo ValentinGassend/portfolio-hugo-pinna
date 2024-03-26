@@ -31,6 +31,12 @@
         justify-items: center;
         margin: auto;
         max-width: 100vw;
+        @include media("<=small") {
+            grid-template-columns: repeat(auto-fit, minmax(136.72px, 0.33fr));
+            column-gap: 8px;
+
+
+        }
 
         &-column {
             position: relative;
@@ -42,6 +48,12 @@
             height: fit-content;
             transform: skewX(-12deg);
 
+            @include media("<=small") {
+                row-gap: 8px;
+                transform: skewX(-8deg);
+
+
+            }
             &--item {
                 position: relative;
                 filter: blur(8px);
@@ -49,7 +61,6 @@
                 max-height: calc(100vh / 4);
                 //transition: transform 300ms linear,box-shadow 300ms linear;
                 &-img {
-                    content: var(--url);
                     position: relative;
                     display: block;
                     width: 100%;
@@ -57,6 +68,10 @@
                     aspect-ratio: 244/332;
                     max-height: 250px;
                     object-fit: cover;
+                    @include media("<=small") {
+                        max-height:180px;
+
+                    }
                 }
 
                 &-overlay {

@@ -79,6 +79,9 @@ const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
                 <img className={`Contact-content-stamps--item`}
                      src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
+                <img className={`Contact-content-stamps--item`}
+                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     alt={`image d'illustration d'un timbre`}/>
             </div>
         </div>)
 }

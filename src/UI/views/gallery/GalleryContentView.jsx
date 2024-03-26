@@ -16,15 +16,16 @@ const GalleryContentView = ({galleryData}) => {
 
             // //console.log(galleryData)
             galleryData.forEach(item => {
-                console.log(item)
+                if (item.home_gallery_part.is_forward_on_home) {
 
                 if (item.url_home_visual) {
                     newUrls.push(item.url_home_visual);
                     newNumberOfItems++;
                     // //console.log(newNumberOfItems)
-                } else {
+                } else if (item.url_visual) {
                     newUrls.push(item.url_visual);
 
+                }
                 }
             });
 
@@ -58,9 +59,7 @@ const GalleryContentView = ({galleryData}) => {
 
         document.addEventListener('mousemove', handleMouseMove);
 
-        return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-        };
+
     }, []);
 
     function from4To8(total) {
@@ -94,7 +93,7 @@ const GalleryContentView = ({galleryData}) => {
 
     const generateGrid = (totalItems, urls) => {
         let grid = [];
-
+        console.log("totalItems", totalItems)
         let ImageIndex = 0;
         grid.push([], [], []);
         if (totalItems > 9) {
@@ -134,33 +133,34 @@ const GalleryContentView = ({galleryData}) => {
             grid[middleGrid + 1].push("item"); // Push to the last column as well
         }
 
-
-        return (<>
-            {/* Generate grid items */}
-            {grid.map((subArray, subIndex) => (<div key={subIndex} className="Gallery-content-cards-column">
+        const gridItems = grid.map((subArray, subIndex) => (
+            <div key={subIndex} className="Gallery-content-cards-column">
                 {subArray.map((item, index) => {
-                    let url = urls[ImageIndex]
-                    ImageIndex++
-                    return (<div key={ImageIndex} className={`Gallery-content-cards-column--item`}
-                                 style={{"--url": `url("${url}")`}}>
-                        <span className={`Gallery-content-cards-column--item-img`}/>
+                    let url = urls[ImageIndex];
+                    ImageIndex++;
+                    return (<div
+                        key={ImageIndex}
+                        className={`Gallery-content-cards-column--item`}
+                    >
+                        <img className={`Gallery-content-cards-column--item-img`} src={url}/>
                         <span className={`Gallery-content-cards-column--item-overlay`}/>
-                    </div>)
-
+                    </div>);
                 })}
-            </div>))}
+            </div>));
+        return (<>
+            {gridItems}
         </>);
     };
 
 
     return (<div className={`Gallery-content EnterSmoothScroll`}>
         <div className={`Gallery-content-cards`}>
-            {numberOfItems > 3 ? generateGrid(numberOfItems, urls) : <></>}
+            {numberOfItems > 3 ? generateGrid(numberOfItems, urls, galleryData) : <></>}
 
         </div>
         <div className={`Gallery-content-scroll`}>
             <MyLink style={1} text={"The wall"} parentClass={"Gallery-content-scroll"} url={`/gallery`}
-                  isTarget={false}></MyLink>
+                    isTarget={false}></MyLink>
         </div>
     </div>)
 }
