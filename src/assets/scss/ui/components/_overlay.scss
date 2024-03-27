@@ -305,7 +305,21 @@
                     }
 
                 }
+                &:nth-child(4):after {
+                    transition-delay: 0s;
+                }
 
+                &:nth-child(3):after {
+                    transition-delay: 0.2s;
+                }
+
+                &:nth-child(2):after {
+                    transition-delay: 0.4s;
+                }
+
+                &:nth-child(1):after {
+                    transition-delay: 0.6s;
+                }
                 &.transitioning {
 
                     &:before {
