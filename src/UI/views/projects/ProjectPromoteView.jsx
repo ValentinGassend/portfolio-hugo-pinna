@@ -96,7 +96,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
         <Link refresh="false" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
             {mediaType === 'image' ? (<img className={`Projects-promote-card--img`} src={`${imageUrl}`}
                                            alt={`Illustration of ${project.name}`}/>) : (
-                <video className={`Projects-promote-card--video`} autoPlay loop muted>
+                <video className={`Projects-promote-card--video`} autoPlay loop muted playsinline>
                     <source className={`Projects-promote-card--video--source`} src={`${imageUrl}`}
                             type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
                     Your browser does not support the video tag.
