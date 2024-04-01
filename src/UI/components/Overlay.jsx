@@ -4,13 +4,7 @@ import {useEffect} from "react";
 
 const Overlay = ({isHome = true, isGallery = false}) => {
 
-    if (document.querySelector('.SingleProject')) {
-        gsap.to(document.querySelector('.Overlay.Others'), {
-            opacity: 0, duration: 0.3, scrollTrigger: {
-                trigger: '.SingleProject-content', start: 'top top', end: "bottom bottom", overwrite: true, scrub: true,
-            },
-        });
-    }
+
     let overlayTexts = document.querySelectorAll('.Overlay-wrapper-lower--text');
 
     overlayTexts.forEach(function (element) {

@@ -6,6 +6,7 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import gsap from "gsap";
+import {IsMobile, IsWidthLessThanOrEqualToHeight} from "../../../utils/utils.jsx";
 
 // Import Swiper styles
 import 'swiper/css';
@@ -50,8 +51,14 @@ const SingleProjectView = (props) => {
 
     useEffect(() => {
         if (projectData) {
+            let image
+            if (IsMobile() && projectData.header_mobile) {
+                image = projectData.header_mobile
+            } else {
+                image = projectData.header_image
+            }
             projectManager
-                .getUrlOfImage(projectData.header_image)
+                .getUrlOfImage(image)
                 .then((url) => {
                     if (url) {
                         //////console.log("URL de l'image:", url);
@@ -111,23 +118,24 @@ const SingleProjectView = (props) => {
         const panelsContainer = document.getElementsByClassName("SingleProject-slider-container")[0];
         const ImageContainer = document.querySelector(".SingleProject-banner--img");
         if (isPageReady) {
-
-            gsap.to(panels, {
-                x: () => -1 * (panelsContainer.scrollWidth - window.innerWidth), ease: "none", scrollTrigger: {
-                    trigger: contentContainer,
-                    start: `bottom bottom`, // end: "bottom top",
-                    endTrigger: panelsContainer,
-                    pin: contentContainer,
-                    end: () => "+=" + (panelsContainer.scrollWidth - innerWidth),
-                    scrub: 1,
-                    onUpdate: (self) => {
-                        const scrollY = self.scroll();
-                        const progress = scrollY / (contentContainer.offsetHeight - window.innerHeight);
-                        const targetScroll = (panelsContainer.scrollWidth - window.innerWidth) * progress;
-                        panelsContainer.scrollLeft = targetScroll;
-                    },
-                }
-            });
+            if (!IsMobile()) {
+                gsap.to(panels, {
+                    x: () => -1 * (panelsContainer.scrollWidth - window.innerWidth), ease: "none", scrollTrigger: {
+                        trigger: contentContainer,
+                        start: `bottom bottom`, // end: "bottom top",
+                        endTrigger: panelsContainer,
+                        pin: contentContainer,
+                        end: () => "+=" + (panelsContainer.scrollWidth - innerWidth),
+                        scrub: 1,
+                        onUpdate: (self) => {
+                            const scrollY = self.scroll();
+                            const progress = scrollY / (contentContainer.offsetHeight - window.innerHeight);
+                            const targetScroll = (panelsContainer.scrollWidth - window.innerWidth) * progress;
+                            panelsContainer.scrollLeft = targetScroll;
+                        },
+                    }
+                });
+            }
         }
     }, [isPageReady]);
     const getMediaType = (url) => {
@@ -208,24 +216,26 @@ const SingleProjectView = (props) => {
                 <div className={"SingleProject-slider"}>
                     <div className={"SingleProject-slider"}>
                         <div className={"SingleProject-slider-container"}>
-                            <div className={"SingleProject-slider-slide"}>
-                                {mediaType === 'image' ? (
-                                    <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}
-                                         alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (
-                                    <video className={`SingleProject-slider-slide--video`} autoPlay loop muted playsinline>
-                                        <source className={`SingleProject-slider-slide--video--source`}
-                                                src={`${imageUrl}`}
-                                                type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
-                                        Your browser does not support the video tag.
-                                    </video>)}
+                            {/*<div className={"SingleProject-slider-slide"}>*/}
+                            {/*    {mediaType === 'image' ? (*/}
+                            {/*        <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}*/}
+                            {/*             alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (*/}
+                            {/*        <video className={`SingleProject-slider-slide--video`} autoPlay loop muted*/}
+                            {/*               playsinline>*/}
+                            {/*            <source className={`SingleProject-slider-slide--video--source`}*/}
+                            {/*                    src={`${imageUrl}`}*/}
+                            {/*                    type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>*/}
+                            {/*            Your browser does not support the video tag.*/}
+                            {/*        </video>)}*/}
 
-                            </div>
+                            {/*</div>*/}
                             {sliderImagesInfo.length > 0 ? sliderImagesInfo && sliderImagesInfo.map((image, index) => (
                                 <div key={index} className={"SingleProject-slider-slide"}>
                                     {image.mediaType === 'image' ? (
                                         <img className={"SingleProject-slider-slide--img"} src={image.url}
                                              alt={`Image ${index}`}/>) : (
-                                        <video className={"SingleProject-slider-slide--video"} autoPlay loop muted playsinline>
+                                        <video className={"SingleProject-slider-slide--video"} autoPlay loop muted
+                                               playsinline>
                                             <source src={image.url}
                                                     type={`video/${image.mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
                                             Your browser does not support the video tag.

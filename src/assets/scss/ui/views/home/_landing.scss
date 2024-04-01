@@ -21,8 +21,10 @@
 
     @include media("<=small") {
       padding: 0 12px;
+      justify-items: stretch;
 
     }
+
     &-line {
       display: grid;
       width: fit-content;
@@ -34,7 +36,8 @@
       &--subgrid {
         height: 100%;
         display: grid;
-      align-content: space-around;
+        align-content: space-around;
+
         span {
           &:first-child {
             padding-top: 12px;
@@ -45,17 +48,30 @@
 
       &:first-child {
       }
+
       &:nth-child(2) {
         height: 72px;
+        @include media("<=small") {
+          height: 90%;
+        }
       }
-      &:last-child{
+
+      &:last-child {
         width: 100%;
-         & > * {
-           width: 100%;
-         }
-         img {
-           width: fit-content;
-         }
+
+
+        @include media("<=small") {
+          justify-items: stretch;
+          justify-content: space-between;
+        }
+
+        & > * {
+          width: 100%;
+        }
+
+        img {
+          width: fit-content;
+        }
       }
     }
 
@@ -73,6 +89,7 @@
       @include media("<=small") {
         font-size: 20px;
       }
+
       &.bigText {
         font-size: 100px;
         height: fit-content;
@@ -93,10 +110,16 @@
       & > img {
         padding-right: 8px;
       }
+
       &.img {
         height: 88px;
         width: 380px;
         background-color: grey;
+
+        @include media("<=small") {
+          width: 146px;
+          height: 119px;
+        }
       }
     }
   }

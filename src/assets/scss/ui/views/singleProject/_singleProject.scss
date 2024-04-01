@@ -200,6 +200,7 @@
         color: $color_primary;
         font-family: $ff_3;
         white-space: pre-line;
+        line-height: normal;
 
         @include media("<=small") {
           max-width: unset;
@@ -209,13 +210,13 @@
   }
 
   &-slider {
-    padding: 56px 0 32px;
+    padding: 56px 0 0;
     height: calc(75vh + 56px + 32px);
 
     @include media("<=small") {
-      padding:0 32px 0 0;
+      padding:0;
 
-      height: calc(100vh);
+      height: unset;
     }
 
     &-container {
@@ -226,6 +227,14 @@
       width: fit-content;
       object-fit: contain;
       grid-template-rows: 100%;
+      @include media("<=small") {
+        grid-auto-flow: row;
+
+        grid-template-columns: 100%;
+
+        grid-row-gap: 8px;
+        grid-template-rows: unset;
+      }
 
 
     }
@@ -234,6 +243,12 @@
       height: 100%;
       width: auto;
       object-fit: contain;
+      @include media("<=small") {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+
+      }
 
       &:last-child {
         margin-right: 32px;
@@ -243,6 +258,12 @@
 
         height: 100%;
         width: auto;
+        @include media("<=small") {
+
+          width: 100%;
+          height: auto;
+        }
+
       }
     }
   }
