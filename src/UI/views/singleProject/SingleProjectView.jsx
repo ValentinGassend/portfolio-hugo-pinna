@@ -51,14 +51,8 @@ const SingleProjectView = (props) => {
 
     useEffect(() => {
         if (projectData) {
-            let image
-            if (IsMobile() && projectData.header_mobile) {
-                image = projectData.header_mobile
-            } else {
-                image = projectData.header_image
-            }
             projectManager
-                .getUrlOfImage(image)
+                .getUrlOfImage(projectData.header_image)
                 .then((url) => {
                     if (url) {
                         //////console.log("URL de l'image:", url);
@@ -170,7 +164,7 @@ const SingleProjectView = (props) => {
 
                     <img className={"SingleProject-banner--img"} src={`${imageUrl}`}
                          alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (
-                    <video className={`SingleProject-banner--video`} autoPlay loop muted playsinline>
+                    <video className={`SingleProject-banner--video`} autoPlay loop muted playsInline>
                         <source className={`SingleProject-banner--video--source`} src={`${imageUrl}`}
                                 type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
                         Your browser does not support the video tag.
@@ -216,12 +210,13 @@ const SingleProjectView = (props) => {
                 <div className={"SingleProject-slider"}>
                     <div className={"SingleProject-slider"}>
                         <div className={"SingleProject-slider-container"}>
+
                             {/*<div className={"SingleProject-slider-slide"}>*/}
                             {/*    {mediaType === 'image' ? (*/}
                             {/*        <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}*/}
                             {/*             alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (*/}
                             {/*        <video className={`SingleProject-slider-slide--video`} autoPlay loop muted*/}
-                            {/*               playsinline>*/}
+                            {/*               playsInline>*/}
                             {/*            <source className={`SingleProject-slider-slide--video--source`}*/}
                             {/*                    src={`${imageUrl}`}*/}
                             {/*                    type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>*/}
@@ -234,8 +229,7 @@ const SingleProjectView = (props) => {
                                     {image.mediaType === 'image' ? (
                                         <img className={"SingleProject-slider-slide--img"} src={image.url}
                                              alt={`Image ${index}`}/>) : (
-                                        <video className={"SingleProject-slider-slide--video"} autoPlay loop muted
-                                               playsinline>
+                                        <video className={"SingleProject-slider-slide--video"} autoPlay loop muted playsInline>
                                             <source src={image.url}
                                                     type={`video/${image.mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
                                             Your browser does not support the video tag.

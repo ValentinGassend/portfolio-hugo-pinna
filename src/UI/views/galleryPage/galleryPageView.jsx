@@ -378,7 +378,7 @@ const GalleryPageView = () => {
                             alt={'image de la page contenu'}
                         />) : media === "video" ? (<video
                             className={`GalleryPage-container-column-item--video`}
-                            autoPlay loop muted playsinline
+                            autoPlay loop muted playsInline
                         >
                             <source src={url} type="video/mp4"/>
                             Your browser does not support the video tag.
