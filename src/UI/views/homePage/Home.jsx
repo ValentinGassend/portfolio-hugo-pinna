@@ -19,10 +19,16 @@ const Home = () => {
     const [contactData, setContact] = useState([]);
     const [analyticsInitialized, setAnalyticsInitialized] = useState(false);
     const [galleryData, setGalleryData] = useState(null);
+    const [galleryPartData, setGalleryPartData] = useState(null);
+    const [aboutData, setAboutData] = useState(null);
+    const [landingData, setLandingData] = useState(null);
 
     const projectManager = ProjectManager
     const [isProjectReady, setIsProjectReady] = useState(false)
+    const [isLandingReady, setIsLandingReady] = useState(false)
     const [isGalleryReady, setIsGalleryReady] = useState(false)
+    const [isGalleryPartReady, setIsGalleryPartReady] = useState(false)
+    const [isAboutReady, setIsAboutReady] = useState(false)
     const [isAssetReady, setIsAssetReady] = useState(false)
     const [isPageReady, setIsPageReady] = useState(false)
     const elapsedTimeRef = useRef(0);
@@ -98,12 +104,61 @@ const Home = () => {
                 setIsProjectReady(true);
             }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
         });
+        projectManager.getProjectsFromFirebase('landing').then((landingData) => {
+            setLandingData(landingData[0]);
+            setAnalyticsInitialized(true);
+
+            const elapsedTime = Date.now() - startTime;
+            elapsedTimeRef.current = elapsedTime;
+
+            setTimeout(() => {
+                setIsLandingReady(true);
+            }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
+        });
         projectManager.getProjectsFromFirebase('assets').then((assetsData) => {
             setAssets(assetsData);
         });
         projectManager.getProjectsFromFirebase('contact').then((contactData) => {
             setContact(contactData);
 
+        });
+        projectManager.getProjectsFromFirebase('gallery_part').then((galleryPartData) => {
+            setGalleryPartData(galleryPartData[0]);
+            const elapsedTime = Date.now() - startTime;
+            elapsedTimeRef.current = elapsedTime;
+
+            setTimeout(() => {
+                setIsGalleryPartReady(true);
+            }, 2000 - elapsedTime);
+        });
+        projectManager.getProjectsFromFirebase('about').then((aboutData) => {
+            if (aboutData && aboutData.length > 0) {
+                const aboutItem = aboutData[0];
+                // Check if aboutData has an image property and if it has a URL
+                if (aboutItem.image && aboutItem.image.length > 0) {
+                    const assetPath = aboutItem.image;
+                    // Use projectManager to get the URL of the image
+                    projectManager.getUrlOfImage(assetPath)
+                        .then((url) => {
+                            // Add the URL to aboutData
+                            aboutItem.url = url;
+                            setAboutData(aboutItem);
+                        })
+                        .catch((error) => {
+                            console.error("Error getting URL of image:", error);
+                            setAboutData(aboutItem); // Set aboutData even if URL fetch fails
+                        });
+                } else {
+                    setAboutData(aboutItem);
+                }
+
+                const elapsedTime = Date.now() - startTime;
+                elapsedTimeRef.current = elapsedTime;
+
+                setTimeout(() => {
+                    setIsAboutReady(true);
+                }, 2000 - elapsedTime);
+            }
         });
     }, []);
 
@@ -144,10 +199,10 @@ const Home = () => {
 
 
     useEffect(() => {
-        if (isAssetReady && isProjectReady && isGalleryReady) {
+        if (isAssetReady && isProjectReady && isGalleryReady && isGalleryPartReady && isAboutReady && isLandingReady) {
             setIsPageReady(true)
         }
-    }, [isAssetReady, isProjectReady, isGalleryReady]);
+    }, [isAssetReady, isProjectReady, isGalleryReady, isGalleryPartReady, isAboutReady, isLandingReady]);
     useEffect(() => {
         if (isPageReady) {
             let partTitleContainer = document.getElementsByClassName('partTitle')
@@ -268,14 +323,14 @@ const Home = () => {
         <div className={`Home ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
 
             <PanelsContainer isPageReady={isPageReady}/>
-            <Landing assetsUrl={assetsUrl}/>
+            <Landing assetsUrl={assetsUrl} landingData={landingData}/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
-            <AboutPartView/>
+            <AboutPartView aboutData={aboutData}/>
             <ContactPartView contactManager={projectManager} contactData={contactData} assetsUrl={assetsUrl}/>
-            <GalleryPartView galleryData={galleryData}/>
+            <GalleryPartView galleryData={galleryData} galleryPartData={galleryPartData}/>
             <Overlay/>
             <Loader isPageReady={isPageReady}/>
-            <Landing assetsUrl={assetsUrl}/>
+            <Landing assetsUrl={assetsUrl} landingData={landingData}/>
 
         </div>
     </>)

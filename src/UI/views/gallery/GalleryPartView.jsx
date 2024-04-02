@@ -1,17 +1,16 @@
 import PartTitle from "../../components/PartTitle.jsx";
 import GalleryContentView from "./GalleryContentView.jsx";
 
-const GalleryPartView = ({galleryData}) => {
+const GalleryPartView = ({galleryData, galleryPartData}) => {
 
 
-    return (
-        <section className={`Gallery`} id={`gallery`}>
-            <PartTitle ParentClass={"Gallery"} titleText={"Tu veux voir plus de mes travaux ?"} scrollable={false}/>
-            <GalleryContentView galleryData={galleryData}/>
+    return (<section className={`Gallery`} id={`gallery`}>
+            {galleryPartData && galleryData ? <>
+                <PartTitle ParentClass={"Gallery"} titleText={galleryPartData.title} scrollable={false}/>
+                <GalleryContentView galleryData={galleryData} galleryPartData={galleryPartData}/>
+            </> : <></>}
 
 
-
-        </section>
-    )
+        </section>)
 }
 export default GalleryPartView

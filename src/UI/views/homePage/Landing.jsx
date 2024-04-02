@@ -7,7 +7,7 @@ import gsap from "gsap";
 import {IsMobile, IsWidthLessThanOrEqualToHeight} from "../../../utils/utils.jsx";
 
 
-const Landing = ({assetsUrl}) => {
+const Landing = ({assetsUrl, landingData}) => {
     const [mousePosition, setMousePosition] = useState({x: null, y: null});
     const [size, setSize] = useState(null);
 
@@ -99,10 +99,13 @@ const Landing = ({assetsUrl}) => {
                 </div>
             </>}
         </div>
-        <div className={`Landing-scroll`}>
-            <MyLink style={1} text={"scroll to discover"} parentClass={"Landing-scroll"} url={'#projects'}
-                    isTarget={false}></MyLink>
-        </div>
+
+        { landingData ?
+            <div className={`Landing-scroll`}>
+                <MyLink style={1} text={landingData.link} parentClass={"Landing-scroll"} url={'#projects'}
+                        isTarget={false}></MyLink>
+            </div>
+            : <></> }
     </section>)
 }
 
