@@ -38,11 +38,12 @@
     transition: scale 300ms linear;
     &.Mobile {
       grid-auto-flow: row;
-      margin-top: 164px;
+      margin: 164px 8px 0;
       grid-row-gap: 8px;
 
+
     }
-    &-column {
+    &-column,& {
       display: grid;
       grid-auto-flow: row;
       grid-row-gap: 8px;
@@ -53,6 +54,10 @@
           height: fit-content;
           object-fit: cover;
           background-color: #fff;
+          @include media("<=small") {
+            width: 100%;
+          }
+
 
         }
       }

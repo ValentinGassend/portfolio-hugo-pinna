@@ -5,6 +5,7 @@ import {gsap} from "gsap";
 import GalleryPageView from "../views/galleryPage/galleryPageView.jsx";
 import SingleProjectView from "../views/singleProject/SingleProjectView.jsx";
 import Home from "../views/homePage/Home.jsx";
+import {IsMobile} from "../../utils/utils.jsx";
 
 const Routing = () => {
     const parentNode = useRef(null);
@@ -34,7 +35,7 @@ const Routing = () => {
         //console.log("onExit");
         //console.log(node);
 
-        if (node === document.getElementsByClassName('Home')[0] && node.querySelector(".Projects-promote-card.selected")) {
+        if (node === document.getElementsByClassName('Home')[0] && node.querySelector(".Projects-promote-card.selected") && !IsMobile()) {
             let projectCard = node.querySelector(".Projects-promote-card.selected");
             //console.log(projectCard)
             if (projectCard.querySelectorAll(".Projects-promote-card--img").length > 0) {

@@ -146,7 +146,7 @@ const GalleryPageView = () => {
         updateContainerPosition();
     }, [isPageReady, containerPosition]);
     useEffect(() => {
-        if (scaleValue >= 0.1 && scaleValue <= 2.5 && !IsMobile()) {
+        if (scaleValue >= 0.25 && scaleValue <= 2.5 && !IsMobile()) {
             document.addEventListener('wheel', toogleZoom)
             document.querySelector('.GalleryPage-container').style.scale = scaleValue
         }
@@ -400,31 +400,33 @@ const GalleryPageView = () => {
         }
     }
 
-    return (<> {IsMobile() ? <section className={`GalleryPage Mobile ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
-        <div ref={containerRef}
-             className={`GalleryPage-container Mobile`}>            {galleryData ? galleryData.map((item, index) => (
-            <div key={index} className="GalleryPage-container-column-item">
-                {item.media === "image" ? (<img
-                    className={`GalleryPage-container-column-item--img`}
-                    src={item.url}
-                    alt={'image de la page contenu'}
-                />) : item.media === "video" ? (<video
-                    className={`GalleryPage-container-column-item--video`}
-                    autoPlay loop muted playsInline
-                >
-                    <source src={item.url} type="video/mp4"/>
-                    Your browser does not support the video tag.
-                </video>) : (<></>)}
-            </div>)) : <> </>}
-        </div>
-    </section> : <section className={`GalleryPage ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
-        <div ref={containerRef} className={`GalleryPage-container`}
-             style={{left: `${containerPosition.x}%`, top: `${containerPosition.y}%`}}>
-            {galleryData ? generateGrid(galleryData.length) : <></>}
-        </div>
+    return (<> {IsMobile() ?
+        <section className={`GalleryPage Mobile ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
+            <div ref={containerRef}
+                 className={`GalleryPage-container Mobile`}>
+                {galleryData ? galleryData.map((item, index) => (
+                    <div key={index} className="GalleryPage-container-item">
+                        {item.media === "image" ? (<img
+                            className={`GalleryPage-container-item--img`}
+                            src={item.url}
+                            alt={'image de la page contenu'}
+                        />) : item.media === "video" ? (<video
+                            className={`GalleryPage-container-item--video`}
+                            autoPlay loop muted playsInline
+                        >
+                            <source src={item.url} type="video/mp4"/>
+                            Your browser does not support the video tag.
+                        </video>) : (<></>)}
+                    </div>)) : <> </>}
+            </div>
+        </section> : <section className={`GalleryPage ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
+            <div ref={containerRef} className={`GalleryPage-container`}
+                 style={{left: `${containerPosition.x}%`, top: `${containerPosition.y}%`}}>
+                {galleryData ? generateGrid(galleryData.length) : <></>}
+            </div>
 
 
-    </section>}
+        </section>}
 
         <Overlay isHome={false} isGallery={true}/>
 

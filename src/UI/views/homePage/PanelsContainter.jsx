@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
+import {IsMobile} from "../../../utils/utils.jsx";
 
 const PanelsContainer = ({isPageReady}) => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -237,6 +238,7 @@ const PanelsContainer = ({isPageReady}) => {
             //console.log(isTrackPad !== undefined)
             //console.log(isTrackPad)
             if (isTrackPadDefined) return;
+            if (IsMobile()) return;
 
             if (eventCount === 0) {
                 eventCountStart = performance.now();

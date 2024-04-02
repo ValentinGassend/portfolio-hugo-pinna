@@ -208,36 +208,35 @@ const SingleProjectView = (props) => {
                     </div>
                 </div>
                 <div className={"SingleProject-slider"}>
-                    <div className={"SingleProject-slider"}>
-                        <div className={"SingleProject-slider-container"}>
+                    <div className={"SingleProject-slider-container"}>
 
-                            {/*<div className={"SingleProject-slider-slide"}>*/}
-                            {/*    {mediaType === 'image' ? (*/}
-                            {/*        <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}*/}
-                            {/*             alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (*/}
-                            {/*        <video className={`SingleProject-slider-slide--video`} autoPlay loop muted*/}
-                            {/*               playsInline>*/}
-                            {/*            <source className={`SingleProject-slider-slide--video--source`}*/}
-                            {/*                    src={`${imageUrl}`}*/}
-                            {/*                    type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>*/}
-                            {/*            Your browser does not support the video tag.*/}
-                            {/*        </video>)}*/}
+                        {/*<div className={"SingleProject-slider-slide"}>*/}
+                        {/*    {mediaType === 'image' ? (*/}
+                        {/*        <img className={"SingleProject-slider-slide--img"} src={`${imageUrl}`}*/}
+                        {/*             alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (*/}
+                        {/*        <video className={`SingleProject-slider-slide--video`} autoPlay loop muted*/}
+                        {/*               playsInline>*/}
+                        {/*            <source className={`SingleProject-slider-slide--video--source`}*/}
+                        {/*                    src={`${imageUrl}`}*/}
+                        {/*                    type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>*/}
+                        {/*            Your browser does not support the video tag.*/}
+                        {/*        </video>)}*/}
 
-                            {/*</div>*/}
-                            {sliderImagesInfo.length > 0 ? sliderImagesInfo && sliderImagesInfo.map((image, index) => (
-                                <div key={index} className={"SingleProject-slider-slide"}>
-                                    {image.mediaType === 'image' ? (
-                                        <img className={"SingleProject-slider-slide--img"} src={image.url}
-                                             alt={`Image ${index}`}/>) : (
-                                        <video className={"SingleProject-slider-slide--video"} autoPlay loop muted playsInline>
-                                            <source src={image.url}
-                                                    type={`video/${image.mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
-                                            Your browser does not support the video tag.
-                                        </video>)}
-                                </div>)) : (<>
-                            </>)}
+                        {/*</div>*/}
+                        {sliderImagesInfo.length > 0 ? sliderImagesInfo && sliderImagesInfo.map((image, index) => (
+                            <div key={index} className={"SingleProject-slider-slide"}>
+                                {image.mediaType === 'image' ? (
+                                    <img className={"SingleProject-slider-slide--img"} src={image.url}
+                                         alt={`Image ${index}`}/>) : (
+                                    <video className={"SingleProject-slider-slide--video"} autoPlay loop muted
+                                           playsInline>
+                                        <source src={image.url}
+                                                type={`video/${image.mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                                        Your browser does not support the video tag.
+                                    </video>)}
+                            </div>)) : (<>
+                        </>)}
 
-                        </div>
                     </div>
                 </div>
             </div>

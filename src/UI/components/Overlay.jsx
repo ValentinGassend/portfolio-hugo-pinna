@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import gsap from "gsap";
 import {useEffect} from "react";
+import {IsMobile} from "../../utils/utils.jsx";
 
 const Overlay = ({isHome = true, isGallery = false}) => {
 
@@ -32,20 +33,34 @@ const Overlay = ({isHome = true, isGallery = false}) => {
         className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isGallery ? "Diff" : ""}`}>
         {isHome ? (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
-                <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
-                <p className={`Overlay-wrapper-upper--text miller italic bold`}>Cuillère</p>
-
+                <div className={`Overlay-wrapper-upper-item`}>
+                    <p className={`Overlay-wrapper-upper--text uppercase`}>Hugo Pinna</p>
+                    <p className={`Overlay-wrapper-upper--text miller italic bold`}>Cuillère</p>
+                </div>
+                {IsMobile() ? <>
+                    <div className={`Overlay-wrapper-upper-item`}>
+                        <a className={`Overlay-wrapper-upper--text uppercase`} href={'#projects'}>Projects</a>
+                    </div>
+                    <div className={`Overlay-wrapper-upper-item`}>
+                        <a className={`Overlay-wrapper-upper--text uppercase`} href={'#about'}>About</a>
+                    </div>
+                    <div className={`Overlay-wrapper-upper-item`}>
+                        <a className={`Overlay-wrapper-upper--text uppercase`} href={'#contact'}>Contact</a>
+                    </div>
+                </> : <></>}
             </div>
             <div className={`Overlay-wrapper-lower`}>
-                <div className={`Overlay-wrapper-lower-item`}>
-                    <a className={`Overlay-wrapper-lower--text uppercase`} href={'#projects'}>Projects</a>
-                </div>
-                <div className={`Overlay-wrapper-lower-item`}>
-                    <a className={`Overlay-wrapper-lower--text uppercase`} href={'#about'}>About</a>
-                </div>
-                <div className={`Overlay-wrapper-lower-item`}>
-                    <a className={`Overlay-wrapper-lower--text uppercase`} href={'#contact'}>Contact</a>
-                </div>
+                {!IsMobile() ? <>
+                    <div className={`Overlay-wrapper-lower-item`}>
+                        <a className={`Overlay-wrapper-lower--text uppercase`} href={'#projects'}>Projects</a>
+                    </div>
+                    <div className={`Overlay-wrapper-lower-item`}>
+                        <a className={`Overlay-wrapper-lower--text uppercase`} href={'#about'}>About</a>
+                    </div>
+                    <div className={`Overlay-wrapper-lower-item`}>
+                        <a className={`Overlay-wrapper-lower--text uppercase`} href={'#contact'}>Contact</a>
+                    </div>
+                </> : <></>}
                 <div className={`Overlay-wrapper-lower-item`}>
                     <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>
                     <a className={`Overlay-wrapper-lower--text`}
@@ -60,15 +75,20 @@ const Overlay = ({isHome = true, isGallery = false}) => {
 
 
                 <div className={`Overlay-wrapper-upper-item`}>
-                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna </Link>
+                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna
+                        {isGallery && !IsMobile() ? (
+                            <span className={"Overlay-wrapper-upper--text-span italic bold uppercase"}>
+                        the wall</span>) : (<></>)}
+                    </Link>
                     <Link className={`Overlay-wrapper-upper--text miller italic bold`} to={`../`}>Cuillère</Link>
-                    {isGallery ? (
+                    {isGallery && IsMobile() ? (
                         <span className={"Overlay-wrapper-upper--text-span italic bold uppercase"}>
                         the wall</span>) : (<></>)}
                 </div>
 
                 <div className={`Overlay-wrapper-upper-item`}>
-                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase AlignR`} to={"../"}>back to </Link>
+                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase AlignR`} to={"../"}>back
+                        to </Link>
                     <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase`} to={"../"}>the
                         home</Link>
 

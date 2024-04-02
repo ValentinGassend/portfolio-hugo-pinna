@@ -12,6 +12,7 @@ import Overlay from "../../components/Overlay.jsx";
 import PanelsContainer from "./PanelsContainter.jsx";
 import GalleryPartView from "../gallery/GalleryPartView.jsx";
 import projectManager from "../../../managers/ProjectManager.jsx";
+import {IsMobile} from "../../../utils/utils.jsx";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
@@ -207,7 +208,7 @@ const Home = () => {
         if (isPageReady) {
             let partTitleContainer = document.getElementsByClassName('partTitle')
             let overlay = document.getElementsByClassName('Overlay')[0]
-            let overlayLowerItems = document.getElementsByClassName('Overlay-wrapper-lower--text')
+            let overlayLowerItems = IsMobile() ? document.getElementsByClassName('Overlay-wrapper-upper--text') : document.getElementsByClassName('Overlay-wrapper-lower--text')
 
             let containers = []
             let container;
