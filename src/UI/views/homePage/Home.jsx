@@ -106,6 +106,33 @@ const Home = () => {
             }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
         });
         projectManager.getProjectsFromFirebase('landing').then((landingData) => {
+
+            if (landingData && landingData.length > 0) {
+                const landingItem = landingData[0];
+                if (landingItem.image && landingItem.image.length > 0) {
+                    const imagePath = landingItem.image;
+                    // Use projectManager to get the URL of the image
+                    projectManager.getUrlOfImage(imagePath)
+                        .then((url) => {
+                            landingItem.url = url;
+                            landingItem.media = projectManager.getMediaType(url);
+                            setLandingData(landingItem);
+                        })
+                        .catch((error) => {
+                            console.error("Error getting URL of image:", error);
+                            setLandingData(landingItem);
+                        });
+                } else {
+                    setLandingData(landingItem);
+                }
+
+                const elapsedTime = Date.now() - startTime;
+                elapsedTimeRef.current = elapsedTime;
+
+                setTimeout(() => {
+                    setIsLandingReady(true);
+                }, 2000 - elapsedTime);
+            }
             setLandingData(landingData[0]);
             setAnalyticsInitialized(true);
 

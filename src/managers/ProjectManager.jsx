@@ -50,6 +50,29 @@ const ProjectManager = {
             throw error; // Renvoyez l'erreur pour que l'appelant puisse la gérer
         }
 
+    },
+    getMediaType: (url) => {
+        // Using regular expression to extract file extension
+        const extensionMatch = url.match(/\.([^.?#]+)(?:[?#]|$)/i);
+
+        // Checking if a valid extension is found
+        if (extensionMatch && extensionMatch[1]) {
+            const extension = extensionMatch[1].toLowerCase();
+
+            // Logging for debugging purposes
+            //console.log('Extension:', extension);
+            //console.log('Original URL:', url);
+
+            // Checking if the extension corresponds to a video format
+            if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {
+                return { type: 'video', extension: extension };
+            } else {
+                return { type: 'image', extension: extension };
+            }
+        } else {
+            // If no extension is found, default to 'image'
+            return { type: 'image', extension: null };
+        }
     }
 
 }

@@ -41,29 +41,6 @@ const GalleryPageView = () => {
         fetchProject();
 
     }, []);
-    const getMediaType = (url) => {
-        // Using regular expression to extract file extension
-        const extensionMatch = url.match(/\.([^.?#]+)(?:[?#]|$)/i);
-
-        // Checking if a valid extension is found
-        if (extensionMatch && extensionMatch[1]) {
-            const extension = extensionMatch[1].toLowerCase();
-
-            // Logging for debugging purposes
-            //console.log('Extension:', extension);
-            //console.log('Original URL:', url);
-
-            // Checking if the extension corresponds to a video format
-            if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {
-                return 'video';
-            } else {
-                return 'image';
-            }
-        } else {
-            // If no extension is found, default to 'image'
-            return 'image';
-        }
-    };
     useEffect(() => {
         const fetchData = async () => {
             const newData = await Promise.all(galleryData.map(async (item) => {
@@ -72,7 +49,7 @@ const GalleryPageView = () => {
                     try {
                         const url = await projectManager.getUrlOfImage(item.visual);
 
-                        const media = getMediaType(url);
+                        const media = projectManager.getMediaType(url);
                         console.log(url)
                         console.log(media)
                         return {...item, url, media};
@@ -372,15 +349,15 @@ const GalleryPageView = () => {
                     let media = galleryData[ImageIndex].media
                     ImageIndex++
                     return (<div key={index} className="GalleryPage-container-column-item">
-                        {media === "image" ? (<img
+                        {media.type === "image" ? (<img
                             className={`GalleryPage-container-column-item--img`}
                             src={url}
                             alt={'image de la page contenu'}
-                        />) : media === "video" ? (<video
+                        />) : media.type === "video" ? (<video
                             className={`GalleryPage-container-column-item--video`}
                             autoPlay loop muted playsInline
                         >
-                            <source src={url} type="video/mp4"/>
+                            <source src={url} type={`video/${media.extension}`}/>
                             Your browser does not support the video tag.
                         </video>) : (<></>)}
                     </div>);
@@ -406,15 +383,15 @@ const GalleryPageView = () => {
                  className={`GalleryPage-container Mobile`}>
                 {galleryData ? galleryData.map((item, index) => (
                     <div key={index} className="GalleryPage-container-item">
-                        {item.media === "image" ? (<img
+                        {item.media.type === "image" ? (<img
                             className={`GalleryPage-container-item--img`}
                             src={item.url}
                             alt={'image de la page contenu'}
-                        />) : item.media === "video" ? (<video
+                        />) : item.media.type === "video" ? (<video
                             className={`GalleryPage-container-item--video`}
                             autoPlay loop muted playsInline
                         >
-                            <source src={item.url} type="video/mp4"/>
+                            <source src={item.url} type={`video/${item.media.extension}`}/>
                             Your browser does not support the video tag.
                         </video>) : (<></>)}
                     </div>)) : <> </>}

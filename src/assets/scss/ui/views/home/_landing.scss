@@ -8,7 +8,24 @@
   top: 0;
   left: 0;
   overflow: hidden;
+  &-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    &--img, &--video {
+      position: relative;
+      top: 0;
+      width: 100vw;
 
+      height: fit-content;
+      object-fit: cover;
+
+      @include media("<=small") {
+        width: fit-content;
+        height: 100%;
+      }
+    }
+  }
   &-grid {
     display: grid;
     //grid-template-columns: repeat(664, calc((1 / 664) * 100%));

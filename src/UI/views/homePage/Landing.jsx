@@ -8,18 +8,28 @@ import {IsMobile, IsWidthLessThanOrEqualToHeight} from "../../../utils/utils.jsx
 
 
 const Landing = ({assetsUrl, landingData}) => {
-    const [mousePosition, setMousePosition] = useState({x: null, y: null});
-    const [size, setSize] = useState(null);
-
-    const handleMouseMove = (event) => {
-        const {clientX, clientY} = event;
-        setMousePosition({x: clientX - (size / 2), y: clientY - (size / 2)});
-    };
 
 
-    return (<section className={`Landing`} style={{
-        '--size': size + "px", '--mousePY': mousePosition.y + "px", '--mousePX': mousePosition.x + "px"
-    }}>
+
+    // si Landing video existe déjà alors
+    // video2.currentTime = video.currentTime;
+
+
+    return (<section className={`Landing`}>
+        {landingData && landingData.media ? <>
+            <div className={`Landing-background`}>
+                {landingData.media.type === 'image' ? (<img className={`Landing-background--img`} src={`${landingData.url}`}
+                                               alt={`Illustration of Landing"`}/>) : (
+                    <video className={`Landing-background--video`} autoPlay loop muted playsInline>
+                        <source className={`Landing-background--video--source`} src={`${landingData.url}`}
+                                type={`video/${landingData.media.extension === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                        Your browser does not support the video tag.
+                    </video>)}            </div>
+            <div className={`Landing-scroll`}>
+                <MyLink style={1} text={landingData.link} parentClass={"Landing-scroll"} url={'#projects'}
+                        isTarget={false}></MyLink>
+            </div>
+        </> : <></>}
         <div className={`Landing-grid`}>
             {IsMobile() && IsWidthLessThanOrEqualToHeight() ? <>
                 <div className={`Landing-grid-line`}>
@@ -100,12 +110,7 @@ const Landing = ({assetsUrl, landingData}) => {
             </>}
         </div>
 
-        { landingData ?
-            <div className={`Landing-scroll`}>
-                <MyLink style={1} text={landingData.link} parentClass={"Landing-scroll"} url={'#projects'}
-                        isTarget={false}></MyLink>
-            </div>
-            : <></> }
+
     </section>)
 }
 

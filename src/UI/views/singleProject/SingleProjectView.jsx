@@ -57,7 +57,7 @@ const SingleProjectView = (props) => {
                     if (url) {
                         //////console.log("URL de l'image:", url);
                         setImageUrl(url);
-                        setMediaType(getMediaType(url));
+                        setMediaType(projectManager.getMediaType(url));
 
                     } else {
                         //////console.log("L'image n'existe pas ou une erreur s'est produite.");
@@ -79,7 +79,7 @@ const SingleProjectView = (props) => {
                     try {
                         const url = await projectManager.getUrlOfImage(imageUrl);
                         return {
-                            name: imageName, url: url, mediaType: getMediaType(url)
+                            name: imageName, url: url, mediaType: projectManager.getMediaType(url)
                         };
                     } catch (error) {
                         console.error("Error fetching image URL:", error);
@@ -132,29 +132,7 @@ const SingleProjectView = (props) => {
             }
         }
     }, [isPageReady]);
-    const getMediaType = (url) => {
-        // Using regular expression to extract file extension
-        const extensionMatch = url.match(/\.([^.?#]+)(?:[?#]|$)/i);
 
-        // Checking if a valid extension is found
-        if (extensionMatch && extensionMatch[1]) {
-            const extension = extensionMatch[1].toLowerCase();
-
-            // Logging for debugging purposes
-            //console.log('Extension:', extension);
-            //console.log('Original URL:', url);
-
-            // Checking if the extension corresponds to a video format
-            if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {
-                return 'video';
-            } else {
-                return 'image';
-            }
-        } else {
-            // If no extension is found, default to 'image'
-            return 'image';
-        }
-    };
 
     return (<>
         <section className={`SingleProject  ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
@@ -225,13 +203,13 @@ const SingleProjectView = (props) => {
                         {/*</div>*/}
                         {sliderImagesInfo.length > 0 ? sliderImagesInfo && sliderImagesInfo.map((image, index) => (
                             <div key={index} className={"SingleProject-slider-slide"}>
-                                {image.mediaType === 'image' ? (
+                                {image.mediaType.type === 'image' ? (
                                     <img className={"SingleProject-slider-slide--img"} src={image.url}
                                          alt={`Image ${index}`}/>) : (
                                     <video className={"SingleProject-slider-slide--video"} autoPlay loop muted
                                            playsInline>
                                         <source src={image.url}
-                                                type={`video/${image.mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                                                type={`video/${image.mediaType.extension}`}/>
                                         Your browser does not support the video tag.
                                     </video>)}
                             </div>)) : (<>
