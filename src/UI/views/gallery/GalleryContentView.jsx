@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import MyLink from "../../components/MyLink.jsx";
 
-const GalleryContentView = ({galleryData}) => {
+const GalleryContentView = ({galleryData, galleryPartData}) => {
     const [numberOfItems, setNumberOfItems] = useState(0);
     const [urls, setUrls] = useState([]);
 
@@ -159,7 +159,7 @@ const GalleryContentView = ({galleryData}) => {
 
         </div>
         <div className={`Gallery-content-scroll`}>
-            <MyLink style={1} text={"The wall"} parentClass={"Gallery-content-scroll"} url={`/gallery`}
+            <MyLink style={1} text={galleryPartData.link} parentClass={"Gallery-content-scroll"} url={`/gallery`}
                     isTarget={false}></MyLink>
         </div>
     </div>)
