@@ -60,15 +60,18 @@ const Overlay = ({isHome = true, isGallery = false}) => {
 
 
                 <div className={`Overlay-wrapper-upper-item`}>
-                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna {isGallery ? (
-                        <span className={"Overlay-wrapper-upper--text-span italic bold"}>
-                        the wall</span>) : (<></>)}</Link>
+                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna </Link>
                     <Link className={`Overlay-wrapper-upper--text miller italic bold`} to={`../`}>Cuillère</Link>
+                    {isGallery ? (
+                        <span className={"Overlay-wrapper-upper--text-span italic bold uppercase"}>
+                        the wall</span>) : (<></>)}
                 </div>
 
                 <div className={`Overlay-wrapper-upper-item`}>
-                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase`} to={"../"}>back to the
+                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase AlignR`} to={"../"}>back to </Link>
+                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase`} to={"../"}>the
                         home</Link>
+
                 </div>
             </div>
             <div className={`Overlay-wrapper-lower`}>

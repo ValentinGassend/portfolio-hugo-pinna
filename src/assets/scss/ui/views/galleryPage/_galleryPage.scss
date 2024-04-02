@@ -9,6 +9,11 @@
   background-color: #fff;
   transition: opacity 300ms 300ms ease;
   opacity: 0;
+  &.Mobile {
+    height: fit-content;
+    overflow-y: unset;
+
+  }
 
   &.isPageReady {
     opacity: 1;
@@ -31,6 +36,12 @@
     align-content: center;
     grid-column-gap: 8px;
     transition: scale 300ms linear;
+    &.Mobile {
+      grid-auto-flow: row;
+      margin-top: 164px;
+      grid-row-gap: 8px;
+
+    }
     &-column {
       display: grid;
       grid-auto-flow: row;

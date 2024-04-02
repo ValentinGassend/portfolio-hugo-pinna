@@ -117,11 +117,6 @@
 
         }
 
-        @include media("<=medium") {
-          font-size: 18px;
-
-        }
-
         &-span {
           display: flex;
           width: fit-content;
@@ -131,13 +126,28 @@
           font-family: $ff_2;
 
           &:before {
-            margin: 0 10px;
+            margin: 0 10px 0 0;
             display: flex;
             content: "";
             width: 30px;
             height: 2px;
             background-color: $color_secondary;
 
+          }
+          &.uppercase {
+            text-transform: uppercase;
+          }
+
+          &.bold {
+            font-weight: 700;
+          }
+
+          &.italic {
+            font-style: italic;
+          }
+
+          &.miller {
+            font-family: $ff_2;
           }
         }
 
@@ -190,6 +200,13 @@
           font-family: $ff_2;
         }
 
+        &.AlignR {
+          justify-content: flex-end;
+        }
+
+        &.uppercase {
+          text-transform: uppercase;
+        }
         &.currentSection {
           font-weight: 700;
           font-style: italic;
