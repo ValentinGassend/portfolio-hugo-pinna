@@ -130,7 +130,7 @@ const PanelsContainer = ({isPageReady}) => {
                 // Scroll to the specified panel with a duration
                 // console.log("classic scroll")
 
-                if (direction > 0) {
+                if (direction > 0 && nextTarget) {
                     if (nextTarget.classList.contains('EnterSmoothScroll')) {
                         // console.log("EnterSmoothScroll", nextTarget)
                         scrollTween.current = gsap.to(window, {

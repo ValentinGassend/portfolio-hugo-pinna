@@ -7,6 +7,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
     const [imageUrl, setImageUrl] = useState(null);
     const [isScrolling, setIsScrolling] = useState(false);
     const [mediaType, setMediaType] = useState("image"); // Default media type is image
+    const [projectData, setProjectData] = useState(null); // Default media type is image
     const timeout = setTimeout(() => {
         setIsScrolling(false)
     }, 500);
@@ -60,8 +61,10 @@ const ProjectPromoteView = ({index, project, manager}) => {
             .then((url) => {
                 if (url) {
                     ////console.log("URL de l'image:", url);
-                    setImageUrl(url);
-                    setMediaType(manager.getMediaType(url));
+                    project.url = url;
+                    project.media = manager.getMediaType(url);
+
+                    setProjectData(project)
                 } else {
                     ////console.log("L'image n'existe pas ou une erreur s'est produite.");
                 }
@@ -70,19 +73,21 @@ const ProjectPromoteView = ({index, project, manager}) => {
     }, [project.header_image]);
 
     return (<div className={"Projects-promote-item"}>
-        <Link refresh="false" data-id={project.id} className={`Projects-promote-card`} to={'/project/' + project.id}>
-            {mediaType === 'image' ? (<img className={`Projects-promote-card--img`} src={`${imageUrl}`}
-                                           alt={`Illustration of ${project.name}`}/>) : (
+        {projectData ? <Link refresh="false" data-id={projectData.id} className={`Projects-promote-card`}
+                             to={'/project/' + projectData.id}>
+            {projectData.media.type === 'image' ? (
+                <img className={`Projects-promote-card--img`} src={`${projectData.url}`}
+                     alt={`Illustration of ${projectData.name}`}/>) : (
                 <video className={`Projects-promote-card--video`} autoPlay loop muted playsInline>
-                    <source className={`Projects-promote-card--video--source`} src={`${imageUrl}`}
-                            type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                    <source className={`Projects-promote-card--video--source`} src={`${projectData.url}`}
+                            type={`video/${projectData.media.extension}`}/>
                     Your browser does not support the video tag.
                 </video>)}
             <div className={`Projects-promote-card-content`}>
-                <h2 className={`Projects-promote-card-content--date`}>{project.year}</h2>
-                <h1 className={`Projects-promote-card-content--title`}>{project.name}</h1>
-                <h3 className={`Projects-promote-card-content--type`}>{project.project_type}</h3>
+                <h2 className={`Projects-promote-card-content--date`}>{projectData.year}</h2>
+                <h1 className={`Projects-promote-card-content--title`}>{projectData.name}</h1>
+                <h3 className={`Projects-promote-card-content--type`}>{projectData.project_type}</h3>
             </div>
-        </Link></div>)
+        </Link> : <></>}</div>)
 }
 export default ProjectPromoteView

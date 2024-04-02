@@ -1,23 +1,38 @@
 .Landing {
+
   width: 100%;
   height: 100%;
   background-color: $color_secondary;
-  display: grid;
-  align-content: center;
-  position: relative;
+  position: initial;
   top: 0;
   left: 0;
-  overflow: hidden;
-  &-background {
-    position: absolute;
+  &-container {
+
     width: 100%;
     height: 100%;
+    //background-color: $color_secondary;
+    display: grid;
+    align-content: center;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  //overflow: hidden;
+  &-background {
+    position: absolute;
+    display: flex;
+    width: auto;
+    height: 100%;
+
+    justify-content: center;
+    left: 0;
+    margin: 0 auto;
+    right: 0;
     &--img, &--video {
       position: relative;
       top: 0;
-      width: 100vw;
-
-      height: fit-content;
+      width: auto;
+      height: 100%;
       object-fit: cover;
 
       @include media("<=small") {
@@ -27,6 +42,7 @@
     }
   }
   &-grid {
+    z-index: 10;
     display: grid;
     //grid-template-columns: repeat(664, calc((1 / 664) * 100%));
     width: 100%;
