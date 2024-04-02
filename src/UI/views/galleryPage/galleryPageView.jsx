@@ -229,7 +229,7 @@ const GalleryPageView = () => {
             // //console.log("sides", firstSides);
             // //console.log("grille de " + totalItems, grid);
             // //console.log("=========================");
-        } else if (totalItems <= 32) {
+        } else {
 
             const returnValues = from4To8(totalItems);
             let middle = returnValues[0];
@@ -366,7 +366,6 @@ const GalleryPageView = () => {
             }
         }
         return (<>
-            {/* Generate grid items */}
             {grid.map((subArray, subIndex) => (<div key={subIndex} className="GalleryPage-container-column">
                 {subArray.map((item, index) => {
                     let url = galleryData[ImageIndex].url
