@@ -37,6 +37,7 @@ const Routing = () => {
 
         if (node === document.getElementsByClassName('Home')[0] && node.querySelector(".Projects-promote-card.selected") && !IsMobile()) {
             let projectCard = node.querySelector(".Projects-promote-card.selected");
+            let projectItem = null;
             //console.log(projectCard)
             if (projectCard.querySelectorAll(".Projects-promote-card--img").length > 0) {
                 //console.log("isImage")
@@ -57,6 +58,8 @@ const Routing = () => {
                                 }
                             });
                         }
+                    } else if(element.contains(projectCard) && element.classList.contains('Projects-promote-item')) {
+                        projectItem = element
                     }
                 });
             } else if (projectCard.querySelectorAll(".Projects-promote-card--video--source").length > 0) {
@@ -91,6 +94,10 @@ const Routing = () => {
             gsap.set(projectCard, {
                 scale: 1
             });
+            if (projectItem) {
+                gsap.to(window, { duration: 0.3, scrollTo: projectItem, ease: "power2.easeOut" });
+
+            }
             let cardTop = projectCard.getBoundingClientRect().y;
             let cardLeft = projectCard.getBoundingClientRect().x;
             let cardB = projectCard.getBoundingClientRect();
@@ -101,6 +108,7 @@ const Routing = () => {
                 width: "100vw",
                 height: "50vh",
                 duration: 1,
+                delay:0.3,
                 onStartParams: [projectCard],
                 onStart: function () {
                     projectCard.classList.add('transitioning');
