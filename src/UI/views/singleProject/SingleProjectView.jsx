@@ -55,9 +55,12 @@ const SingleProjectView = (props) => {
                 .getUrlOfImage(projectData.header_image)
                 .then((url) => {
                     if (url) {
-                        //////console.log("URL de l'image:", url);
-                        setImageUrl(url);
-                        setMediaType(projectManager.getMediaType(url));
+
+                        projectData.url = url;
+                        projectData.media = projectManager.getMediaType(url);
+
+                        setProjectData(projectData)
+
 
                     } else {
                         //////console.log("L'image n'existe pas ou une erreur s'est produite.");
@@ -96,13 +99,7 @@ const SingleProjectView = (props) => {
 
     }, [projectData]);
 
-    useEffect(() => {
-        const textContent = document.getElementsByClassName("SingleProject-content-wrapper")[0]
-        const sliderContent = document.getElementsByClassName("SingleProject-slider")[0]
 
-        let textContentheight = textContent.getBoundingClientRect().height
-        sliderContent.style.height = "calc(100% - " + textContentheight + "px)"
-    }, [projectData]);
     useEffect(() => {
 
         gsap.registerPlugin(ScrollTrigger);
@@ -137,18 +134,18 @@ const SingleProjectView = (props) => {
     return (<>
         <section className={`SingleProject  ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
 
-            <div className={"SingleProject-banner"}>
-                {mediaType === 'image' ? (
+            {projectData && projectData.media ? <div className={"SingleProject-banner"}>
+                {projectData.media.type === 'image' ? (
 
-                    <img className={"SingleProject-banner--img"} src={`${imageUrl}`}
+                    <img className={"SingleProject-banner--img"} src={projectData.url}
                          alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (
                     <video className={`SingleProject-banner--video`} autoPlay loop muted playsInline>
-                        <source className={`SingleProject-banner--video--source`} src={`${imageUrl}`}
-                                type={`video/${mediaType === 'mp4' ? 'mp4' : 'ogg'}`}/>
+                        <source className={`SingleProject-banner--video--source`} src={projectData.url}
+                                type={`video/${projectData.media.extension}`}/>
                         Your browser does not support the video tag.
                     </video>)}
 
-            </div>
+            </div> : <></>}
             <div className={"SingleProject-content"}>
                 <div className={"SingleProject-content-wrapper"}>
                     <div className={"SingleProject-content-header"}>

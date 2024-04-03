@@ -123,12 +123,15 @@ const GalleryPageView = () => {
         updateContainerPosition();
     }, [isPageReady, containerPosition]);
     useEffect(() => {
-        if (scaleValue >= 0.25 && scaleValue <= 2.5 && !IsMobile()) {
-            document.addEventListener('wheel', toogleZoom)
-            document.querySelector('.GalleryPage-container').style.scale = scaleValue
+        if (isPageReady && galleryData[0].media) {
+
+            if (scaleValue >= 0.25 && scaleValue <= 2.5 && !IsMobile()) {
+                document.addEventListener('wheel', toogleZoom)
+                document.querySelector('.GalleryPage-container').style.scale = scaleValue
+            }
         }
 
-    }, [scaleValue]);
+    }, [scaleValue, isPageReady, galleryData]);
 
     function from4To8(total) {
         let middle;
@@ -377,12 +380,13 @@ const GalleryPageView = () => {
         }
     }
 
-    return (<> {IsMobile() ?
-        <section className={`GalleryPage Mobile ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
+    return (<> {galleryData && galleryData[0].media ? <>
+        {IsMobile() ? <section className={`GalleryPage Mobile ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
             <div ref={containerRef}
                  className={`GalleryPage-container Mobile`}>
                 {galleryData ? galleryData.map((item, index) => (
                     <div key={index} className="GalleryPage-container-item">
+
                         {item.media.type === "image" ? (<img
                             className={`GalleryPage-container-item--img`}
                             src={item.url}
@@ -403,8 +407,7 @@ const GalleryPageView = () => {
             </div>
 
 
-        </section>}
-
+        </section>}</> : <></>}
         <Overlay isHome={false} isGallery={true}/>
 
     </>);

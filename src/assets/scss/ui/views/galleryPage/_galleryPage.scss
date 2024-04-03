@@ -41,9 +41,25 @@
       margin: 164px 8px 0;
       grid-row-gap: 8px;
 
+      display: grid;
+      grid-auto-flow: row;
+      grid-row-gap: 8px;
 
+      .GalleryPage-container-item {
+        &--img,&--video {
+          width: 447px;
+          height: fit-content;
+          object-fit: cover;
+          background-color: #fff;
+          @include media("<=small") {
+            width: 100%;
+          }
+
+
+        }
+      }
     }
-    &-column,& {
+    &-column {
       display: grid;
       grid-auto-flow: row;
       grid-row-gap: 8px;
