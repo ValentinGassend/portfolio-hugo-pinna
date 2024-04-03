@@ -67,7 +67,7 @@
       &-item {
         &--img,&--video {
           width: 447px;
-          height: fit-content;
+          height: auto;
           object-fit: cover;
           background-color: #fff;
           @include media("<=small") {
