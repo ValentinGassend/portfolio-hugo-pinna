@@ -1,4 +1,4 @@
-import {collection,doc, getDoc, getDocs} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs} from "firebase/firestore";
 import {db, storage} from "../assets/js/firebase.js";
 import {getDownloadURL, ref} from "firebase/storage";
 
@@ -13,13 +13,12 @@ const ProjectManager = {
         } catch (error) {
             console.error("Error fetching data:", error);
         }
-    },
-    getProjectByID: async (projectId, DatabaseName = "") => {
+    }, getProjectByID: async (projectId, DatabaseName = "") => {
         try {
             const projectDocRef = doc(db, DatabaseName, projectId);
             const projectDocSnapshot = await getDoc(projectDocRef);
             if (projectDocSnapshot.exists()) {
-                return { id: projectDocSnapshot.id, ...projectDocSnapshot.data() };
+                return {id: projectDocSnapshot.id, ...projectDocSnapshot.data()};
             } else {
                 throw new Error("No such document exists!");
             }
@@ -27,30 +26,36 @@ const ProjectManager = {
             console.error("Error fetching project:", error);
             throw error;
         }
-    },
-    getPromotedProjects: (projects) => {
+    }, getPromotedProjects: (projects) => {
         return projects.filter((project) => project.is_promoted);
     },
 
     getSpecificAsset: (assets, name) => {
-        return assets.filter((asset) => asset.asset_name===name);
-    },
-    getUrlOfImage: async (path) => {
+        return assets.filter((asset) => asset.asset_name === name);
+    }, getUrlOfImage: async (path) => {
         try {
-            // Créez une référence à l'image dans Firebase Storage
+            // Create a reference to the image in Firebase Storage
             const storageRef = ref(storage, path);
 
-            // Obtenez l'URL de téléchargement de l'image
+            // Get the download URL of the image
             const downloadURL = await getDownloadURL(storageRef);
 
-            return downloadURL;
-        } catch (error) {
-            // Gérez les erreurs, par exemple si le fichier n'existe pas
-            console.error("Erreur lors de la récupération de l'URL de l'image:", error);
-            throw error; // Renvoyez l'erreur pour que l'appelant puisse la gérer
-        }
+            // Extract query parameters from the download URL
+            const url = new URL(downloadURL);
+            const queryParams = url.search;
+            // Modify the download URL to use ImageKit's URL format
+            const newBucket = "https://ik.imagekit.io/ValentinGassend/o/";
+            const encodedPath = encodeURIComponent(path); // Encode the full path
+            const imageURL = newBucket + encodedPath + queryParams;
 
+            return imageURL;
+        } catch (error) {
+            // Handle errors, for example, if the file does not exist
+            console.error("Error while retrieving the image URL:", error);
+            throw error; // Throw the error so that the caller can handle it
+        }
     },
+
     getMediaType: (url) => {
         // Using regular expression to extract file extension
         const extensionMatch = url.match(/\.([^.?#]+)(?:[?#]|$)/i);
@@ -65,13 +70,13 @@ const ProjectManager = {
 
             // Checking if the extension corresponds to a video format
             if (extension === 'mp4' || extension === 'mov' || extension === 'avi' || extension === 'wmv') {
-                return { type: 'video', extension: extension };
+                return {type: 'video', extension: extension};
             } else {
-                return { type: 'image', extension: extension };
+                return {type: 'image', extension: extension};
             }
         } else {
             // If no extension is found, default to 'image'
-            return { type: 'image', extension: null };
+            return {type: 'image', extension: null};
         }
     }
 
