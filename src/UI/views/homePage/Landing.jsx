@@ -1,4 +1,4 @@
-import Loader from "../../components/Loader.jsx";
+import HomeLoader from "../../components/HomeLoader.jsx";
 import LoadingManager from "../../../managers/LoadingManager.jsx";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import MyLink from "../../components/MyLink.jsx";

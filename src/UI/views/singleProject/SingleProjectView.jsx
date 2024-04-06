@@ -10,7 +10,7 @@ import {IsMobile, IsWidthLessThanOrEqualToHeight} from "../../../utils/utils.jsx
 
 // Import Swiper styles
 import 'swiper/css';
-import Loader from "../../components/Loader.jsx";
+import HomeLoader from "../../components/HomeLoader.jsx";
 import Overlay from "../../components/Overlay.jsx";
 
 const SingleProjectView = (props) => {
