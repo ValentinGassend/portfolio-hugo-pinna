@@ -46,14 +46,14 @@ const Landing = ({assetsUrl, landingData}) => {
 
 
     return (<section className={`Landing`}>
-        {landingData && landingData.media ? <>
+        {landingData && landingData.background ? <>
             <div className={`Landing-background`}>
-                {landingData.media.type === 'image' ? (
-                    <img className={`Landing-background--img`} src={`${landingData.url}`}
+                {landingData.background.media.type === 'image' ? (
+                    <img className={`Landing-background--img`} src={`${landingData.background.url}`}
                          alt={`Illustration of Landing"`}/>) : (
                     <video ref={videoRef} className={`Landing-background--video`} autoPlay loop muted playsInline>
-                        <source className={`Landing-background--video--source`} src={`${landingData.url}`}
-                                type={`video/${landingData.media.extension}`}/>
+                        <source className={`Landing-background--video--source`} src={`${landingData.background.url}`}
+                                type={`video/${landingData.background.media.extension}`}/>
                         Your browser does not support the video tag.
                     </video>)}
             </div>
@@ -73,8 +73,20 @@ const Landing = ({assetsUrl, landingData}) => {
                             </div>
                             <span className={`Landing-grid--element bold miller bigText`}>HUGO</span>
                         </div>
+
                         <div className={`Landing-grid-line`}>
-                            <img className={`Landing-grid--element img`} src={``}/>
+                            {landingData && landingData.imageGrid ? <>
+                                {landingData.imageGrid.media.type === 'image' ? (
+                                    <img className={`Landing-grid--element img`} src={`${landingData.imageGrid.url}`}
+                                         alt={`Illustration of Landing"`}/>) : (
+                                    <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
+                                           playsInline>
+                                        <source className={`Landing-grid--element source`}
+                                                src={`${landingData.imageGrid.url}`}
+                                                type={`video/${landingData.imageGrid.media.extension}`}/>
+                                        Your browser does not support the video tag.
+                                    </video>)}
+                            </> : <></>}
                             <div className={`Landing-grid-line--subgrid`}>
                                 <div className={`Landing-grid-line--subgrid`}>
                                     <span className={`Landing-grid--element`}>directeur artistique</span>
@@ -118,7 +130,18 @@ const Landing = ({assetsUrl, landingData}) => {
                             </div>
                         </div>
                         <div className={`Landing-grid-line`}>
-                            <img className={`Landing-grid--element img`} src={``}/>
+                            {landingData && landingData.imageGrid ? <>
+                                {landingData.imageGrid.media.type === 'image' ? (
+                                    <img className={`Landing-grid--element img`} src={`${landingData.imageGrid.url}`}
+                                         alt={`Illustration of Landing"`}/>) : (
+                                    <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
+                                           playsInline>
+                                        <source className={`Landing-grid--element source`}
+                                                src={`${landingData.imageGrid.url}`}
+                                                type={`video/${landingData.imageGrid.media.extension}`}/>
+                                        Your browser does not support the video tag.
+                                    </video>)}
+                            </> : <></>}
                             <span className={`Landing-grid--element bigText`}>Pinna</span>
                         </div>
                         <div className={`Landing-grid-line`}>

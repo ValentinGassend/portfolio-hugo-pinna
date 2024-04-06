@@ -109,13 +109,15 @@ const Home = () => {
 
             if (landingData && landingData.length > 0) {
                 const landingItem = landingData[0];
+                console.log(landingItem)
                 if (landingItem.image && landingItem.image.length > 0) {
                     const imagePath = landingItem.image;
                     // Use projectManager to get the URL of the image
                     projectManager.getUrlOfImage(imagePath)
                         .then((url) => {
-                            landingItem.url = url;
-                            landingItem.media = projectManager.getMediaType(url);
+
+                            landingItem.imageGrid = {url: url, media: projectManager.getMediaType(url) };
+                            console.log(landingItem)
                             setLandingData(landingItem);
                         })
                         .catch((error) => {
@@ -124,6 +126,20 @@ const Home = () => {
                         });
                 } else {
                     setLandingData(landingItem);
+                }
+                if (landingItem.background_file && landingItem.background_file.length > 0) {
+                    const imagePath = landingItem.background_file;
+                    // Use projectManager to get the URL of the image
+                    projectManager.getUrlOfImage(imagePath)
+                        .then((url) => {
+
+                            landingItem.background = {url: url, media: projectManager.getMediaType(url) };
+                            setLandingData(landingItem);
+                        })
+                        .catch((error) => {
+                            console.error("Error getting URL of image:", error);
+                            setLandingData(landingItem);
+                        });
                 }
 
                 const elapsedTime = Date.now() - startTime;

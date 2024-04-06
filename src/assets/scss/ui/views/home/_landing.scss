@@ -147,7 +147,7 @@
       &.img {
         height: 88px;
         width: 380px;
-        background-color: grey;
+        object-fit: cover;
 
         @include media("<=small") {
           width: 146px;
