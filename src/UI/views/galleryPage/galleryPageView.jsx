@@ -5,9 +5,10 @@ import gsap from "gsap";
 
 // Import Swiper styles
 import 'swiper/css';
-import Loader from "../../components/Loader.jsx";
+import HomeLoader from "../../components/HomeLoader.jsx";
 import Overlay from "../../components/Overlay.jsx";
 import {IsMobile} from "../../../utils/utils.jsx";
+import Loader from "../../components/Loader.jsx";
 
 const GalleryPageView = () => {
     const [galleryData, setGalleryData] = useState(null);
@@ -15,10 +16,12 @@ const GalleryPageView = () => {
     const [isPageReady, setIsPageReady] = useState(false)
     const [isAtRightEdge, setIsAtRightEdge] = useState(false);
     let [scaleValue, setScaleValue] = useState(1)
-
+    const [imageLoadingState, setImageLoadingState] = useState([]);
     const containerRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
     const [containerPosition, setContainerPosition] = useState({x: 0, y: 0});
+
+
     useEffect(() => {
         const startTime = Date.now(); // Enregistrez le temps de début
         //
@@ -26,16 +29,11 @@ const GalleryPageView = () => {
             try {
                 const projects = await projectManager.getProjectsFromFirebase("gallery");
                 setGalleryData(projects);
-                const elapsedTime = Date.now() - startTime;
-                elapsedTimeRef.current = elapsedTime;
-                setTimeout(() => {
-                    setIsPageReady(true);
-
-                }, 2000 - elapsedTime);
-                //
+                const loadingState = new Array(projects.length).fill(false);
+                setImageLoadingState(loadingState);
+                preloadImages(projects);
             } catch (error) {
                 console.error("Error fetching project:", error);
-                // Handle error appropriately, e.g., show an error message
             }
         };
         fetchProject();
@@ -380,7 +378,34 @@ const GalleryPageView = () => {
         }
     }
 
-    return (<> {galleryData && galleryData[0].media ? <>
+
+    const preloadImages = async (projects) => {
+        const promises = projects.map(async (item, index) => {
+            if (item.visual) {
+                try {
+                    const url = await projectManager.getUrlOfImage(item.visual);
+                    await new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            resolve();
+                            setImageLoadingState(prevState => {
+                                const newState = [...prevState];
+                                newState[index] = true;
+                                return newState;
+                            });
+                        };
+                        img.onerror = reject;
+                        img.src = url;
+                    });
+                } catch (error) {
+                    console.error("Error loading image:", error);
+                }
+            }
+        });
+        await Promise.all(promises);
+        setIsPageReady(true);
+    };
+    return (<> {isPageReady && galleryData && galleryData[0].media ? <>
         {IsMobile() ? <section className={`GalleryPage Mobile ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
             <div ref={containerRef}
                  className={`GalleryPage-container Mobile`}>
@@ -407,8 +432,11 @@ const GalleryPageView = () => {
             </div>
 
 
-        </section>}</> : <></>}
+        </section>}</> : <>
+
+    </>}
         <Overlay isHome={false} isGallery={true}/>
+        <Loader isPageReady={isPageReady}/>
 
     </>);
 };
