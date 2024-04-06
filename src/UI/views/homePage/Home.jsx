@@ -1,5 +1,5 @@
 import Landing from "./Landing.jsx";
-import Loader from "../../components/Loader.jsx";
+import HomeLoader from "../../components/HomeLoader.jsx";
 import React, {useEffect, useRef, useState} from "react";
 import ProjectsPartView from "../projects/ProjectsPartView.jsx";
 import AboutPartView from "../about/AboutPartView.jsx";
@@ -355,7 +355,15 @@ const Home = () => {
                 })
             }
 
+            const hash = location.hash;
+            if (hash) {
+                const element = document.querySelector(hash);
+                console.log(hash)
+                gsap.to(window, {
+                    scrollTo:hash
+                })
 
+            }
         }
     }, [isPageReady]);
     useEffect(() => {
@@ -373,7 +381,7 @@ const Home = () => {
             <ContactPartView contactManager={projectManager} contactData={contactData} assetsUrl={assetsUrl}/>
             <GalleryPartView galleryData={galleryData} galleryPartData={galleryPartData}/>
             <Overlay/>
-            <Loader isPageReady={isPageReady}/>
+            <HomeLoader isPageReady={isPageReady}/>
             <Landing assetsUrl={assetsUrl} landingData={landingData}/>
 
         </div>
