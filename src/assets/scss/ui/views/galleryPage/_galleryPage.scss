@@ -9,6 +9,7 @@
   background-color: #fff;
   transition: opacity 300ms 300ms ease;
   opacity: 0;
+  max-width: unset;
   &.Mobile {
     height: fit-content;
     overflow-y: unset;

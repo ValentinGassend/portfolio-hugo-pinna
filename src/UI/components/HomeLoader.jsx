@@ -57,7 +57,7 @@ const HomeLoader = ({isPageReady}) => {
                 <h1 className={`HomeLoader-title--content`}>Hugo Pinna</h1>
             </div>
             <div className={`HomeLoader-subtitle`}>
-                <h2 className={`HomeLoader-subtitle--content`}>Art director, Graphic designer, 3d Artist</h2>
+                <h2 className={`HomeLoader-subtitle--content`}>Directeur artistique, designer graphique, Designer 3d</h2>
             </div>
         </div>
     </>)

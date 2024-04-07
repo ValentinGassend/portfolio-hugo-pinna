@@ -435,7 +435,7 @@ const GalleryPageView = () => {
         </section>}</> : <>
 
     </>}
-        <Overlay isHome={false} isGallery={true}/>
+        <Overlay isHome={false} isGallery={true}  backID={"#gallery"}/>
         <Loader isPageReady={isPageReady}/>
 
     </>);

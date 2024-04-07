@@ -95,7 +95,14 @@ const Home = () => {
             }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
         });
         projectManager.getProjectsFromFirebase('projects').then((projectsData) => {
-            setProjects(projectsData);
+
+            const visibleProjects = projectsData.filter(project => project.visible);
+
+            // Sort the visible projects by their order
+            const sortedVisibleProjects = visibleProjects.sort((a, b) => a.order - b.order);
+
+            // Set the state with sorted visible projects
+            setProjects(sortedVisibleProjects);
             setAnalyticsInitialized(true);
 
             const elapsedTime = Date.now() - startTime;
@@ -373,7 +380,7 @@ const Home = () => {
 
     return (<>
         <div className={`Home ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
-
+            {console.log(projects)}
             <PanelsContainer isPageReady={isPageReady}/>
             <Landing assetsUrl={assetsUrl} landingData={landingData}/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>

@@ -12,6 +12,7 @@ import {IsMobile, IsWidthLessThanOrEqualToHeight} from "../../../utils/utils.jsx
 import 'swiper/css';
 import HomeLoader from "../../components/HomeLoader.jsx";
 import Overlay from "../../components/Overlay.jsx";
+import MyLink from "../../components/MyLink.jsx";
 
 const SingleProjectView = (props) => {
     const {id} = useParams();
@@ -168,6 +169,8 @@ const SingleProjectView = (props) => {
                                                                                        className={"SingleProject-content-header-tags--tag"}>[{tag}]</span>)) : ''}
                         </div>
                     </div>
+                    {console.log(projectData)}
+
                     <div className={"SingleProject-content-info"}>
                         {projectData ? projectData.contents.map((content, index) => {
                             if (content.type === 'title') {
@@ -176,10 +179,18 @@ const SingleProjectView = (props) => {
                             } else if (content.type === 'description') {
                                 return <p key={index}
                                           className={"SingleProject-content-info--description"}>{content.value}</p>;
+                                // } else if (content.type === 'link') {
+                                //     return <p key={index}
+                                //               className={"SingleProject-content-info--description"}>{content.value}</p>;
                             } else {
                                 return null; // Handle other types if needed
                             }
                         }) : ''}
+                        {projectData && projectData.site && projectData.site.link && projectData.site.link_text ?
+                            <MyLink style={1} text={`${projectData.site.link_text}`}
+                                    parentClass={"SingleProject-content-info"}
+                                    url={`${projectData.site.link}`}
+                                    isTarget={true}></MyLink> : <></>}
                     </div>
                 </div>
                 <div className={"SingleProject-slider"}>
@@ -217,7 +228,7 @@ const SingleProjectView = (props) => {
             </div>
 
         </section>
-        <Overlay isHome={false} isGallery={false}/>
+        <Overlay isHome={false} isGallery={false} backID={"#projects"}/>
         {/*<Loader isPageReady={isPageReady}/>*/}
 
     </>);

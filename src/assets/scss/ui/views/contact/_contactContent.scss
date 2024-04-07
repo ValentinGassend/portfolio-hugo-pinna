@@ -30,7 +30,7 @@
             padding: 21px;
             display: grid;
             grid-auto-flow: row;
-            row-gap: 100px;
+            row-gap: 84px;
             margin: auto;
             @include media("<=small") {
                 height: 100%;
@@ -55,15 +55,11 @@
                 &-texts {
                     display: grid;
                     grid-auto-flow: row;
-                    row-gap: 41px;
+                    row-gap: 16px;
                     height: fit-content;
                     padding: 0 0 0 calc(58px - 21px);
                     justify-items: end;
 
-                    @include media("<=medium") {
-                        row-gap: 32px;
-
-                    }
                     @include media("<=small") {
                         row-gap: 8px;
 

@@ -3,7 +3,7 @@ import gsap from "gsap";
 import {useEffect} from "react";
 import {IsMobile} from "../../utils/utils.jsx";
 
-const Overlay = ({isHome = true, isGallery = false}) => {
+const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
 
 
     let overlayTexts = document.querySelectorAll('.Overlay-wrapper-lower--text');
@@ -75,22 +75,22 @@ const Overlay = ({isHome = true, isGallery = false}) => {
 
 
                 <div className={`Overlay-wrapper-upper-item`}>
-                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../`}>Hugo Pinna
+                    <Link className={`Overlay-wrapper-upper--text uppercase`} to={`../${backID}`}>Hugo Pinna
                         {isGallery && !IsMobile() ? (
                             <span className={"Overlay-wrapper-upper--text-span italic bold uppercase"}>
                         the wall</span>) : (<></>)}
                     </Link>
-                    <Link className={`Overlay-wrapper-upper--text miller italic bold`} to={`../`}>Cuillère</Link>
+                    <Link className={`Overlay-wrapper-upper--text miller italic bold`} to={`../${backID}`}>Cuillère</Link>
                     {isGallery && IsMobile() ? (
                         <span className={"Overlay-wrapper-upper--text-span italic bold uppercase"}>
                         the wall</span>) : (<></>)}
                 </div>
 
                 <div className={`Overlay-wrapper-upper-item`}>
-                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase AlignR`} to={"../"}>back
-                        to </Link>
-                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase`} to={"../"}>the
+                    <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase AlignR`} to={`../${backID}`}>back
+                        to the
                         home</Link>
+
 
                 </div>
             </div>

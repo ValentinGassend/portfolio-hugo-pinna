@@ -172,6 +172,7 @@
 
     &-info {
       margin-top: 24px;
+      position: relative;
       @include media("<=small") {
         margin-top: 20px;
         margin-bottom: 32px;
@@ -206,6 +207,11 @@
         @include media("<=small") {
           max-width: unset;
         }
+      }
+      &-link {
+        position: absolute;
+        bottom: 0;
+        right: 48px;
       }
     }
   }
