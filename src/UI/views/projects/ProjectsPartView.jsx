@@ -14,7 +14,7 @@ const ProjectsPartView = ({projects, projectManager}) => {
 
         <PartTitle ParentClass={"Projects"} titleText={"Projects"}/>
         <ProjectsPromoteView projectsPromoted={projectsPromoted} manager={projectManager}/>
-        <ProjectListView projects={projects}/>
+        <ProjectListView projects={projects} manager={projectManager}/>
 
 
     </section>)
