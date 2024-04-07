@@ -24,7 +24,7 @@
 
       &:not(:hover) {
         z-index: -1;
-        filter: blur(2px);
+        filter: blur(4px);
         .Projects-list-project--img, .Projects-list-project--video {
           visibility: hidden;
 
@@ -79,14 +79,11 @@
     &--img, &--video {
       position: absolute;
       pointer-events: none;
-      max-width: 420px;
+      max-width: 640px;
       height: auto;
-      object-fit: cover;
+      object-fit: contain;
       z-index: 100;
-      //opacity: 0;
       visibility: hidden;
-      aspect-ratio: 16/9;
-      //transition: opacity 300ms ease;
 
     }
 
