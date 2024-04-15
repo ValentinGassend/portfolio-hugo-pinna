@@ -165,6 +165,7 @@ const SingleProjectView = (props) => {
 
                         </div>
                         <div className={"SingleProject-content-header-tags"}>
+                            <h1 className={"SingleProject-content-header-data-item--name"}>{projectData ? projectData.name : ''}</h1>
                             {projectData ? projectData.tags.map((tag, index) => (<span key={index}
                                                                                        className={"SingleProject-content-header-tags--tag"}>[{tag}]</span>)) : ''}
                         </div>

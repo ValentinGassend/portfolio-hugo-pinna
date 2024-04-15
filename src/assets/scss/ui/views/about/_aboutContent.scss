@@ -13,12 +13,12 @@
     row-gap: 48px;
   }
   &--img {
-    width: 300px;
-    aspect-ratio: 1;
+    width: 420px;
+    max-height: 420px;
     object-fit: contain;
     @include media("<=small") {
       max-width: 182px;
-      object-fit: cover;
+      //object-fit: cover;
 
     }
   }

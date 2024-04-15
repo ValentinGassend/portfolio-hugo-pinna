@@ -37,6 +37,7 @@
         @include media("<=small") {
             height: 100%;
             align-items: flex-end;
+            justify-content: center;
         }
         //transition: height 1s ease-out;
         &:after {
@@ -90,7 +91,9 @@
             z-index: 10;
 
             @include media("<=small") {
-                margin-bottom: 140px;
+                position: absolute;
+                top: 0;
+                bottom: 0;
             }
 
             &--date, &--type {

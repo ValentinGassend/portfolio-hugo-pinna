@@ -87,8 +87,10 @@ const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
                 </div>
 
                 <div className={`Overlay-wrapper-upper-item`}>
+
                     <Link refresh="true" className={`Overlay-wrapper-upper--text uppercase AlignR`} to={`../${backID}`}>back
-                        to the
+                        to {IsMobile() ?
+                            <br/> : <></>} the
                         home</Link>
 
 
