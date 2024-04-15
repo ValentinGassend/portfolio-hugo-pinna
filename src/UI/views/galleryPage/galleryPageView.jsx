@@ -431,19 +431,20 @@ const GalleryPageView = () => {
             <div ref={containerRef}
                  className={`GalleryPage-container Mobile`}>
                 {galleryData ? galleryData.map((item, index) => (
-                    <div key={index} className="GalleryPage-container-item">
 
-                        {item.media.type === "image" ? (<img
-                            className={`GalleryPage-container-item--img`}
-                            src={item.url} loading={"lazy"}
-                            alt={'image de la page contenu'}
-                        />) : item.media.type === "video" ? (<video
-                            className={`GalleryPage-container-item--video`}
-                            autoPlay loop muted playsInline
-                        >
-                            <source src={item.url} type={`video/${item.media.extension}`}/>
-                            Your browser does not support the video tag.
-                        </video>) : (<></>)}
+                    <div key={index} className="GalleryPage-container-item">
+                        {item && item.media ? <>
+                            {item.media.type === "image" ? (<img
+                                className={`GalleryPage-container-item--img`}
+                                src={item.url} loading={"lazy"}
+                                alt={'image de la page contenu'}
+                            />) : item.media.type === "video" ? (<video
+                                className={`GalleryPage-container-item--video`}
+                                autoPlay loop muted playsInline
+                            >
+                                <source src={item.url} type={`video/${item.media.extension}`}/>
+                                Your browser does not support the video tag.
+                            </video>) : (<></>)} </> : <></>}
                     </div>)) : <> </>}
             </div>
         </section> : <section className={`GalleryPage ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
@@ -456,7 +457,7 @@ const GalleryPageView = () => {
         </section>}</> : <>
 
     </>}
-        <Overlay isHome={false} isGallery={true}  backID={"#gallery"}/>
+        <Overlay isHome={false} isGallery={true} backID={"#gallery"}/>
         <Loader isPageReady={isPageReady}/>
 
     </>);

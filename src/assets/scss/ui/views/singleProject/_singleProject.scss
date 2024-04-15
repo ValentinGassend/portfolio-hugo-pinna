@@ -189,6 +189,11 @@
                     font-family: $ff_1;
                     font-style: italic;
                     line-height: initial;
+
+                    @include media("<=small") {
+                        font-size: 20px;
+                        line-height: initial;
+                    }
                 }
             }
         }

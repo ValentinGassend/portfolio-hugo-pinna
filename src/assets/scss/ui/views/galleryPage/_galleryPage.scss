@@ -54,6 +54,7 @@
           background-color: #fff;
           @include media("<=small") {
             width: 100%;
+            height: auto;
           }
 
 

@@ -39,10 +39,10 @@ const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
                 </div>
                 {IsMobile() ? <>
                     <div className={`Overlay-wrapper-upper-item`}>
-                        <a className={`Overlay-wrapper-upper--text uppercase`} href={'#projects'}>Projects</a>
+                        <a className={`Overlay-wrapper-upper--text uppercase`} href={'#projects'}>Projets</a>
                     </div>
                     <div className={`Overlay-wrapper-upper-item`}>
-                        <a className={`Overlay-wrapper-upper--text uppercase`} href={'#about'}>About</a>
+                        <a className={`Overlay-wrapper-upper--text uppercase`} href={'#about'}>À propos</a>
                     </div>
                     <div className={`Overlay-wrapper-upper-item`}>
                         <a className={`Overlay-wrapper-upper--text uppercase`} href={'#contact'}>Contact</a>
@@ -52,10 +52,10 @@ const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
             <div className={`Overlay-wrapper-lower`}>
                 {!IsMobile() ? <>
                     <div className={`Overlay-wrapper-lower-item`}>
-                        <a className={`Overlay-wrapper-lower--text uppercase`} href={'#projects'}>Projects</a>
+                        <a className={`Overlay-wrapper-lower--text uppercase`} href={'#projects'}>Projets</a>
                     </div>
                     <div className={`Overlay-wrapper-lower-item`}>
-                        <a className={`Overlay-wrapper-lower--text uppercase`} href={'#about'}>About</a>
+                        <a className={`Overlay-wrapper-lower--text uppercase`} href={'#about'}>À propos</a>
                     </div>
                     <div className={`Overlay-wrapper-lower-item`}>
                         <a className={`Overlay-wrapper-lower--text uppercase`} href={'#contact'}>Contact</a>

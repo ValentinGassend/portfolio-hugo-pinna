@@ -90,6 +90,7 @@
                     }
 
                     &--email, &--social {
+
                         color: $color_primary;
                         text-align: center;
                         font-family: $ff_1;
@@ -105,6 +106,13 @@
 
                         @include media("<=medium") {
                             font-size: 24px;
+
+                        }
+                        @include media("<=small") {
+                            display: grid;
+                            grid-auto-flow: column;
+                            column-gap: 8px;
+                            padding: 0;
 
                         }
                     }
