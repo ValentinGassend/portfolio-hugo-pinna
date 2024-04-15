@@ -285,9 +285,9 @@ const PanelsContainer = ({isPageReady}) => {
                 const documentHeight = document.body.scrollHeight;
                 const bottomOffset = documentHeight - (scrollY + windowHeight);
                 let deltaY = self.deltaY;
-                if (self.event instanceof TouchEvent) {
-                    deltaY = -deltaY
-                }
+                // if (self.event instanceof TouchEvent) {
+                //     deltaY = -deltaY
+                // }
                 const scroll = snapScroll(scrollY + deltaY, deltaY > 0 ? 1 : -1);
                 if (scrollY < 50 && deltaY < 0 && scroll !== undefined) {
                     goToSection(snapTriggers.current.length - 1, true, deltaY); // Go to the last panel
@@ -296,7 +296,7 @@ const PanelsContainer = ({isPageReady}) => {
                     goToSection(0, true, deltaY); // Go to the first panel
                 } else {
                     if (isTrackPad && Math.abs(self.deltaY) !== 1) return;
-                    if (self.event instanceof TouchEvent) return;
+                    // if (self.event instanceof TouchEvent) return;
                     goToSection(scrollStarts.indexOf(scroll), false, deltaY);
                 }
             }
