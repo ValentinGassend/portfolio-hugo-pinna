@@ -20,7 +20,26 @@ const GalleryPageView = () => {
     const containerRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
     const [containerPosition, setContainerPosition] = useState({x: 0, y: 0});
+    const [isScrolling, setIsScrolling] = useState(false);
 
+    useEffect(() => {
+        const handleWheelStart = () => {
+            setIsScrolling(true);
+        };
+
+        const handleWheelEnd = () => {
+            setIsScrolling(false);
+        };
+
+        // Listen for wheel start and end events
+        document.addEventListener("wheel", handleWheelStart);
+        document.addEventListener("mouseup", handleWheelEnd);
+
+        return () => {
+            document.removeEventListener("wheel", handleWheelStart);
+            document.removeEventListener("mouseup", handleWheelEnd);
+        };
+    }, []);
 
     useEffect(() => {
         const startTime = Date.now(); // Enregistrez le temps de début
@@ -69,9 +88,11 @@ const GalleryPageView = () => {
     }, [isPageReady]);
     useEffect(() => {
         const handleMouseMove = (event) => {
-            const mouseX = event.clientX;
-            const mouseY = event.clientY;
-            setMousePosition({x: -mouseX, y: -mouseY});
+            if (!isScrolling) {
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+                setMousePosition({x: -mouseX, y: -mouseY});
+            }
         };
 
         window.addEventListener("mousemove", handleMouseMove);
