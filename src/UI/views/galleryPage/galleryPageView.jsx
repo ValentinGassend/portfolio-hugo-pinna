@@ -61,14 +61,14 @@ const GalleryPageView = () => {
     useEffect(() => {
         const fetchData = async () => {
             const newData = await Promise.all(galleryData.map(async (item) => {
-                console.log(item)
+                // console.log(item)
                 if (item.visual) {
                     try {
                         const url = await projectManager.getUrlOfImage(item.visual);
 
                         const media = projectManager.getMediaType(url);
-                        console.log(url)
-                        console.log(media)
+                        // console.log(url)
+                        // console.log(media)
                         return {...item, url, media};
                     } catch (error) {
                         console.error("Erreur lors de la récupération de l'URL de l'image:", error);

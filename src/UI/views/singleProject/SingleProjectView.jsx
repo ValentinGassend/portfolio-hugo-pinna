@@ -170,7 +170,6 @@ const SingleProjectView = (props) => {
                                                                                        className={"SingleProject-content-header-tags--tag"}>[{tag}]</span>)) : ''}
                         </div>
                     </div>
-                    {console.log(projectData)}
 
                     <div className={"SingleProject-content-info"}>
                         {projectData ? projectData.contents.map((content, index) => {

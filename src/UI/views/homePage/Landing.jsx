@@ -15,13 +15,13 @@ const Landing = ({assetsUrl, landingData}) => {
     useEffect(() => {
         if (landingData && videoRef.current) {
             // Your logic here
-            console.log(landingData);
+            // console.log(landingData);
             const currentVideo = videoRef.current;
-            console.log(currentVideo);
+            // console.log(currentVideo);
 
             const handleVideoLoaded = () => {
-                console.log("canplay");
-                console.log(currentVideo);
+                // console.log("canplay");
+                // console.log(currentVideo);
                 if (currentVideo) {
                     currentVideo.pause();
                     currentVideo.currentTime = 0;

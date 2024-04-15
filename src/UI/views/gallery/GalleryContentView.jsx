@@ -93,7 +93,7 @@ const GalleryContentView = ({galleryData, galleryPartData}) => {
 
     const generateGrid = (totalItems, urls) => {
         let grid = [];
-        console.log("totalItems", totalItems)
+        // console.log("totalItems", totalItems)
         let ImageIndex = 0;
         grid.push([], [], []);
         if (totalItems > 9) {

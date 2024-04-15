@@ -116,7 +116,7 @@ const Home = () => {
 
             if (landingData && landingData.length > 0) {
                 const landingItem = landingData[0];
-                console.log(landingItem)
+                // console.log(landingItem)
                 if (landingItem.image && landingItem.image.length > 0) {
                     const imagePath = landingItem.image;
                     // Use projectManager to get the URL of the image
@@ -124,7 +124,7 @@ const Home = () => {
                         .then((url) => {
 
                             landingItem.imageGrid = {url: url, media: projectManager.getMediaType(url) };
-                            console.log(landingItem)
+                            // console.log(landingItem)
                             setLandingData(landingItem);
                         })
                         .catch((error) => {
@@ -365,7 +365,7 @@ const Home = () => {
             const hash = location.hash;
             if (hash) {
                 const element = document.querySelector(hash);
-                console.log(hash)
+                // console.log(hash)
                 gsap.to(window, {
                     scrollTo:hash
                 })
@@ -380,7 +380,6 @@ const Home = () => {
 
     return (<>
         <div className={`Home ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
-            {console.log(projects)}
             <PanelsContainer isPageReady={isPageReady}/>
             <Landing assetsUrl={assetsUrl} landingData={landingData}/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
