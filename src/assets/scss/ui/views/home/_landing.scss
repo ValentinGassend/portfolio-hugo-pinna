@@ -36,7 +36,7 @@
       object-fit: cover;
 
       @include media("<=small") {
-        width: fit-content;
+        width: 100%;
         height: 100%;
       }
     }
@@ -120,7 +120,7 @@
       align-items: center;
 
       @include media("<=small") {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       &.bigText {
@@ -128,7 +128,7 @@
         height: fit-content;
 
         @include media("<=small") {
-          font-size: 66px;
+          font-size: 64px;
         }
       }
 

@@ -8,6 +8,10 @@
     flex-direction: column;
     width: fit-content;
     overflow: hidden;
+
+    @include media("<=small") {
+        font-size: 18px;
+    }
     &--url {
         color: $color_primary;
         text-decoration: none;
