@@ -142,7 +142,7 @@ const GalleryContentView = ({galleryData, galleryPartData}) => {
                         key={ImageIndex}
                         className={`Gallery-content-cards-column--item`}
                     >
-                        <img className={`Gallery-content-cards-column--item-img`} src={url}/>
+                        <img className={`Gallery-content-cards-column--item-img`} loading={"lazy"} src={url}/>
                         <span className={`Gallery-content-cards-column--item-overlay`}/>
                     </div>);
                 })}

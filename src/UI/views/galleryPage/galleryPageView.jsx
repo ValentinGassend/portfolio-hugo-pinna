@@ -352,7 +352,7 @@ const GalleryPageView = () => {
                     return (<div key={index} className="GalleryPage-container-column-item">
                         {media.type === "image" ? (<img
                             className={`GalleryPage-container-column-item--img`}
-                            src={url}
+                            src={url} loading={"lazy"}
                             alt={'image de la page contenu'}
                         />) : media.type === "video" ? (<video
                             className={`GalleryPage-container-column-item--video`}
@@ -414,7 +414,7 @@ const GalleryPageView = () => {
 
                         {item.media.type === "image" ? (<img
                             className={`GalleryPage-container-item--img`}
-                            src={item.url}
+                            src={item.url} loading={"lazy"}
                             alt={'image de la page contenu'}
                         />) : item.media.type === "video" ? (<video
                             className={`GalleryPage-container-item--video`}

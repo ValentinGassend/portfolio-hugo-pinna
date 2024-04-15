@@ -76,7 +76,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
         {projectData ? <Link refresh="false" data-id={projectData.id} className={`Projects-promote-card`}
                              to={'/project/' + projectData.id}>
             {projectData.media.type === 'image' ? (
-                <img className={`Projects-promote-card--img`} src={`${projectData.url}`}
+                <img className={`Projects-promote-card--img`} loading={"lazy"} src={`${projectData.url}`}
                      alt={`Illustration of ${projectData.name}`}/>) : (
                 <video className={`Projects-promote-card--video`} autoPlay loop muted playsInline>
                     <source className={`Projects-promote-card--video--source`} src={`${projectData.url}`}

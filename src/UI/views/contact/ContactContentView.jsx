@@ -46,7 +46,7 @@ const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
                         <h2 className={`Contact-content-wrapper-upper-texts--subtitle`}>{contactInfo ? contactInfo.letter.subtitle : ''}</h2>
                         <a className={`Contact-content-wrapper-upper-texts--email`} rel="noreferrer"
                            href={`mailto:${contactInfo ? contactInfo.letter.email : ''}`}
-                           target={"_blank"}>{assetsUrl[AssetNames.ARROW] ? (<img
+                           target={"_blank"}>{assetsUrl[AssetNames.ARROW] ? (<img loading={"lazy"}
                             className={`Contact-content-wrapper-upper-texts--email---element`}
                             src={assetsUrl[AssetNames.ARROW]}
                             alt={`${AssetNames.ARROW}`}
@@ -54,7 +54,7 @@ const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
 
                         <a className={`Contact-content-wrapper-upper-texts--social`} rel="noreferrer"
                            href={`${contactInfo ? contactInfo.social.link : ''}`}
-                           target={"_blank"}>{assetsUrl[AssetNames.ARROW] ? (<img
+                           target={"_blank"}>{assetsUrl[AssetNames.ARROW] ? (<img loading={"lazy"}
                             className={`Contact-content-wrapper-upper-texts--social---element`}
                             src={assetsUrl[AssetNames.ARROW]}
                             alt={`${AssetNames.ARROW}`}
@@ -68,18 +68,23 @@ const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
             </div>
             <div className={`Contact-content-stamps`}>
                 <img className={`Contact-content-stamps--item`}
+                     loading={"lazy"}
                      src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
+                     loading={"lazy"}
                      src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
+                     loading={"lazy"}
                      src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
+                     loading={"lazy"}
                      src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
+                     loading={"lazy"}
                      src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
                      alt={`image d'illustration d'un timbre`}/>
             </div>

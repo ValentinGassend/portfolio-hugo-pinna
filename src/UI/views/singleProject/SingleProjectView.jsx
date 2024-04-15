@@ -138,7 +138,7 @@ const SingleProjectView = (props) => {
             {projectData && projectData.media ? <div className={"SingleProject-banner"}>
                 {projectData.media.type === 'image' ? (
 
-                    <img className={"SingleProject-banner--img"} src={projectData.url}
+                    <img className={"SingleProject-banner--img"} loading={"lazy"} src={projectData.url}
                          alt={`image d'illustration du projet ${projectData ? projectData.name : ''}`}/>) : (
                     <video className={`SingleProject-banner--video`} autoPlay loop muted playsInline>
                         <source className={`SingleProject-banner--video--source`} src={projectData.url}
@@ -213,7 +213,7 @@ const SingleProjectView = (props) => {
                         {sliderImagesInfo.length > 0 ? sliderImagesInfo && sliderImagesInfo.map((image, index) => (
                             <div key={index} className={"SingleProject-slider-slide"}>
                                 {image.mediaType.type === 'image' ? (
-                                    <img className={"SingleProject-slider-slide--img"} src={image.url}
+                                    <img className={"SingleProject-slider-slide--img"} loading={"lazy"} src={image.url}
                                          alt={`Image ${index}`}/>) : (
                                     <video className={"SingleProject-slider-slide--video"} autoPlay loop muted
                                            playsInline>

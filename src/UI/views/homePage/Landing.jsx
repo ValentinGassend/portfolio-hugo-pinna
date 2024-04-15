@@ -49,7 +49,7 @@ const Landing = ({assetsUrl, landingData}) => {
         {landingData && landingData.background ? <>
             <div className={`Landing-background`}>
                 {landingData.background.media.type === 'image' ? (
-                    <img className={`Landing-background--img`} src={`${landingData.background.url}`}
+                    <img className={`Landing-background--img`} loading={"lazy"} src={`${landingData.background.url}`}
                          alt={`Illustration of Landing"`}/>) : (
                     <video ref={videoRef} className={`Landing-background--video`} autoPlay loop muted playsInline>
                         <source className={`Landing-background--video--source`} src={`${landingData.background.url}`}
@@ -77,7 +77,7 @@ const Landing = ({assetsUrl, landingData}) => {
                         <div className={`Landing-grid-line`}>
                             {landingData && landingData.imageGrid ? <>
                                 {landingData.imageGrid.media.type === 'image' ? (
-                                    <img className={`Landing-grid--element img`} src={`${landingData.imageGrid.url}`}
+                                    <img className={`Landing-grid--element img`} loading={"lazy"} src={`${landingData.imageGrid.url}`}
                                          alt={`Illustration of Landing"`}/>) : (
                                     <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
                                            playsInline>
@@ -110,6 +110,7 @@ const Landing = ({assetsUrl, landingData}) => {
 
                         genève</span>
                             {assetsUrl[AssetNames.ARROW] ? (<img
+                                loading={"lazy"}
                                 className={`Landing-grid--element`}
                                 src={assetsUrl[AssetNames.ARROW]}
                                 alt={`${AssetNames.ARROW}`}
@@ -132,7 +133,7 @@ const Landing = ({assetsUrl, landingData}) => {
                         <div className={`Landing-grid-line`}>
                             {landingData && landingData.imageGrid ? <>
                                 {landingData.imageGrid.media.type === 'image' ? (
-                                    <img className={`Landing-grid--element img`} src={`${landingData.imageGrid.url}`}
+                                    <img className={`Landing-grid--element img`} loading={"lazy"} src={`${landingData.imageGrid.url}`}
                                          alt={`Illustration of Landing"`}/>) : (
                                     <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
                                            playsInline>
@@ -157,6 +158,7 @@ const Landing = ({assetsUrl, landingData}) => {
 
                         genève</span>
                             {assetsUrl[AssetNames.ARROW] ? (<img
+                                loading={"lazy"}
                                 className={`Landing-grid--element`}
                                 src={assetsUrl[AssetNames.ARROW]}
                                 alt={`${AssetNames.ARROW}`}
