@@ -5,6 +5,7 @@ import MyLink from "../../components/MyLink.jsx";
 import AssetNames from "./AssetNames.js";
 import gsap from "gsap";
 import {IsMobile, IsWidthLessThanOrEqualToHeight} from "../../../utils/utils.jsx";
+import {Player} from "@lottiefiles/react-lottie-player";
 
 
 const Landing = ({assetsUrl, landingData}) => {
@@ -109,12 +110,13 @@ const Landing = ({assetsUrl, landingData}) => {
                     <span className={`Landing-grid--element`}>
 
                         genève</span>
-                            {assetsUrl[AssetNames.ARROW] ? (<img
-                                loading={"lazy"}
-                                className={`Landing-grid--element`}
-                                src={assetsUrl[AssetNames.ARROW]}
-                                alt={`${AssetNames.ARROW}`}
-                            />) : (<></>)}
+                            <Player
+                                src='./lotties/Header.json'
+                                className={'Landing-grid--element'}
+                                loop
+                                autoplay
+                            />
+
                             <span className={`Landing-grid--element`}>Annecy</span>
                             <span className={`Landing-grid--element`}> </span>
                         </div>
@@ -157,12 +159,12 @@ const Landing = ({assetsUrl, landingData}) => {
                     <span className={`Landing-grid--element`}>
 
                         genève</span>
-                            {assetsUrl[AssetNames.ARROW] ? (<img
-                                loading={"lazy"}
-                                className={`Landing-grid--element`}
-                                src={assetsUrl[AssetNames.ARROW]}
-                                alt={`${AssetNames.ARROW}`}
-                            />) : (<></>)}
+                            <Player
+                                src='./lotties/Header.json'
+                                className={'Landing-grid--element'}
+                                loop
+                                autoplay
+                            />
                             <span className={`Landing-grid--element`}>Annecy</span>
                             <span className={`Landing-grid--element`}> </span>
                         </div>

@@ -2,6 +2,7 @@ import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import gsap from "gsap";
 import {SplitText} from "gsap/SplitText";
 import {useGSAP} from "@gsap/react";
+import {Player} from "@lottiefiles/react-lottie-player";
 
 
 gsap.registerPlugin(SplitText);
@@ -9,6 +10,7 @@ gsap.registerPlugin(SplitText);
 
 const HomeLoader = ({isPageReady}) => {
     const HomeLoader = useRef();
+    const HomeLoaderBar = useRef();
     const [isAppeared, setIsAppeared] = useState(false)
     const [isDisappeared, setIsDisappeared] = useState(false)
     const [title, setTitle] = useState(false)
@@ -28,6 +30,8 @@ const HomeLoader = ({isPageReady}) => {
     useGSAP(() => {
 
         if (isPageReady === true) {
+            HomeLoaderBar.current.setPlayerSpeed(2)
+
             gsap.to(title.words, { // <- selector text, scoped to this component!
                 opacity: 0, y: -100, ease: "power4.inOut", duration: 1, stagger: 0.1
             });
@@ -40,6 +44,7 @@ const HomeLoader = ({isPageReady}) => {
                 }
             });
         } else {
+            HomeLoaderBar.current.setPlayerSpeed(0.001)
 
             gsap.from(title.words, { // <- selector text, scoped to this component!
                 opacity: 0, y: 100, ease: "power4.inOut",  duration: 1, stagger: 0.1
@@ -59,6 +64,13 @@ const HomeLoader = ({isPageReady}) => {
             <div className={`HomeLoader-subtitle`}>
                 <h2 className={`HomeLoader-subtitle--content`}>Directeur artistique, designer graphique, Designer 3d</h2>
             </div>
+            <Player
+                src='./lotties/loaderBar.json'
+                className={`HomeLoader-Bar`}
+                keepLastFrame={true}
+                autoplay
+                ref={HomeLoaderBar}
+            />
         </div>
     </>)
 }
