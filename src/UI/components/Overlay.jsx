@@ -30,7 +30,7 @@ const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
 
 
     return (<div
-        className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"} ${isGallery ? "Diff" : ""}`}>
+        className={`Overlay ${isHome ? "hidden" : "visible"} ${isHome ? "Home" : "Others"}`}>
         {isHome ? (<div className={`Overlay-wrapper`}>
             <div className={`Overlay-wrapper-upper`}>
                 <div className={`Overlay-wrapper-upper-item`}>

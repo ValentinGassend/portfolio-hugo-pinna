@@ -96,9 +96,11 @@
                         font-family: $ff_1;
                         font-size: 48px;
                         font-weight: 400;
-                        font-style: italic;
-                        padding: 0 calc(58px - 21px) calc(31px - 21px);
+                        //font-style: italic;
+                        padding: 0 0 calc(31px - 21px);
                         text-decoration: none;
+                        display: flex;
+
                         @include media("<=extra-large") {
                             font-size: 36px;
 
@@ -115,7 +117,14 @@
                             padding: 0;
 
                         }
+                        &---element {
+                            &-Off {
+                                display: none;
+                            }
+                        }
+
                     }
+
                 }
 
 

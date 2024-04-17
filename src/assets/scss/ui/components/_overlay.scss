@@ -134,14 +134,14 @@
                     font-weight: 700;
                     font-style: italic;
                     font-family: $ff_2;
-
+                    color: $color_primary;
                     &:before {
                         margin: 0 10px;
                         display: flex;
                         content: "";
                         width: 30px;
                         height: 2px;
-                        background-color: $color_secondary;
+                        background-color: $color_primary;
                         @include media("<=small") {
                             margin: 0 10px 0 0;
                         }
