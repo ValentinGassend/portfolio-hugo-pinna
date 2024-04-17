@@ -12,7 +12,7 @@ const ProjectsPartView = ({projects, projectManager}) => {
     }, [projectManager, projects]);
     return (<section className={`Projects`} id={`projects`}>
 
-        <PartTitle ParentClass={"Projects"} titleText={"Projects"}/>
+        <PartTitle ParentClass={"Projects"} titleText={"Projets"}/>
         <ProjectsPromoteView projectsPromoted={projectsPromoted} manager={projectManager}/>
         <ProjectListView projects={projects} manager={projectManager}/>
 

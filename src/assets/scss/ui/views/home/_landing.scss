@@ -66,6 +66,9 @@
       align-content: center;
       grid-column-gap: 12px;
 
+      @include media("<=extra-small") {
+        grid-column-gap: 8px;
+      }
       &--subgrid {
         height: 100%;
         display: grid;
@@ -75,6 +78,10 @@
           &:first-child {
             padding-top: 12px;
             padding-left: 6px;
+
+            @include media("<=extra-small") {
+              padding-left: 4px;
+            }
           }
         }
       }
@@ -121,6 +128,9 @@
 
       @include media("<=small") {
         font-size: 18px;
+      }
+      @include media("<=extra-small") {
+        font-size: 16px;
       }
 
       &.bigText {

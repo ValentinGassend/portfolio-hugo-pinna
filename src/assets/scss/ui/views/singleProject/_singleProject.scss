@@ -139,8 +139,11 @@
                         font-size: 48px;
                         font-family: $ff_2;
                         font-weight: 700;
+
+                        line-height: 52px;
                         @include media("<=small") {
                             font-size: 32px;
+                            line-height: 36px;
 
                         }
 
@@ -173,6 +176,7 @@
                 .SingleProject-content-header-data-item--name {
                     display: none;
                     @include media("<=small") {
+                        width: 75%;
                         display: block;
                         visibility: hidden;
                         opacity: 0;
