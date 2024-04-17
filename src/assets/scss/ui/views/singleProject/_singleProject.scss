@@ -107,7 +107,7 @@
                     flex-direction: column;
                     display: grid;
                     grid-auto-flow: row;
-                    grid-row-gap: 4px;
+                    //grid-row-gap: 4px;
                 }
 
                 &-item {
@@ -118,7 +118,7 @@
                     @include media("<=small") {
                         display: grid;
                         grid-auto-flow: row;
-                        grid-row-gap: 4px;
+                        //grid-row-gap: 4px;
                     }
 
                     &--name, &--date, &--client, &--type, &--tag {
@@ -152,6 +152,9 @@
                     &--date {
                         font-family: $ff_2;
                         font-weight: 700;
+                        @include media("<=small") {
+                            line-height: 20px;
+                        }
                     }
                 }
 
@@ -168,19 +171,21 @@
 
                 @include media("<=small") {
                     //margin-top: 32px;
+                    width: 0;
+                    position: relative;
+
                     height: fit-content;
-                    position: absolute;
                     right: 0;
                 }
 
                 .SingleProject-content-header-data-item--name {
                     display: none;
                     @include media("<=small") {
-                        width: 75%;
                         display: block;
                         visibility: hidden;
                         opacity: 0;
                         pointer-events: none;
+                        width: calc(75vw - 36px);
                     }
 
                 }
