@@ -123,7 +123,7 @@ const Home = () => {
                     projectManager.getUrlOfImage(imagePath)
                         .then((url) => {
 
-                            landingItem.imageGrid = {url: url, media: projectManager.getMediaType(url) };
+                            landingItem.imageGrid = {url: url, media: projectManager.getMediaType(url)};
                             // console.log(landingItem)
                             setLandingData(landingItem);
                         })
@@ -140,7 +140,7 @@ const Home = () => {
                     projectManager.getUrlOfImage(imagePath)
                         .then((url) => {
 
-                            landingItem.background = {url: url, media: projectManager.getMediaType(url) };
+                            landingItem.background = {url: url, media: projectManager.getMediaType(url)};
                             setLandingData(landingItem);
                         })
                         .catch((error) => {
@@ -367,7 +367,7 @@ const Home = () => {
                 const element = document.querySelector(hash);
                 // console.log(hash)
                 gsap.to(window, {
-                    scrollTo:hash
+                    scrollTo: hash
                 })
 
             }
@@ -388,7 +388,7 @@ const Home = () => {
             <GalleryPartView galleryData={galleryData} galleryPartData={galleryPartData}/>
             <Overlay/>
             <HomeLoader isPageReady={isPageReady}/>
-            <Landing assetsUrl={assetsUrl} landingData={landingData}/>
+            {IsMobile() ? <></> : <Landing assetsUrl={assetsUrl} landingData={landingData}/>}
 
         </div>
     </>)
