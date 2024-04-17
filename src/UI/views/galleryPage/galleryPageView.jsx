@@ -458,7 +458,7 @@ const GalleryPageView = () => {
 
     </>}
         <Overlay isHome={false} isGallery={true} backID={"#gallery"}/>
-        <Loader isPageReady={isPageReady}/>
+        <HomeLoader isPageReady={isPageReady}/>
 
     </>);
 };

@@ -45,7 +45,11 @@ const HomeLoader = ({isPageReady}) => {
             });
         } else {
             HomeLoaderBar.current.setPlayerSpeed(0.001)
-
+            gsap.from(".HomeLoader-Bar", { // <- selector text, scoped to this component!
+                opacity: 0, ease: "power4.inOut",  duration: 1, delay: 0.5, onComplete: () => {
+                    HomeLoaderBar.current.play()
+                }
+            });
             gsap.from(title.words, { // <- selector text, scoped to this component!
                 opacity: 0, y: 100, ease: "power4.inOut",  duration: 1, stagger: 0.1
             });
@@ -68,7 +72,7 @@ const HomeLoader = ({isPageReady}) => {
                 src='./lotties/loaderBar.json'
                 className={`HomeLoader-Bar`}
                 keepLastFrame={true}
-                autoplay
+                // autoplay
                 ref={HomeLoaderBar}
             />
         </div>
