@@ -40,15 +40,16 @@ const ProjectManager = {
             // Get the download URL of the image
             const downloadURL = await getDownloadURL(storageRef);
 
+            // console.log(downloadURL)
             // Extract query parameters from the download URL
-            const url = new URL(downloadURL);
-            const queryParams = url.search;
-            // Modify the download URL to use ImageKit's URL format
-            const newBucket = "https://ik.imagekit.io/ValentinGassend/o/";
-            const encodedPath = encodeURIComponent(path); // Encode the full path
-            const imageURL = newBucket + encodedPath + queryParams;
+            // const url = new URL(downloadURL);
+            // const queryParams = url.search;
+            // // Modify the download URL to use ImageKit's URL format
+            // const newBucket = "https://ik.imagekit.io/ValentinGassend/o/";
+            // const encodedPath = encodeURIComponent(path); // Encode the full path
+            // const imageURL = newBucket + encodedPath + queryParams;
 
-            return imageURL;
+            return downloadURL;
         } catch (error) {
             // Handle errors, for example, if the file does not exist
             console.error("Error while retrieving the image URL:", error);
