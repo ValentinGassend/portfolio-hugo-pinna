@@ -14,6 +14,7 @@ function App() {
                     <Route path={"/"} element={<Routing/>}/>
                     <Route path={"/gallery"} element={<Routing/>}/>
                     <Route path={"/project/:id"} element={<Routing/>}/>
+                    <Route path={"/*"} element={<Routing/>}/>
                 </Routes>
         </BrowserRouter>
     );

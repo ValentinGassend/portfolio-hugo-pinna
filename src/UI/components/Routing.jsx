@@ -6,6 +6,7 @@ import GalleryPageView from "../views/galleryPage/galleryPageView.jsx";
 import SingleProjectView from "../views/singleProject/SingleProjectView.jsx";
 import Home from "../views/homePage/Home.jsx";
 import {IsMobile} from "../../utils/utils.jsx";
+import Page404 from "../views/404/page404.jsx";
 
 const Routing = () => {
     const parentNode = useRef(null);
@@ -212,8 +213,13 @@ const Routing = () => {
         case `/project/${params.id}`:
             componentToRender = <SingleProjectView/>;
             break;
+
+        case `/page404`:
+            componentToRender = <Page404/>;
+            break;
         default:
-            componentToRender = <NotFoundPage/>;
+            componentToRender = <Page404/>;
+            break
     }
 
     return (<>
