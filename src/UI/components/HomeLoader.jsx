@@ -3,6 +3,7 @@ import gsap from "gsap";
 import {SplitText} from "gsap/SplitText";
 import {useGSAP} from "@gsap/react";
 import {Player} from "@lottiefiles/react-lottie-player";
+import MyLink from "./MyLink.jsx";
 
 
 gsap.registerPlugin(SplitText);
@@ -75,7 +76,14 @@ const HomeLoader = ({isPageReady}) => {
                 // autoplay
                 ref={HomeLoaderBar}
             />
+
+            <div className={`HomeLoader-credit`}>
+
+                <MyLink style={1} text={"Développé par Valentin Gassend"} parentClass={"HomeLoader-credit"} url={'https://twitter.com/GassValentin'}
+                        isTarget={true}></MyLink>
+            </div>
         </div>
+
     </>)
 }
 

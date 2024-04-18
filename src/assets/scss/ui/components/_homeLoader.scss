@@ -23,13 +23,16 @@
         justify-content: center;
         align-items: center;
     }
+
     &-title, &-subtitle {
         width: 100%;
         overflow: hidden;
+
         &--content {
             font-family: $ff_1;
             text-transform: uppercase;
             color: $color_primary;
+
             .lineChild {
                 display: flex;
             }
@@ -68,5 +71,25 @@
 
     .lf-player-container {
         width: 100%;
+    }
+
+    &-credit {
+        position: absolute;
+        right: 32px;
+        bottom: 32px;
+        @include media("<=small") {
+            right: unset;
+
+
+        }
+
+        &-link {
+            &--url {
+
+                @include media("<=small") {
+                    font-size: 16px;
+                }
+            }
+        }
     }
 }
