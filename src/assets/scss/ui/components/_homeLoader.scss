@@ -85,6 +85,7 @@
 
         &-link {
             &--url {
+                font-size: 18px;
 
                 @include media("<=small") {
                     font-size: 16px;
