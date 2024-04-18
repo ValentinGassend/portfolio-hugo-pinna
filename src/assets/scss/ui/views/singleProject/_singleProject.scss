@@ -251,6 +251,13 @@
                 bottom: 0;
                 right: 48px;
                 font-size: 18px;
+
+                @include media("<=small") {
+                    position: unset;
+                    padding-top: 32px;
+                    padding-bottom: 16px;
+
+                }
             }
         }
     }

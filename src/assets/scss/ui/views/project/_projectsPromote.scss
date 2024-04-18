@@ -121,7 +121,7 @@
                 text-transform: uppercase;
                 color: $color_secondary;
 
-                font-size: 148px;
+                font-size: 140px;
                 font-family: $ff_1;
                 font-weight: 500;
                 @include media("<=extra-large") {
@@ -137,6 +137,10 @@
 
                 @include media("<=small") {
                     font-size: 48px;
+
+                }
+                @include media("<=small") {
+                    font-size: 44px;
 
                 }
             }

@@ -24,8 +24,17 @@
         font-weight: bold;
         font-size: 148px;
         letter-spacing: -4px;
+        @include media("<=1600px") {
+            font-size: 124px;
+
+        }
         @include media("<=extra-large") {
             font-size: 96px;
+
+        }
+
+        @include media("<=medium") {
+            font-size: 48px;
 
         }
 

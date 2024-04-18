@@ -15,7 +15,7 @@
     &--title {
       text-align: center;
       margin: 0 25%;
-
+      padding-bottom: 36px;
       @include media("<=small") {
         margin: 0 48px;
 
