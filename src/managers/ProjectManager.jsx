@@ -45,7 +45,7 @@ const ProjectManager = {
             const url = new URL(downloadURL);
             const queryParams = url.search;
             // Modify the download URL to use ImageKit's URL format
-            const newBucket = "https://ik.imagekit.io/ValentinGassend3/o/";
+            const newBucket = "https://ik.imagekit.io/ValentinGassend4/o/";
             const encodedPath = encodeURIComponent(path); // Encode the full path
             const imageURL = newBucket + encodedPath + queryParams;
 
