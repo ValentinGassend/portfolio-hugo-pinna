@@ -64,7 +64,7 @@ const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
                 <div className={`Overlay-wrapper-lower-item`}>
                     <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>
                     <a className={`Overlay-wrapper-lower--text`}
-                       href={`https://www.instagram.com/hugocuillere/`}>@hugocuilliere</a>
+                       href={`https://www.instagram.com/hugocuillere/`}>@hugocuillere</a>
                     <a className={`Overlay-wrapper-lower--text`}
                        href={`mailto:hello@hugopinna.com`}>hello@hugopinna.com</a>
                     <p className={`Overlay-wrapper-lower--text italic bold miller`}>2024</p>
@@ -97,7 +97,7 @@ const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
                 <div className={`Overlay-wrapper-lower-item`}>
                     <p className={`Overlay-wrapper-lower--text`}>Portfolio</p>
                     <a className={`Overlay-wrapper-lower--text`}
-                       href={`https://www.instagram.com/hugocuillere/`}>@hugocuilliere</a>
+                       href={`https://www.instagram.com/hugocuillere/`}>@hugocuillere</a>
                     <a className={`Overlay-wrapper-lower--text`}
                        href={`mailto:hello@hugopinna.com`}>hello@hugopinna.com</a>
                     <p className={`Overlay-wrapper-lower--text italic bold miller`}>2024</p>
