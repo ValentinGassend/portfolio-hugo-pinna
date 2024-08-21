@@ -52,7 +52,8 @@ const Landing = ({assetsUrl, landingData}) => {
                 {landingData.background.media.type === 'image' ? (
                     <img className={`Landing-background--img`} loading={"lazy"} src={`${landingData.background.url}`}
                          alt={`Illustration of Landing"`}/>) : (
-                    <video ref={videoRef} className={`Landing-background--video`} autoPlay loop muted playsInline>
+                    <video ref={videoRef} className={`Landing-background--video`} autoPlay loop muted playsInline
+                           loading={"lazy"}>
                         <source className={`Landing-background--video--source`} src={`${landingData.background.url}`}
                                 type={`video/${landingData.background.media.extension}`}/>
                         Your browser does not support the video tag.
@@ -78,9 +79,10 @@ const Landing = ({assetsUrl, landingData}) => {
                         <div className={`Landing-grid-line`}>
                             {landingData && landingData.imageGrid ? <>
                                 {landingData.imageGrid.media.type === 'image' ? (
-                                    <img className={`Landing-grid--element img`} loading={"lazy"} src={`${landingData.imageGrid.url}`}
+                                    <img className={`Landing-grid--element img`} loading={"lazy"}
+                                         src={`${landingData.imageGrid.url}`}
                                          alt={`Illustration of Landing"`}/>) : (
-                                    <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
+                                    <video ref={videoRef} loading={"lazy"} className={`Landing-grid--element video`} autoPlay loop muted
                                            playsInline>
                                         <source className={`Landing-grid--element source`}
                                                 src={`${landingData.imageGrid.url}`}
@@ -135,10 +137,11 @@ const Landing = ({assetsUrl, landingData}) => {
                         <div className={`Landing-grid-line`}>
                             {landingData && landingData.imageGrid ? <>
                                 {landingData.imageGrid.media.type === 'image' ? (
-                                    <img className={`Landing-grid--element img`} loading={"lazy"} src={`${landingData.imageGrid.url}`}
+                                    <img className={`Landing-grid--element img`} loading={"lazy"}
+                                         src={`${landingData.imageGrid.url}`}
                                          alt={`Illustration of Landing"`}/>) : (
                                     <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
-                                           playsInline>
+                                           playsInline  loading={"lazy"}>
                                         <source className={`Landing-grid--element source`}
                                                 src={`${landingData.imageGrid.url}`}
                                                 type={`video/${landingData.imageGrid.media.extension}`}/>
