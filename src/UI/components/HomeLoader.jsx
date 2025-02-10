@@ -79,7 +79,7 @@ const HomeLoader = ({isPageReady}) => {
 
             <div className={`HomeLoader-credit`}>
 
-                <MyLink style={1} text={"Développé par Valentin Gassend"} parentClass={"HomeLoader-credit"} url={'https://twitter.com/GassValentin'}
+                <MyLink style={1} text={"Développé par Valentin Gassend"} parentClass={"HomeLoader-credit"} url={'https://valentingassend.com/'}
                         isTarget={true}></MyLink>
             </div>
         </div>

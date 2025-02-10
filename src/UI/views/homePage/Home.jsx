@@ -381,14 +381,15 @@ const Home = () => {
     return (<>
         <div className={`Home ${isPageReady ? ("isPageReady") : ("isNotPageReady")}`}>
             <PanelsContainer isPageReady={isPageReady}/>
-            <Landing assetsUrl={assetsUrl} landingData={landingData}/>
+            <Landing assetsUrl={assetsUrl} landingData={landingData} instanceId="first"/>
             <ProjectsPartView projects={projects} projectManager={projectManager}/>
             <AboutPartView aboutData={aboutData}/>
             <ContactPartView contactManager={projectManager} contactData={contactData} assetsUrl={assetsUrl}/>
             <GalleryPartView galleryData={galleryData} galleryPartData={galleryPartData}/>
             <Overlay/>
             <HomeLoader isPageReady={isPageReady}/>
-            {IsMobile() ? <></> : <Landing assetsUrl={assetsUrl} landingData={landingData}/>}
+            {IsMobile() ? <></> : <Landing assetsUrl={assetsUrl} landingData={landingData} instanceId="second"/>
+            }
 
         </div>
     </>)
