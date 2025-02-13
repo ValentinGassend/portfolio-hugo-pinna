@@ -148,6 +148,20 @@ const Home = () => {
                             setLandingData(landingItem);
                         });
                 }
+                if (landingItem.model && landingItem.model.length > 0) {
+                    const modelPath = landingItem.model;
+                    // Use projectManager to get the URL of the image
+                    projectManager.getUrlOfImage(modelPath)
+                        .then((url) => {
+
+                            landingItem.model3d = {url: url, media: projectManager.getMediaType(url)};
+                            setLandingData(landingItem);
+                        })
+                        .catch((error) => {
+                            console.error("Error getting URL of image:", error);
+                            setLandingData(landingItem);
+                        });
+                }
 
                 const elapsedTime = Date.now() - startTime;
                 elapsedTimeRef.current = elapsedTime;

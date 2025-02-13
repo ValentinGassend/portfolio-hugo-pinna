@@ -9,122 +9,140 @@ import * as THREE from "three";
 import LandingGrid3D from "./LandingGrid3D.jsx";
 
 
-const Model = ({onLoad, instanceId}) => {
+// Optimize model loading and management
+const Model = React.memo(({onLoad, instanceId}) => {
     const modelPath = '/models/landing.glb';
     const {scene: originalScene, animations} = useGLTF(modelPath);
-    const scene = useMemo(() => originalScene.clone(), [originalScene]);
+
+    // Optimize scene cloning and materials
+    const scene = useMemo(() => {
+        const clonedScene = originalScene.clone();
+        clonedScene.traverse((object) => {
+            if (object.isMesh) {
+                // Optimize materials
+                object.material = new THREE.MeshStandardMaterial({
+                    ...object.material,
+                    roughness: 0.0,
+                    metalness: 1.0
+                });
+                // Enable frustum culling
+                object.frustumCulled = false;
+                object.renderOrder = 1;
+            }
+        });
+        return clonedScene;
+    }, [originalScene]);
+
     const {actions} = useAnimations(animations, scene);
+    const activeAnimations = useRef([]);
 
     useEffect(() => {
         if (scene) {
-            // Set the renderOrder for the entire scene
-            scene.traverse((object) => {
-                if (object.isMesh) {
-                    object.renderOrder = 1; // Ensure all meshes render before HTML
-                    object.material.depthTest = true; // Enable depth testing
-                    object.material.depthWrite = true; // Enable depth writing
-                }
-            });
             onLoad();
         }
 
-        // Play all the circle animations
-        if (actions['CircleAction']) {
-            actions['CircleAction'].play();
-        }
-        if (actions['Circle.001Action']) {
-            actions['Circle.001Action'].play();
-        }
-        if (actions['Circle.002Action']) {
-            actions['Circle.002Action'].play();
-        }
+        // Optimize animation management
+        const animationNames = ['CircleAction', 'Circle.001Action', 'Circle.002Action'];
+        animationNames.forEach(name => {
+            if (actions[name]) {
+                actions[name].play();
+                activeAnimations.current.push(actions[name]);
+            }
+        });
 
         return () => {
-            // Clean up animations on unmount
-            if (actions['CircleAction']) {
-                actions['CircleAction'].stop();
-            }
-            if (actions['Circle.001Action']) {
-                actions['Circle.001Action'].stop();
-            }
-            if (actions['Circle.002Action']) {
-                actions['Circle.002Action'].stop();
-            }
-            useGLTF.preload(modelPath);
+            // Cleanup animations
+            activeAnimations.current.forEach(animation => animation.stop());
+            activeAnimations.current = [];
         };
     }, [scene, onLoad, actions]);
 
-    return (<primitive
-        object={scene}
-        scale={2.33 / 2}
-        position={[0.0, 0.0, 0.0]}
-        rotation={[0, 0, 0]}
-        renderOrder={1}
-    />);
-};
-const Scene = ({onLoad, landingData, instanceId}) => {
-
-
-    return (<Canvas
-        style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            overflow: 'visible',
-            pointerEvents: 'none',
-            isolation: 'isolate',
-            transform: 'translateZ(0)',
-            willChange: 'transform'
-        }}
-        frameloop="always"
-        dpr={window.devicePixelRatio}
-        onCreated={({gl}) => {
-            gl.setClearColor(0xffffff, 0);
-            gl.getContext().enable(gl.getContext().DEPTH_TEST);
-            gl.getContext().depthFunc(gl.getContext().LEQUAL);
-            gl.setScissorTest(false);
-        }}
-        gl={{
-            antialias: true,
-            alpha: true,
-            depth: true,
-            premultipliedAlpha: false,
-            preserveDrawingBuffer: true,
-            autoClear: true,
-        }}
-    >
-
-        <PerspectiveCamera
-            makeDefault
-            position={[6, 6, -14]}
-            fov={50}
-            near={0.1}
-            far={2000}
+    return (
+        <primitive
+            object={scene}
+            scale={2.33 / 2}
+            position={[0.0, 0.0, 0.0]}
+            rotation={[0, 0, 0]}
+            renderOrder={1}
         />
+    );
+});
 
-        <ambientLight intensity={1}/>
-        <directionalLight position={[5, 5, 5]} intensity={1}/>
-        <pointLight position={[-5, -5, -5]} intensity={0.5}/>
-        <group position={[0, 0, 0]} rotation={[0.0, 2.7, 0.0]}>
-            <Model onLoad={onLoad} instanceId={instanceId}/>
+// Optimize scene rendering
+const Scene = React.memo(({onLoad, landingData, instanceId}) => {
+    // Configure optimal WebGL parameters
+    const glConfig = useMemo(() => ({
+        antialias: true,
+        alpha: true,
+        depth: true,
+        stencil: false,
+        premultipliedAlpha: false,
+        preserveDrawingBuffer: false,
+        powerPreference: "high-performance",
+    }), []);
 
-            <LandingGrid3D
-                landingData={landingData}
-                isMobile={IsMobile()}
-                isWidthLessThanHeight={IsWidthLessThanOrEqualToHeight()}
+    // Optimize camera settings
+    const cameraSettings = useMemo(() => ({
+        position: [6, 6, -14],
+        fov: 50,
+        near: 1,
+        far: 100,
+    }), []);
+
+    return (
+        <Canvas
+            style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                overflow: 'visible',
+                pointerEvents: 'none',
+                isolation: 'isolate',
+                transform: 'translateZ(0)',
+                willChange: 'transform'
+            }}
+            // frameloop="demand"
+            frameloop="always"
+            dpr={Math.min(window.devicePixelRatio, 2)}
+            onCreated={({gl}) => {
+                gl.setClearColor(0xffffff, 0);
+                gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                gl.physicallyCorrectLights = true;
+            }}
+            gl={glConfig}
+        >
+            <PerspectiveCamera makeDefault {...cameraSettings} />
+
+            <ambientLight intensity={0.2} />
+            <directionalLight
+                position={[0, 1, -1]}
+                intensity={1.0}
+                castShadow
+                shadow-mapSize-width={256}
+                shadow-mapSize-height={256}
             />
-        </group>
+            {/*<pointLight position={[0, 0, 0]} intensity={1} />*/}
 
-        <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            enableRotate={false}
-            minPolarAngle={Math.PI / 2}
-            maxPolarAngle={Math.PI / 2}
-            target={[0.0, 0.0, 0.0]}
-        />
-    </Canvas>);
-};
+            <group position={[0, 0, 0]} rotation={[0.0, 2.7, 0.0]}>
+                <Model onLoad={onLoad} instanceId={instanceId} />
+                <LandingGrid3D
+                    landingData={landingData}
+                    isMobile={IsMobile()}
+                    isWidthLessThanHeight={IsWidthLessThanOrEqualToHeight()}
+                />
+            </group>
+
+            <OrbitControls
+                enableZoom={false}
+                enablePan={false}
+                enableRotate={false}
+                minPolarAngle={Math.PI / 2}
+                maxPolarAngle={Math.PI / 2}
+                target={[0.0, 0.0, 0.0]}
+            />
+        </Canvas>
+    );
+});
 const Landing = ({assetsUrl, landingData, instanceId}) => {
 
     const [isModelLoaded, setIsModelLoaded] = useState(false);
@@ -135,44 +153,45 @@ const Landing = ({assetsUrl, landingData, instanceId}) => {
     };
 
     useEffect(() => {
+        if(landingData)
         // Préchargement du modèle
         if (!IsMobile() && !IsWidthLessThanOrEqualToHeight()) {
-            useGLTF.preload('/models/landing.glb');
+            useGLTF.preload(landingData.model.url);
         }
-    }, [IsMobile(), IsWidthLessThanOrEqualToHeight()]);
+    }, [IsMobile(), IsWidthLessThanOrEqualToHeight(), landingData]);
     const videoRef = useRef(null);
 
-    useEffect(() => {
-        if (landingData && videoRef.current && IsMobile() && IsWidthLessThanOrEqualToHeight()) {
-            // Your logic here
-            // console.log(landingData);
-            const currentVideo = videoRef.current;
-            // console.log(currentVideo);
-
-            const handleVideoLoaded = () => {
-                // console.log("canplay");
-                // console.log(currentVideo);
-                if (currentVideo) {
-                    currentVideo.pause();
-                    currentVideo.currentTime = 0;
-                    // currentVideo.play();
-                    if (currentVideo.pause) {
-                        currentVideo.play()
-                        currentVideo.removeEventListener('canplay', handleVideoLoaded);
-
-                    }
-                    if (currentVideo.play) {
-                        currentVideo.removeEventListener('canplay', handleVideoLoaded);
-
-                    }
-
-                }
-            };
-
-            currentVideo.addEventListener('canplay', handleVideoLoaded);
-
-        }
-    }, [landingData, videoRef.current]);
+    // useEffect(() => {
+    //     if (landingData && videoRef.current && IsMobile() && IsWidthLessThanOrEqualToHeight()) {
+    //         // Your logic here
+    //         // console.log(landingData);
+    //         const currentVideo = videoRef.current;
+    //         // console.log(currentVideo);
+    //
+    //         const handleVideoLoaded = () => {
+    //             // console.log("canplay");
+    //             // console.log(currentVideo);
+    //             if (currentVideo) {
+    //                 currentVideo.pause();
+    //                 currentVideo.currentTime = 0;
+    //                 // currentVideo.play();
+    //                 if (currentVideo.pause) {
+    //                     currentVideo.play()
+    //                     currentVideo.removeEventListener('canplay', handleVideoLoaded);
+    //
+    //                 }
+    //                 if (currentVideo.play) {
+    //                     currentVideo.removeEventListener('canplay', handleVideoLoaded);
+    //
+    //                 }
+    //
+    //             }
+    //         };
+    //
+    //         currentVideo.addEventListener('canplay', handleVideoLoaded);
+    //
+    //     }
+    // }, [landingData, videoRef.current]);
 
 
     return (
