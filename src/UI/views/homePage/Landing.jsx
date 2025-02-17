@@ -210,7 +210,10 @@ const Landing = ({assetsUrl, landingData, instanceId}) => {
                                     Your browser does not support the video tag.
                                 </video>)}
                         </> :
-                        <Scene onLoad={handleModelLoad} landingData={landingData}/>}
+
+                        <Scene onLoad={handleModelLoad} landingData={landingData}/>
+
+                        }
 
                 </div>
 
@@ -290,5 +293,54 @@ const Landing = ({assetsUrl, landingData, instanceId}) => {
 
         </section>)
 }
+
+const usePerformanceOptimizer = () => {
+  const [quality, setQuality] = useState('high');
+  const { gl } = useThree();
+
+  useEffect(() => {
+    // Mesure les FPS initiaux
+    let frameCount = 0;
+    let lastTime = performance.now();
+    let fps = 0;
+
+    const measurePerformance = () => {
+      frameCount++;
+      const currentTime = performance.now();
+
+      if (currentTime - lastTime >= 1000) {
+        fps = frameCount;
+        frameCount = 0;
+        lastTime = currentTime;
+
+        // Ajuste la qualité en fonction des FPS
+        if (fps < 30) {
+          setQuality('low');
+          gl.setPixelRatio(1);
+          gl.shadowMap.enabled = false;
+        } else if (fps < 45) {
+          setQuality('medium');
+          gl.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
+          gl.shadowMap.enabled = true;
+          gl.shadowMap.type = THREE.BasicShadowMap;
+        } else {
+          setQuality('high');
+          gl.setPixelRatio(Math.min(2, window.devicePixelRatio));
+          gl.shadowMap.enabled = true;
+          gl.shadowMap.type = THREE.PCFSoftShadowMap;
+        }
+      }
+
+      requestAnimationFrame(measurePerformance);
+    };
+
+    const handle = requestAnimationFrame(measurePerformance);
+
+    return () => cancelAnimationFrame(handle);
+  }, [gl]);
+
+  return quality;
+};
+
 
 export default Landing
