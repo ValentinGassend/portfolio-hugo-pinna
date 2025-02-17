@@ -57,6 +57,20 @@ const Scene = React.memo(({onLoad, landingData, instanceId}) => {
                 shadow-mapSize-width={256}
                 shadow-mapSize-height={256}
             />
+            <directionalLight
+                position={[7.5, -5, 1]}
+                intensity={1.0}
+                castShadow
+                shadow-mapSize-width={256}
+                shadow-mapSize-height={256}
+            />
+            <directionalLight
+                position={[-7.5, -5, 1]}
+                intensity={1.0}
+                castShadow
+                shadow-mapSize-width={256}
+                shadow-mapSize-height={256}
+            />
             {/*<pointLight position={[0, 0, 0]} intensity={1} />*/}
 
             <group position={[0, 0, 0]} rotation={[0.0, 2.7, 0.0]}>

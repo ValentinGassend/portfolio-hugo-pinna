@@ -15,7 +15,7 @@ const Model = React.memo(({onLoad, instanceId}) => {
                 // Optimize materials
                 object.material = new THREE.MeshStandardMaterial({
                     ...object.material,
-                    roughness: 0.0,
+                    roughness: 0.2,
                     metalness: 1.0
                 });
                 // Enable frustum culling
