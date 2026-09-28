@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 npmrc
+
+# Médias hébergés sur le sous-domaine (VITE_MEDIA_BASE_URL)
+public/media

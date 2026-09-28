@@ -5,21 +5,16 @@ const ProjectListView = ({ projects, manager }) => {
     const [projectData, setProjectData] = useState([]);
 
     useEffect(() => {
-        projects.forEach(project => {
-            manager
-                .getUrlOfImage(project.header_image)
-                .then((url) => {
-                    if (url) {
-                        project.url = url;
-                        project.media = manager.getMediaType(url);
-                        setProjectData(prevState => [...prevState, project]);
-                    } else {
-                        console.log("L'image n'existe pas ou une erreur s'est produite.");
-                    }
-                })
-                .catch((error) => console.error("Erreur générale:", error));
-        });
-    }, [projects]);
+        // Reconstruit la liste à chaque changement (au lieu d'ajouter à l'ancienne, ce qui créait des doublons)
+        Promise.all(projects.map(project => manager
+            .getUrlOfImage(project.header_image)
+            .then((url) => ({...project, url, media: manager.getMediaType(url)}))
+            .catch((error) => {
+                console.error("Erreur générale:", error);
+                return project;
+            })))
+            .then(setProjectData);
+    }, [projects, manager]);
 
     return (
         <div className={`Projects-list EnterSmoothScroll`}>

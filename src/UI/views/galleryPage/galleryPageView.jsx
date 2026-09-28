@@ -142,14 +142,18 @@ const GalleryPageView = () => {
         updateContainerPosition();
     }, [isPageReady, containerPosition]);
     useEffect(() => {
-        if (isPageReady && galleryData[0].media) {
+        if (!isPageReady || IsMobile()) return;
 
-            if (scaleValue >= 0.25 && scaleValue <= 2.5 && !IsMobile()) {
-                document.addEventListener('wheel', toogleZoom)
-                document.querySelector('.GalleryPage-container').style.scale = scaleValue
-            }
+        document.addEventListener('wheel', toogleZoom)
+        return () => {
+            document.removeEventListener('wheel', toogleZoom)
+        };
+    }, [isPageReady]);
+    useEffect(() => {
+        const container = document.querySelector('.GalleryPage-container');
+        if (isPageReady && container && !IsMobile()) {
+            container.style.scale = scaleValue
         }
-
     }, [scaleValue, isPageReady, galleryData]);
 
     function from4To8(total) {
@@ -389,14 +393,9 @@ const GalleryPageView = () => {
     };
 
     function toogleZoom(e) {
-        const decreaseFactor = 1000 / (scaleValue); // Plus la valeur de scaleValue est grande, plus le facteur de diminution est petit
-        const increaseFactor = 1000 / (scaleValue); // Plus la valeur de scaleValue est grande, plus le facteur de diminution est petit
-
-        if (e.deltaY > 0) {
-            setScaleValue(scaleValue - e.deltaY / increaseFactor)
-        } else if (e.deltaY < 0) {
-            setScaleValue(scaleValue - e.deltaY / decreaseFactor)
-        }
+        if (e.deltaY === 0) return;
+        // Plus la valeur de scaleValue est grande, plus le zoom est rapide ; bornée entre 0.25 et 2.5
+        setScaleValue(prev => Math.min(2.5, Math.max(0.25, prev - e.deltaY * prev / 1000)))
     }
 
 

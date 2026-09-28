@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef, useLayoutEffect} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import projectManager from "../../../managers/ProjectManager.jsx";
 
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -16,6 +16,7 @@ import MyLink from "../../components/MyLink.jsx";
 
 const SingleProjectView = (props) => {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [projectData, setProjectData] = useState(null);
     const elapsedTimeRef = useRef(0);
     const [isPageReady, setIsPageReady] = useState(false)
@@ -42,25 +43,22 @@ const SingleProjectView = (props) => {
 
                 } catch (error) {
                     console.error("Error fetching project:", error);
-                    // Handle error appropriately, e.g., show an error message
+                    navigate("/page404", {replace: true});
                 }
             };
 
             fetchProject();
         }
-    }, [id]);
+    }, [id, navigate]);
 
     useEffect(() => {
-        if (projectData) {
+        if (projectData && projectData.header_image && !projectData.media) {
             projectManager
                 .getUrlOfImage(projectData.header_image)
                 .then((url) => {
                     if (url) {
 
-                        projectData.url = url;
-                        projectData.media = projectManager.getMediaType(url);
-
-                        setProjectData(projectData)
+                        setProjectData(prev => ({...prev, url, media: projectManager.getMediaType(url)}))
 
 
                     } else {
@@ -72,7 +70,7 @@ const SingleProjectView = (props) => {
     }, [projectData]);
     useEffect(() => {
 
-        if (projectData) {
+        if (projectData && Array.isArray(projectData.slider_image)) {
 
             const fetchSliderImagesInfo = async () => {
                 // console.log(projectData)
@@ -88,7 +86,7 @@ const SingleProjectView = (props) => {
                     } catch (error) {
                         console.error("Error fetching image URL:", error);
                         return {
-                            name: imageName, url: imageUrl, mediaType: 'image'
+                            name: imageName, url: imageUrl, mediaType: {type: 'image', extension: null}
                         };
                     }
                 }));
@@ -98,7 +96,7 @@ const SingleProjectView = (props) => {
         }
 
 
-    }, [projectData]);
+    }, [projectData?.id]);
 
 
     useEffect(() => {
@@ -166,13 +164,13 @@ const SingleProjectView = (props) => {
                         </div>
                         <div className={"SingleProject-content-header-tags"}>
                             <h1 className={"SingleProject-content-header-data-item--name"}>{projectData ? projectData.name : ''}</h1>
-                            {projectData ? projectData.tags.map((tag, index) => (<span key={index}
+                            {projectData && projectData.tags ? projectData.tags.map((tag, index) => (<span key={index}
                                                                                        className={"SingleProject-content-header-tags--tag"}>[{tag}]</span>)) : ''}
                         </div>
                     </div>
 
                     <div className={"SingleProject-content-info"}>
-                        {projectData ? projectData.contents.map((content, index) => {
+                        {projectData && projectData.contents ? projectData.contents.map((content, index) => {
                             if (content.type === 'title') {
                                 return <h3 key={index}
                                            className={"SingleProject-content-info--title"}>{content.value}</h3>;

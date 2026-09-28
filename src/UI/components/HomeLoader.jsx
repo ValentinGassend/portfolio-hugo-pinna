@@ -70,7 +70,7 @@ const HomeLoader = ({isPageReady}) => {
                 <h2 className={`HomeLoader-subtitle--content`}>Directeur artistique, designer graphique, Designer 3d</h2>
             </div>
             <Player
-                src='./lotties/loaderBar.json'
+                src='/lotties/loaderBar.json'
                 className={`HomeLoader-Bar`}
                 keepLastFrame={true}
                 // autoplay

@@ -110,14 +110,14 @@ const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
                            href={`mailto:${contactInfo ? contactInfo.letter.email : ''}`}
                            target={"_blank"}>
                             <Player
-                                src='./lotties/Hover_On.json'
+                                src='/lotties/Hover_On.json'
                                 className={`Contact-content-wrapper-upper-texts--email---element-On`}
                                 ref={LottieEmailOn}
                                 keepLastFrame={true}
 
                             />
                             <Player
-                                src='./lotties/Hover_Off.json'
+                                src='/lotties/Hover_Off.json'
                                 className={`Contact-content-wrapper-upper-texts--email---element-Off`}
                                 ref={LottieEmailOff}
                                 keepLastFrame={true}
@@ -129,14 +129,14 @@ const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
                            href={`${contactInfo ? contactInfo.social.link : ''}`}
                            target={"_blank"}>
                             <Player
-                                src='./lotties/Hover_On.json'
+                                src='/lotties/Hover_On.json'
                                 className={`Contact-content-wrapper-upper-texts--social---element-On`}
                                 ref={LottieSocialOn}
                                 keepLastFrame={true}
 
                             />
                             <Player
-                                src='./lotties/Hover_Off.json'
+                                src='/lotties/Hover_Off.json'
                                 className={`Contact-content-wrapper-upper-texts--social---element-Off`}
                                 ref={LottieSocialOff}
                                 keepLastFrame={true}

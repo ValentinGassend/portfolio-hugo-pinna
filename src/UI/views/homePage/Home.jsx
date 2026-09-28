@@ -47,6 +47,9 @@ const Home = () => {
             const promises = Object.values(AssetNames).map((name) => {
                 return Promise.resolve(projectManager.getSpecificAsset(assets, name))
                     .then(asset => {
+                        if (!asset[0] || !asset[0].asset_img) {
+                            return null;
+                        }
                         let assetPath = asset[0].asset_img;
 
                         return projectManager.getUrlOfImage(assetPath)
@@ -70,15 +73,18 @@ const Home = () => {
             Promise.all(promises)
                 .then(results => {
                     results.forEach(result => {
-                        addAssetUrl(result.name, result.url);
-
+                        if (result) {
+                            addAssetUrl(result.name, result.url);
+                        }
                     });
-                    setIsAssetReady(true)
-
                 })
                 .catch(error => {
                     // Handle any errors during the Promise.all
                     console.error("Error in Promise.all:", error);
+                })
+                .finally(() => {
+                    // Un asset manquant ne doit jamais bloquer le loader
+                    setIsAssetReady(true)
                 });
         }
     }, [assets])

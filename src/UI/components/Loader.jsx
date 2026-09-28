@@ -44,7 +44,7 @@ const Loader = ({isPageReady}) => {
     return (<>
         <div ref={loader} className={`Loader ${isPageReady ? "appear" : ""} `}>
             <Player
-                src='./lotties/loaderBar.json'
+                src='/lotties/loaderBar.json'
                 className="player"
                 keepLastFrame={true}
                 autoplay

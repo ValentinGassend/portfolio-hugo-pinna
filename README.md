@@ -62,6 +62,19 @@ Ce projet constitue le portfolio d'Hugo Pinna.
 6. **Autres Fichiers**:
     - **config.json, FolderList.txt**: Configurations supplémentaires, liste des dossiers, et éventuellement un document de sortie.
 
+## Contenu et médias (100 % gratuit, sans Firebase)
+
+- **Textes / projets** : `src/data/content.json` (snapshot de l'ancienne base Firestore).
+  Pour modifier le site, éditer ce fichier puis pousser sur `main` (Vercel redéploie).
+  `node scripts/export-firestore.mjs` régénère le fichier depuis Firestore si besoin.
+- **Images / vidéos** : `public/media/<chemin>` (ex. `public/media/images/xxx.png`), servies par Vercel.
+  `node scripts/download-media.mjs` télécharge tous les fichiers référencés dans `content.json`
+  (depuis l'ancien bucket Firebase, ou une autre source via `MEDIA_SOURCE=https://.../`).
+  `public/media` n'est pas versionné (3,3 Go) : il est hébergé sur Infomaniak.
+- **Déploiement Infomaniak** (site + médias sur https://hugo-pinna.valentingassend.com) : `npm run deploy`
+  (identifiants SFTP dans `.env.local`, voir l'en-tête de `scripts/deploy-infomaniak.mjs`).
+- **Vercel** (hugopinna.com) : définir `VITE_MEDIA_BASE_URL=https://hugo-pinna.valentingassend.com/media`.
+
 ## Licence
 
 Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.

@@ -1,0 +1,788 @@
+{
+  "assets": [
+    {
+      "id": "3AkosltwL7FUxHMHcJz4",
+      "name": "flèche",
+      "asset_name": "available_dot",
+      "asset_img": "assets/1a65h_Ellipse 2.svg"
+    },
+    {
+      "id": "plxvA9AHYx2s3k2fnOnU",
+      "name": "rond disponible",
+      "asset_name": "arrow",
+      "asset_img": "assets/1zzt4_Vector.svg"
+    }
+  ],
+  "landing": [
+    {
+      "id": "PvfRrYcbX0yJabwpVzm6",
+      "model": "images/dqnh2_3d_portfoliio_.glb",
+      "link": "scroll to discover",
+      "image": "images/8ct0z_1500x500.png",
+      "background_file": "Landing/qgy0r_3d_portfoliio_-blend.mp4"
+    }
+  ],
+  "projects": [
+    {
+      "id": "7kIDuBnmCKFLbqRYHjO1",
+      "slider_image": [
+        "images/kdqgz_Desktop - 6-min.png",
+        "images/x32mb_Desktop - 7-min.png",
+        "images/xxtha_Desktop - 8-min.png",
+        "images/prtsa_Slide 16_9 - 54-min.png",
+        "images/kql9z_Slide 16_9 - 49-min.png"
+      ],
+      "contents": [
+        {
+          "value": "Suivez l'histoire d'une jeune Sibérienne, contrainte à fuir sa terre natale.",
+          "type": "title"
+        },
+        {
+          "value": "Anska est une expérience interactive mettant en lumière l'un des problèmes écologiques les plus terrifiants auxquels notre monde devra faire face : la fonte du permafrost.\n\nDurant notre deuxième année de Bachelor en design et développement interactif à l’école des Gobelins d'Annecy, nous avons été chargés de créer un site de visualisation de données, en utilisant des données satellitaires.\n\nNous avons décidé de narrer l'histoire d'Anska, une jeune Sibérienne de 18 ans, qui doit s'enfuir de la plaine de Yakoutsk avec son frère. Au fil de la découverte du site, les utilisateurs suivront son parcours, agrémenté de quelques données sur ce phénomène écologique.\n\nNous avons eu l'opportunité de collaborer avec la NASA, qui a soutenu notre projet en nous fournissant des données sur ce sujet.",
+          "type": "description"
+        }
+      ],
+      "is_promoted": false,
+      "tags": [
+        "Direction Artistique",
+        "Datavisualisation",
+        "UX - UI Design",
+        "Typographie"
+      ],
+      "order": 6,
+      "name": "Anska",
+      "visible": true,
+      "header_image": "images/qdj9i_Slide 16_9 - 55-min.png",
+      "project_type": "Datavisualisation",
+      "client": "@Gobelins",
+      "year": 2023
+    },
+    {
+      "id": "EfGcojUgRZ57wtFHIRaI",
+      "client": "@Gobelins",
+      "name": "Retrospective",
+      "slider_image": [
+        "images/0qf8d_imdyu_IMG_9865.jpg",
+        "images/5g6j7_pages.png",
+        "images/sgc16_qcn7q_IMG_9866.jpg",
+        "images/h70nc_IMG_9868.jpg",
+        "images/jjmmj_IMG_9869.jpg",
+        "images/4innm_IMG_9872.jpg",
+        "images/feiw2_IMG_9871.jpg",
+        "images/nr59o_IMG_4140.png"
+      ],
+      "year": 2023,
+      "order": 2,
+      "is_promoted": true,
+      "project_type": "Édition",
+      "contents": [
+        {
+          "value": "Le courage d’exprimer sa créativité sans filtre.",
+          "type": "title"
+        },
+        {
+          "value": "\"Retrospective\" est un projet qui nous place dans la peau d'un rédacteur junior chez les éditions Pyramyd, avec pour mission de créer un ouvrage mettant en lumière un aspect d'une agence de notre choix.\n\n\"Retrospective : NB Studio, au sommet de Londres\" est un projet de 40 pages que j'ai créé, conçu et matérialisé de bout en bout. Ce dernier expose l'ampleur des projets du studio.\n\nJ'ai choisi de contacter NB Studio, un studio de design graphique basé à Londres, pour écrire cet ouvrage. Celui-ci comprend une présentation détaillée du studio et de son histoire, des analyses approfondies de leurs travaux, ainsi que des témoignages des fondateurs et de certains employés.\n\nL'objectif de cette réalisation était de transmettre fidèlement les valeurs et les réalisations de NB Studio, en harmonisant les codes de leur identité visuelle avec ceux de notre série \"Retrospective\".",
+          "type": "description"
+        }
+      ],
+      "visible": true,
+      "header_image": "images/c96on_IMG_4116 2.png",
+      "tags": [
+        "Direction Artistique",
+        "Interview",
+        "Édition"
+      ]
+    },
+    {
+      "id": "LeTaS1mltl44vxgOvCCf",
+      "name": "Funambule Festival",
+      "header_mobile": null,
+      "order": 3,
+      "project_type": "Direction Artistique",
+      "year": 2022,
+      "is_promoted": true,
+      "header_image": "images/5vk0f_Street1-min.png",
+      "client": "Personal Project",
+      "slider_image": [
+        "images/lsddf_Affiche-min.png",
+        "images/qcy9o_print 4-min.png",
+        "images/65i2n_Billboard-min.png",
+        "images/ri3u1_Print1-min.png",
+        "images/nqgq1_ticket-min.png",
+        "images/m1mhe_Print2-min.png",
+        "images/2tt5m_street3-min-min.png",
+        "images/0dzyq_Print3-min.png",
+        "images/up1h7_street2-min-min.png",
+        "images/ogec4_tote bag-min-min.png",
+        "images/x1aeb_tshirt-min.png",
+        "images/p312m_gourde-min.png"
+      ],
+      "tags": [
+        "Direction Artistique",
+        "Merchandising",
+        "Branding"
+      ],
+      "contents": [
+        {
+          "value": "Le nouveau festival de design graphique Genevois.",
+          "type": "title"
+        },
+        {
+          "value": "Lors de l’été 2022, je me suis mis au défi d’imaginer un festival de design graphique (inspiré par le très connu “Motion-Motion”, et certains artistes de mon entourage) à Genève. \n\nLe but du festival était de réunir les directeurs artistiques et designers graphiques autour de conférences, d'événements, et de petits challenges. Pour la communication, l'idée était de faire une série de visuels affichés dans toute la ville, et d'appuyer le côté \"festival\" avec du merchandising.",
+          "type": "description"
+        }
+      ],
+      "visible": true
+    },
+    {
+      "id": "TX3SyxKDcWNbxFc0Pb6F",
+      "contents": [
+        {
+          "type": "title",
+          "value": "Le premier major sur cs2."
+        },
+        {
+          "type": "description",
+          "value": "Pendant l'été 2023, nos tuteurs d'apprentissage nous ont confié la mission de concevoir une landing page pour promouvoir un événement e-sport.\n\nNous avons été chargés de travailler sur le premier Major de CS 2 (Counter Strike 2), une compétition européenne qui met à l'épreuve les 24 meilleures équipes de la ligue.\n\nJ'ai pris en charge la direction artistique, supervisé notre équipe sur le projet et élaboré la maquette du site."
+        }
+      ],
+      "order": 4,
+      "header_image": "images/ilm3n_MacBook Pro 16_ - 4.png",
+      "project_type": "Direction Artistique",
+      "client": "Alternance",
+      "is_promoted": false,
+      "tags": [
+        "Direction Artistique",
+        "Gestion de Projet",
+        "UX - UI Design"
+      ],
+      "site": {
+        "link_text": "voir le site",
+        "link": "http://cs2.brph6005.odns.fr"
+      },
+      "visible": true,
+      "name": "Major CS 2",
+      "year": 2023,
+      "slider_image": [
+        "images/vcuzj_MacBook Pro 16_ - 17.png",
+        "images/xv32v_macbook-16-pro-mockup-on-concrete-background-front-view.png",
+        "images/lmn2g_Free Mural Mockup.png",
+        "images/bx9dj_MacBook Pro 16_ - 18.png",
+        "images/s966t_phone-15-pro-mockup-on-concrete-background-front-view.png"
+      ]
+    },
+    {
+      "id": "UQEQAkGe16fmLD2qO792",
+      "slider_image": [],
+      "order": null,
+      "year": "2024",
+      "is_promoted": false,
+      "client": "@gobelins",
+      "header_image": "images/jbh0p_untitled4_1.jpg",
+      "tags": [
+        "Direction Artistique",
+        "Modélisaton 3D",
+        "Typographie",
+        "Édition",
+        "WebGL"
+      ],
+      "site": {
+        "link": null,
+        "link_text": "voir le site"
+      },
+      "project_type": "3D",
+      "visible": false,
+      "name": "L'épitaphe de Seikilos",
+      "contents": [],
+      "header_mobile": null
+    },
+    {
+      "id": "ZSVQxv7idRuAuObtw9Ho",
+      "contents": [
+        {
+          "type": "title",
+          "value": "Frogy, le tout premier compagnon anti-gaspi !"
+        },
+        {
+          "value": "Dans le cadre de notre deuxième année de Bachelor en tant que designers et développeurs interactifs à l'école des Gobelins à Annecy, nous avons été chargés de concevoir de toute pièce un objet connecté visant à faciliter la vie quotidienne des personnes atteintes de cérébrolésions. Nous avons collaboré avec une association annécienne dédiée à l'accompagnement de ces patients. \n\nNous avons établi plusieurs points de contact avec les membres de l'association et les bénéficiaires, dans le but de trouver une solution efficace pour répondre à la problématique suivante : \"Comment améliorer le quotidien des personnes en situation de handicap ?\"\n\nNotre point de départ était le constat suivant : en moyenne, un Français gaspille environ 29 kg de nourriture par an, dont 7 kg de produits alimentaires encore emballés. Ce chiffre est encore plus important pour les personnes atteintes de cérébrolésions (problèmes de mémoire).\n\nC'est ainsi que Frogy a vu le jour. Il s'agit du premier compagnon de cuisine conçu pour aider les personnes atteintes de cérébrolésions à réduire leur gaspillage alimentaire.\n\nLe challenge à été de sortir des écrans, de construire de toute pièce un objet connecté, de créer, tester, réparer. Nous avons ensuite imaginé et mis en place un plan de communication pour promouvoir notre solution.",
+          "type": "description"
+        }
+      ],
+      "client": "@Gobelins",
+      "content": [
+        {
+          "type": "text",
+          "value": "Create a new frogy about a playful green amphibian."
+        },
+        {
+          "value": "A playful green amphibian, emblematic of nature's diversity, adds a vibrant touch to our frogy collection.",
+          "type": "quote"
+        },
+        {
+          "type": "text",
+          "value": "The new green amphibian frogy brings uniqueness and verve to your collection. Perfect for those who love nature's diversity."
+        }
+      ],
+      "tags": [
+        "Direction Artistique",
+        "Conception d'objet",
+        "Modélisation 3D",
+        "Typographie",
+        "Branding"
+      ],
+      "visible": true,
+      "order": 5,
+      "created_on": "2023-12-19T14:54:50.440Z",
+      "year": 2023,
+      "reviewed": false,
+      "status": "published",
+      "is_promoted": false,
+      "project_type": "Objet connecté",
+      "header_image": "images/0bjj2_Frogy.png",
+      "slider_image": [
+        "images/1ty03_flin 1 1.png",
+        "images/7evnu_flin 2.png",
+        "images/la3ip_Animation logo frogy_5.mp4",
+        "images/x2op5_Frame 14223.png",
+        "images/3sk5t_Plan de travail 3@4x 1.png"
+      ],
+      "promotion": false,
+      "name": "Frogy",
+      "publish_date": null
+    },
+    {
+      "id": "oWD3cJvcbyN0piw8asSI",
+      "contents": [
+        {
+          "type": "title",
+          "value": "Chaque année, Altimax envoie à ses clients une carte de vœux et propose une expérience web interactive. "
+        },
+        {
+          "type": "description",
+          "value": "Durant mon passage en alternance dans le groupe Altimax, j'ai eu l'opportunité de contribuer à la création des différents sites des vœux annuels de l'agence. Ces projets consistent à imaginer et à concevoir une expérience interactive à envoyer à nos clients, tout en mettant en avant de nouvelles compétences.\n\nPour l'année 2024, j'ai eu l'occasion de diriger ce projet en collaboration avec un alternant développeur. Nous avons opté pour la création d'une expérience interactive en utilisant three.js.\n\nJ'ai occupé les rôles de directeur artistique, de designer 3D, de chef de projet et d'UX - UI designer. Nous avions une totale liberté créative dans la réalisation de ce projet !\n\nL'objectif était de présenter un showreel de nos réalisations au sein d'une scène 3D, mettant ainsi en valeur les travaux du groupe."
+        }
+      ],
+      "project_type": "3D",
+      "header_image": "images/lpyhf_2024-01-09_10-10-21.mp4",
+      "client": "Alternance",
+      "content": [
+        {
+          "type": "text",
+          "value": "Introducing the groundbreaking \"Voeux 2024\" project - a visionary endeavor that will redefine the very fabric of reality! Imagine a world where wishes aren't just granted but transformed into tangible experiences beyond your wildest dreams."
+        },
+        {
+          "type": "quote",
+          "value": "\"The greatest adventure is what lies ahead. Embrace the unknown, for within it, you'll discover the extraordinary possibilities that await your courage and curiosity.\""
+        },
+        {
+          "value": "Voeux 2024 harnesses the power of advanced quantum wishology to tap into the cosmic energy of desire. Our team of wishologists, quantum engineers, and dreamweavers have meticulously crafted a state-of-the-art Wish Fulfillment Matrix (WFM) that transcends the limits of imagination.",
+          "type": "text"
+        }
+      ],
+      "visible": true,
+      "order": 1,
+      "is_promoted": true,
+      "name": "Voeux 2024",
+      "slider_image": [
+        "images/f1kml_Séquence 01_1.mp4",
+        "images/1u75q_screan voeux glb.png",
+        "images/bixmo_0001-0308.mp4",
+        "images/l164u_VOEUX_2024_A-A-Y.mp4"
+      ],
+      "reviewed": false,
+      "publish_date": null,
+      "status": "published",
+      "tags": [
+        "Direction Artistique",
+        "Gestion de Projet",
+        "Modélisation 3D",
+        "UX - UI Design"
+      ],
+      "site": {
+        "link_text": "voir le site",
+        "link": "http://voeux24.altimax.com"
+      },
+      "year": 2023,
+      "created_on": "2024-01-25T14:12:56.804Z",
+      "promotion": false
+    },
+    {
+      "id": "pnzISPt7jAlKW22TuV2h",
+      "contents": [
+        {
+          "type": "title",
+          "value": "L’ambition est de \"démystifier\" le développement web."
+        },
+        {
+          "type": "description",
+          "value": "Un ami m'a missionné pour créer son identité graphique et concevoir la maquette de son portfolio lors d'une mission freelance.\n\nNous avons réfléchi à une direction artistique mettant en avant la positivité et le côté décontracté de sa personnalité, s'opposant ainsi à l'idée stéréotypée que l'on peut avoir du développement informatique.\n\nEn plus de l'identité visuelle, nous avons travaillé sur son site internet. Il est encore en cours de production, un peu de patience ;)"
+        }
+      ],
+      "tags": [
+        "Direction Artistique",
+        "UX - UI Design"
+      ],
+      "site": {
+        "link": "",
+        "link_text": ""
+      },
+      "slider_image": [
+        "images/4frr2_BenditoMockup-Free-Macbook_Pro-01.png",
+        "images/61q1z_Totebag_03.png",
+        "images/q9t5m_01 Free Business Card On Fabric Mockup.png"
+      ],
+      "is_promoted": false,
+      "client": "Freelance",
+      "visible": true,
+      "order": 7,
+      "year": 2024,
+      "name": "Valentin Gassend",
+      "header_image": "images/vjatd_MacBook Pro 14_ - 21.png",
+      "project_type": "Direction Artistique"
+    },
+    {
+      "id": "r2ce5QlZI64K0rApyi65",
+      "status": "published",
+      "created_on": "2024-01-25T14:12:45.704Z",
+      "tags": [
+        "Branding",
+        "Direction Artistique",
+        "Typographie"
+      ],
+      "is_promoted": true,
+      "slider_image": [
+        "images/93d34_6h47 card-min.png",
+        "images/uc6kj_blue-min.png",
+        "images/kvmct_mo-3-free-tote-bag-mockup-min.png",
+        "images/ohyez_orange-min.png",
+        "images/a5rk5_Plan de travail 4 02.40.27-min.png"
+      ],
+      "publish_date": null,
+      "reviewed": false,
+      "year": 2023,
+      "contents": [
+        {
+          "type": "title",
+          "value": "6h47 est une entreprise de production audiovisuelle"
+        },
+        {
+          "value": "Dans le cadre d'une mission freelance, j'ai eu l'occasion de collaborer avec un studio de production audiovisuelle pour élaborer leur nouvelle identité graphique.\n\nLe logo représente une porte, une fenêtre ouverte sur les réalisations audiovisuelles de l'entreprise. Le client souhaitait une identité à la fois intemporelle et conventionnelle, mais avec une touche de modernité et un aspect \"jeune\" et \"street\". \n\nJ'ai rapidement basé la conception sur le fait que 6H47 était en pleine croissance. J'ai donc conçu le logo de manière à ce que l'alignement des glyphes puisse évoquer un escalier, symbolisant ainsi l'idée de \"montée\" dans le domaine de l'audiovisuel.",
+          "type": "description"
+        }
+      ],
+      "project_type": "Branding",
+      "header_image": "images/11cz5_blue main-min.png",
+      "order": 8,
+      "promotion": false,
+      "content": [
+        {
+          "type": "text",
+          "value": "Discover the playful world of \"six heure quarante sept,\" where the vibrant greens of nature blend seamlessly with the animated lives of frogy and their friends."
+        },
+        {
+          "value": "Embrace the spontaneity each frogy brings, as if leaping from one lilypad of opportunity to the next, inspiring a life rich with surprise and joy.",
+          "type": "quote"
+        },
+        {
+          "type": "text",
+          "value": "It showcases an intricate design that highlights the beauty of these creatures, making it a must-have."
+        }
+      ],
+      "client": "Freelance",
+      "visible": true,
+      "name": "Six heure quarante sept"
+    }
+  ],
+  "gallery": [
+    {
+      "id": "0OfoJjtrYX8UN4oLxoTd",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/arlbc_la source2-min.png"
+    },
+    {
+      "id": "3Gdu7h3MMaJTurFCF14V",
+      "visual": "gallery/6p5yk_cover2.jpg",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "3fpfQ0CyZDzQUi0BQrrO",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/klp7x_untitled.png"
+    },
+    {
+      "id": "5Hg7ju2BnIgrScFaN0Jd",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/nnkm2_Amour couleur fièvre.jpg"
+    },
+    {
+      "id": "5JvavonX5tOzJELqq0IT",
+      "visual": "gallery/nh36k_Plan de travail 4 copie.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "5hF7PBh2vcpdvXVlz2FF",
+      "visual": "gallery/vx4jt_élémentaire.jpg",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "8uB9gewC9Y4VqbYAuv6V",
+      "visual": "gallery/dcm5d_tshirt front.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "AyaT8LEMCf3USrp9pXii",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/xuua9_damso.png"
+    },
+    {
+      "id": "BTmlIuccteK7cP6NlISB",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/82afh_crawl.jpg"
+    },
+    {
+      "id": "CDwoconBN8CfdzGPpXuH",
+      "visual": "gallery/xbcqo_ajna-min.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "Ey5jbXk9ixBHuJPZiGVI",
+      "visual": "gallery/pp7wb_catch feelings.jpg",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "HBCwYZ6KveJ7Hd2ySWIK",
+      "visual": "gallery/9zo0a_expdicci4-min.png",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      }
+    },
+    {
+      "id": "Joso5ktNuemouiH8wVgv",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/wht5t_Comp 1.mp4"
+    },
+    {
+      "id": "LK3O8mbdtaK1aIP2WSlV",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/ud98o_ROMANCE.png"
+    },
+    {
+      "id": "Mue3P5PThOUk2KV2VMCV",
+      "visual": "gallery/8lb4x_Cover Laylow.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "NFgHtdZv2NQTAUzB9Fe8",
+      "visual": "gallery/v0vvm_14-min.png",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      }
+    },
+    {
+      "id": "PyN2PwIqAauJoLUsljWH",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/7r3km_0001-0200.mp4"
+    },
+    {
+      "id": "REKihshoehrRerViJcQN",
+      "visual": "gallery/upu37_topten-min.png",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      }
+    },
+    {
+      "id": "VBL9O1RvGjYa8Gel1KiB",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/1dr6t_back cover luther2.jpg"
+    },
+    {
+      "id": "VBoUpscAaazqMn3RDFvg",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/fwfky_thrower-min.jpg"
+    },
+    {
+      "id": "VCUCRj79qnyftg9WpoE5",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/0g7bk_title type2.png"
+    },
+    {
+      "id": "VjdEa95bNmLVL84uYscs",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/k8wwk_visage.png"
+    },
+    {
+      "id": "WBMmQrChGBkGdlGwz5nU",
+      "visual": "gallery/mbqx2_Disque Laylow.png",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      }
+    },
+    {
+      "id": "WIXPacUxCjcOdAv7ZTwl",
+      "visual": "gallery/kxwip_girl-min.jpg",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      }
+    },
+    {
+      "id": "WJYao2TcLjwzeYsdlI1w",
+      "visual": "gallery/xz1iz_cette fois je lache.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "XYXs5h7aBXNG7A2CvzHL",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/qp5yr_Plan de travail 2 copie 2@4x.png"
+    },
+    {
+      "id": "ZmOn6VUSJA3vrLQUX37u",
+      "visual": "gallery/f6rl4_banger.mp4",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "a4vAaGBSWUOy3T61VSpb",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/855yz_sideprojetcover.png"
+    },
+    {
+      "id": "blHjedffG7j5Uhzg6ca8",
+      "visual": "gallery/4120i_comme une tempête d'air frais_-min.jpg",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      }
+    },
+    {
+      "id": "dVAWNzm2rUHvT6OpLHoA",
+      "visual": "gallery/0iw2r_no-min.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "ejKi6byP7u0bLQYYViaP",
+      "visual": "gallery/5no0c_tshirt2.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "fObdHOSKwoWLAGt9OysM",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/2vmtm_Mini Book Laylow.png"
+    },
+    {
+      "id": "hrBjUwUI3D6RFKDL97SD",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/nsm50_Plan de travail 2@4x.png"
+    },
+    {
+      "id": "j6Ep5ogS0iDrJ4ilmdhO",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/52p76_Export Imagine-min.png"
+    },
+    {
+      "id": "jrGiNZ55viNKUQAEdyRG",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/yhlok_VISION-min.png"
+    },
+    {
+      "id": "k89Vs5yNt9ubLfhRIDMa",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/jvhyl_Affiche Laylow-min.png"
+    },
+    {
+      "id": "kLdulqpAB1F7JsO4CWN8",
+      "visual": "gallery/en8ha_yes-min.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "n7Kpp7rNUNjWzSluPmXf",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/tmmoi_banger video 3d cours.mp4"
+    },
+    {
+      "id": "pklITwrtzpXN9QjUtXxS",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/alqqb_visage2.png"
+    },
+    {
+      "id": "qLASXyzJIP4w6sf7Dae0",
+      "visual": "gallery/g7z6r_Légende-min.png",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "qRKsaoZL5kyiI6NAmnUV",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/jqq20_Screenshot 2024-01-07 at 20.00.42.png"
+    },
+    {
+      "id": "s4sWdjKq8o0cZG1u5T5O",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      },
+      "visual": "gallery/3dd91_graphist-min.jpg"
+    },
+    {
+      "id": "tAKZEjS82jlwlcvhFAYZ",
+      "visual": "gallery/oixqt_Affiche Design Suisse.png",
+      "home_gallery_part": {
+        "is_forward_on_home": false,
+        "home_visual": null
+      }
+    },
+    {
+      "id": "uHPmUHwm6mTtuUoZGFEG",
+      "visual": "gallery/tqv0g_painter-min.jpg",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      }
+    },
+    {
+      "id": "vZrorBugm9hztbaTK4jV",
+      "home_gallery_part": {
+        "home_visual": null,
+        "is_forward_on_home": false
+      },
+      "visual": "gallery/wjz6g_dicci back exp2-min.png"
+    }
+  ],
+  "gallery_part": [
+    {
+      "id": "gTnavTzF4wH1qqsEFbr9",
+      "link": "The wall",
+      "title": "Tu veux voir plus de projets ?"
+    }
+  ],
+  "about": [
+    {
+      "id": "LB4UJkpCtS8jo6WV8HDt",
+      "title": "à propos",
+      "image": "images/o075z_photo cv 2.png",
+      "content": "Je m’appelle Hugo Pinna “Cuillère”. À 21 ans, je suis directeur artistique junior, et designer graphique en freelance basé entre Genève et Annecy. Ça va faire une dizaine d'années que je baigne dans l'art et le design, ce portfolio reflète tout le chemin parcouru."
+    }
+  ],
+  "contact": [
+    {
+      "id": "zot7GJMJ0g13RcziaFqg",
+      "letter": {
+        "title": "Let's Connect !",
+        "subtitle": "Tu peux me contacter où tu veux ;)",
+        "email": "hello@hugopinna.com",
+        "timbre": "ifjpb_timbre.png"
+      },
+      "social": {
+        "link": "https://www.instagram.com/hugocuillere/",
+        "tag": "@hugocuillere"
+      }
+    }
+  ]
+}

@@ -1,9 +1,5 @@
-import FirebaseView from "./UI/views/other/FirebaseView.jsx";
-import Home from "./UI/views/homePage/Home.jsx";
-import {BrowserRouter, createBrowserRouter, Route, Router, RouterProvider, Routes, useLocation} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import React from "react";
-import GalleryPageView from "./UI/views/galleryPage/galleryPageView.jsx";
-import SingleProjectView from "./UI/views/singleProject/SingleProjectView.jsx";
 import Routing from "./UI/components/Routing.jsx";
 
 function App() {

@@ -111,7 +111,7 @@ const Landing = ({assetsUrl, landingData}) => {
 
                         genève</span>
                             <Player
-                                src='./lotties/Header.json'
+                                src='/lotties/Header.json'
                                 className={'Landing-grid--element'}
                                 loop
                                 autoplay
@@ -160,7 +160,7 @@ const Landing = ({assetsUrl, landingData}) => {
 
                         genève</span>
                             <Player
-                                src='./lotties/Header.json'
+                                src='/lotties/Header.json'
                                 className={'Landing-grid--element'}
                                 loop
                                 autoplay

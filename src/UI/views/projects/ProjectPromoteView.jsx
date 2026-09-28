@@ -1,6 +1,4 @@
-import ProjectData from "../../../models/project/ProjectData.jsx";
-import ProjectsView from "./ProjectsView.jsx";
-import {useEffect, useLayoutEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 const ProjectPromoteView = ({index, project, manager}) => {
@@ -30,6 +28,7 @@ const ProjectPromoteView = ({index, project, manager}) => {
 
         // Clean up event listeners when component unmounts
         return () => {
+            document.removeEventListener('scroll', handleScroll);
             elements.forEach(element => {
                 element.removeEventListener('click', handleClick);
             });

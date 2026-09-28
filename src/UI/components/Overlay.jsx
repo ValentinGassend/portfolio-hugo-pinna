@@ -6,27 +6,32 @@ import {IsMobile} from "../../utils/utils.jsx";
 const Overlay = ({isHome = true, isGallery = false, backID=""}) => {
 
 
-    let overlayTexts = document.querySelectorAll('.Overlay-wrapper-lower--text');
-
-    overlayTexts.forEach(function (element) {
-        element.addEventListener('click', evt => {
-            //console.log(element)
+    useEffect(() => {
+        // Liens internes (#projects, #about...) : scroll animé. Les liens externes (Instagram, mailto) restent natifs.
+        const onAnchorClick = (evt) => {
+            const element = evt.currentTarget;
+            if (!element.hash || element.getAttribute('href') !== element.hash) return;
             evt.preventDefault()
             gsap.to(window, {
                 scrollTo: {y: element.hash, autoKill: false}, duration: 1, overwrite: true,
             });
-        });
-    });
-    let overlayUpperTexts = document.querySelectorAll('p.Overlay-wrapper-upper--text');
-
-    overlayUpperTexts.forEach(function (element) {
-        element.addEventListener('click', evt => {
+        };
+        const onTitleClick = (evt) => {
             evt.preventDefault()
             gsap.to(window, {
                 scrollTo: {y: 0, autoKill: false}, duration: 1, overwrite: true,
             });
-        });
-    });
+        };
+
+        const anchors = document.querySelectorAll('a.Overlay-wrapper-lower--text, a.Overlay-wrapper-upper--text');
+        const titles = document.querySelectorAll('p.Overlay-wrapper-upper--text');
+        anchors.forEach(element => element.addEventListener('click', onAnchorClick));
+        titles.forEach(element => element.addEventListener('click', onTitleClick));
+        return () => {
+            anchors.forEach(element => element.removeEventListener('click', onAnchorClick));
+            titles.forEach(element => element.removeEventListener('click', onTitleClick));
+        };
+    }, [isHome]);
 
 
     return (<div

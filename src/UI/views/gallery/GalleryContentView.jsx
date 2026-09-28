@@ -58,8 +58,9 @@ const GalleryContentView = ({galleryData, galleryPartData}) => {
         };
 
         document.addEventListener('mousemove', handleMouseMove);
-
-
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+        };
     }, []);
 
     function from4To8(total) {
