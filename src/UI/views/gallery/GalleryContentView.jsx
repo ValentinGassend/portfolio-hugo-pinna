@@ -1,3 +1,4 @@
+import ProjectManager from "../../../managers/ProjectManager.jsx";
 import React, {useEffect, useRef, useState} from "react";
 import MyLink from "../../components/MyLink.jsx";
 
@@ -143,7 +144,7 @@ const GalleryContentView = ({galleryData, galleryPartData}) => {
                         key={ImageIndex}
                         className={`Gallery-content-cards-column--item`}
                     >
-                        <img className={`Gallery-content-cards-column--item-img`} loading={"lazy"} src={url}/>
+                        <img className={`Gallery-content-cards-column--item-img`} loading={"lazy"} {...ProjectManager.imageProps(url, "(max-width: 768px) 30vw, 184px")} alt=""/>
                         <span className={`Gallery-content-cards-column--item-overlay`}/>
                     </div>);
                 })}

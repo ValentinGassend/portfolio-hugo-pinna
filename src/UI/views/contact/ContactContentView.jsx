@@ -1,3 +1,4 @@
+import ProjectManager from "../../../managers/ProjectManager.jsx";
 import {useEffect, useRef, useState} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -152,23 +153,23 @@ const ContactContentView = ({contactManager, contactData, assetsUrl}) => {
             <div className={`Contact-content-stamps`}>
                 <img className={`Contact-content-stamps--item`}
                      loading={"lazy"}
-                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     {...(contactInfo ? ProjectManager.imageProps(contactInfo.letter.timbre, "(max-width: 768px) 120px, 223px") : {})}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
                      loading={"lazy"}
-                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     {...(contactInfo ? ProjectManager.imageProps(contactInfo.letter.timbre, "(max-width: 768px) 120px, 223px") : {})}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
                      loading={"lazy"}
-                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     {...(contactInfo ? ProjectManager.imageProps(contactInfo.letter.timbre, "(max-width: 768px) 120px, 223px") : {})}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
                      loading={"lazy"}
-                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     {...(contactInfo ? ProjectManager.imageProps(contactInfo.letter.timbre, "(max-width: 768px) 120px, 223px") : {})}
                      alt={`image d'illustration d'un timbre`}/>
                 <img className={`Contact-content-stamps--item`}
                      loading={"lazy"}
-                     src={`${contactInfo ? contactInfo.letter.timbre : ''}`}
+                     {...(contactInfo ? ProjectManager.imageProps(contactInfo.letter.timbre, "(max-width: 768px) 120px, 223px") : {})}
                      alt={`image d'illustration d'un timbre`}/>
             </div>
         </div>)

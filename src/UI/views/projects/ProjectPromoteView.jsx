@@ -1,3 +1,4 @@
+import ProjectManager from "../../../managers/ProjectManager.jsx";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
@@ -75,11 +76,12 @@ const ProjectPromoteView = ({index, project, manager}) => {
         {projectData ? <Link refresh="false" data-id={projectData.id} className={`Projects-promote-card`}
                              to={'/project/' + projectData.id}>
             {projectData.media.type === 'image' ? (
-                <img className={`Projects-promote-card--img`} loading={"lazy"} src={`${projectData.url}`}
+                <img className={`Projects-promote-card--img`} loading={"lazy"} {...ProjectManager.imageProps(projectData.url, "(max-width: 768px) 100vw, 60vw")}
                      alt={`Illustration of ${projectData.name}`}/>) : (
-                <video className={`Projects-promote-card--video`} autoPlay loop muted playsInline>
-                    <source className={`Projects-promote-card--video--source`} src={`${projectData.url}`}
-                            type={`video/${projectData.media.extension}`}/>
+                <video className={`Projects-promote-card--video`} autoPlay loop muted playsInline
+                       poster={ProjectManager.videoProps(projectData.url).poster}>
+                    <source className={`Projects-promote-card--video--source`} src={ProjectManager.videoProps(projectData.url).src}
+                            type={ProjectManager.videoProps(projectData.url).type || `video/${projectData.media.extension}`}/>
                     Your browser does not support the video tag.
                 </video>)}
             <div className={`Projects-promote-card-content`}>

@@ -10,6 +10,9 @@ import Overlay from "../../components/Overlay.jsx";
 import {IsMobile} from "../../../utils/utils.jsx";
 import Loader from "../../components/Loader.jsx";
 
+// Largeur d'affichage des visuels (447 px, jusqu'à ~2x avec le zoom) : sert au choix de la variante responsive
+const GALLERY_SIZES = "(max-width: 768px) 100vw, 900px";
+
 const GalleryPageView = () => {
     const [galleryData, setGalleryData] = useState(null);
     const elapsedTimeRef = useRef(0);
@@ -377,13 +380,13 @@ const GalleryPageView = () => {
                     return (<div key={index} className="GalleryPage-container-column-item">
                         {media.type === "image" ? (<img
                             className={`GalleryPage-container-column-item--img`}
-                            src={url} loading={"lazy"}
+                            {...projectManager.imageProps(url, GALLERY_SIZES)} loading={"lazy"}
                             alt={'image de la page contenu'}
                         />) : media.type === "video" ? (<video
                             className={`GalleryPage-container-column-item--video`}
-                            autoPlay loop muted playsInline
+                            autoPlay loop muted playsInline poster={projectManager.videoProps(url).poster}
                         >
-                            <source src={url} type={`video/${media.extension}`}/>
+                            <source src={projectManager.videoProps(url).src} type={projectManager.videoProps(url).type || `video/${media.extension}`}/>
                             Your browser does not support the video tag.
                         </video>) : (<></>)}
                     </div>);
@@ -404,6 +407,8 @@ const GalleryPageView = () => {
             if (item.visual) {
                 try {
                     const url = await projectManager.getUrlOfImage(item.visual);
+                    // Les vidéos se chargent d'elles-mêmes (poster puis lecture) : pas de préchargement en <img>
+                    if (projectManager.getMediaType(url).type === "video") return;
                     await new Promise((resolve, reject) => {
                         const img = new Image();
                         img.onload = () => {
@@ -415,7 +420,13 @@ const GalleryPageView = () => {
                             });
                         };
                         img.onerror = reject;
-                        img.src = url;
+                        // Même variante que celle qu'affichera la grille (et non l'original pleine résolution)
+                        const {src, srcSet, sizes} = projectManager.imageProps(url, GALLERY_SIZES);
+                        if (srcSet) {
+                            img.sizes = sizes;
+                            img.srcset = srcSet;
+                        }
+                        img.src = src;
                     });
                 } catch (error) {
                     console.error("Error loading image:", error);
@@ -435,13 +446,13 @@ const GalleryPageView = () => {
                         {item && item.media ? <>
                             {item.media.type === "image" ? (<img
                                 className={`GalleryPage-container-item--img`}
-                                src={item.url} loading={"lazy"}
+                                {...projectManager.imageProps(item.url, GALLERY_SIZES)} loading={"lazy"}
                                 alt={'image de la page contenu'}
                             />) : item.media.type === "video" ? (<video
                                 className={`GalleryPage-container-item--video`}
-                                autoPlay loop muted playsInline
+                                autoPlay loop muted playsInline poster={projectManager.videoProps(item.url).poster}
                             >
-                                <source src={item.url} type={`video/${item.media.extension}`}/>
+                                <source src={projectManager.videoProps(item.url).src} type={projectManager.videoProps(item.url).type || `video/${item.media.extension}`}/>
                                 Your browser does not support the video tag.
                             </video>) : (<></>)} </> : <></>}
                     </div>)) : <> </>}

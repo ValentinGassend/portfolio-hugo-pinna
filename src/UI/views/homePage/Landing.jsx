@@ -1,3 +1,4 @@
+import ProjectManager from "../../../managers/ProjectManager.jsx";
 import HomeLoader from "../../components/HomeLoader.jsx";
 import LoadingManager from "../../../managers/LoadingManager.jsx";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
@@ -50,11 +51,12 @@ const Landing = ({assetsUrl, landingData}) => {
         {landingData && landingData.background ? <>
             <div className={`Landing-background`}>
                 {landingData.background.media.type === 'image' ? (
-                    <img className={`Landing-background--img`} loading={"lazy"} src={`${landingData.background.url}`}
+                    <img className={`Landing-background--img`} {...ProjectManager.imageProps(landingData.background.url, "100vw")} fetchpriority="high"
                          alt={`Illustration of Landing"`}/>) : (
-                    <video ref={videoRef} className={`Landing-background--video`} autoPlay loop muted playsInline>
-                        <source className={`Landing-background--video--source`} src={`${landingData.background.url}`}
-                                type={`video/${landingData.background.media.extension}`}/>
+                    <video ref={videoRef} className={`Landing-background--video`} autoPlay loop muted playsInline
+                           poster={ProjectManager.videoProps(landingData.background.url).poster}>
+                        <source className={`Landing-background--video--source`} src={ProjectManager.videoProps(landingData.background.url).src}
+                                type={ProjectManager.videoProps(landingData.background.url).type || `video/${landingData.background.media.extension}`}/>
                         Your browser does not support the video tag.
                     </video>)}
             </div>
@@ -78,13 +80,13 @@ const Landing = ({assetsUrl, landingData}) => {
                         <div className={`Landing-grid-line`}>
                             {landingData && landingData.imageGrid ? <>
                                 {landingData.imageGrid.media.type === 'image' ? (
-                                    <img className={`Landing-grid--element img`} loading={"lazy"} src={`${landingData.imageGrid.url}`}
+                                    <img className={`Landing-grid--element img`} {...ProjectManager.imageProps(landingData.imageGrid.url, "(max-width: 768px) 146px, 380px")}
                                          alt={`Illustration of Landing"`}/>) : (
                                     <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
-                                           playsInline>
+                                           playsInline poster={ProjectManager.videoProps(landingData.imageGrid.url).poster}>
                                         <source className={`Landing-grid--element source`}
-                                                src={`${landingData.imageGrid.url}`}
-                                                type={`video/${landingData.imageGrid.media.extension}`}/>
+                                                src={ProjectManager.videoProps(landingData.imageGrid.url).src}
+                                                type={ProjectManager.videoProps(landingData.imageGrid.url).type || `video/${landingData.imageGrid.media.extension}`}/>
                                         Your browser does not support the video tag.
                                     </video>)}
                             </> : <></>}
@@ -135,13 +137,13 @@ const Landing = ({assetsUrl, landingData}) => {
                         <div className={`Landing-grid-line`}>
                             {landingData && landingData.imageGrid ? <>
                                 {landingData.imageGrid.media.type === 'image' ? (
-                                    <img className={`Landing-grid--element img`} loading={"lazy"} src={`${landingData.imageGrid.url}`}
+                                    <img className={`Landing-grid--element img`} {...ProjectManager.imageProps(landingData.imageGrid.url, "(max-width: 768px) 146px, 380px")}
                                          alt={`Illustration of Landing"`}/>) : (
                                     <video ref={videoRef} className={`Landing-grid--element video`} autoPlay loop muted
-                                           playsInline>
+                                           playsInline poster={ProjectManager.videoProps(landingData.imageGrid.url).poster}>
                                         <source className={`Landing-grid--element source`}
-                                                src={`${landingData.imageGrid.url}`}
-                                                type={`video/${landingData.imageGrid.media.extension}`}/>
+                                                src={ProjectManager.videoProps(landingData.imageGrid.url).src}
+                                                type={ProjectManager.videoProps(landingData.imageGrid.url).type || `video/${landingData.imageGrid.media.extension}`}/>
                                         Your browser does not support the video tag.
                                     </video>)}
                             </> : <></>}

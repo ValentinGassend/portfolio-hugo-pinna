@@ -64,9 +64,19 @@ Ce projet constitue le portfolio d'Hugo Pinna.
 
 ## Contenu et médias (100 % gratuit, sans Firebase)
 
-- **Textes / projets** : `src/data/content.json` (snapshot de l'ancienne base Firestore).
-  Pour modifier le site, éditer ce fichier puis pousser sur `main` (Vercel redéploie).
-  `node scripts/export-firestore.mjs` régénère le fichier depuis Firestore si besoin.
+- **CMS** : https://hugo-pinna.valentingassend.com/admin/ (remplace FireCMS, code dans `public/admin/`).
+  Il modifie `/data/content.json` sur le serveur, lu par le site à chaque visite (pas de rebuild).
+  Les fichiers envoyés vont dans `/media/<dossier>/<xxxxx>_<nom>`. Comptes, sessions et sauvegardes
+  (100 dernières versions, restaurables depuis Réglages) sont dans `~/.hugo-pinna-cms/` sur le serveur, hors du web.
+  Schéma des collections : `public/admin/schema.js`.
+- **Optimisation des médias** (les originaux sont toujours conservés, les versions optimisées sont à côté dans `/media/_optimized/`) :
+  - Images : variantes WebP 320 → 2560 px générées sur le serveur (Imagick), servies en `srcset`/`sizes`.
+    Automatique à chaque upload du CMS ; bouton « Optimiser » dans Réglages, ou `npm run optimize:remote` (16 processus en SSH).
+  - Vidéos : `npm run optimize:videos` (ffmpeg en local : H.264, 1920 px max, poster WebP) puis `npm run deploy`
+    et `npm run optimize:remote` pour les référencer. Les vidéos envoyées depuis le CMS restent en original tant que ce script n'est pas relancé.
+  - Manifeste lu par le site : `/data/media.json`. Polices en WOFF2 (TTF en secours).
+- **Snapshot du contenu** : `src/data/content.json`, utilisé en dev et pour initialiser le serveur.
+  Un déploiement n'écrase jamais le contenu en ligne.
 - **Images / vidéos** : `public/media/<chemin>` (ex. `public/media/images/xxx.png`), servies par Vercel.
   `node scripts/download-media.mjs` télécharge tous les fichiers référencés dans `content.json`
   (depuis l'ancien bucket Firebase, ou une autre source via `MEDIA_SOURCE=https://.../`).

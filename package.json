@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "deploy": "vite build && node --env-file=.env.local scripts/deploy-infomaniak.mjs"
+    "deploy": "vite build && node --env-file=.env.local scripts/deploy-infomaniak.mjs",
+    "optimize:videos": "node scripts/optimize-videos.mjs",
+    "optimize:remote": "node --env-file=.env.local scripts/optimize-remote.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.0.2",
@@ -30,6 +32,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "sass": "^1.69.7",
+    "ssh2": "^1.17.0",
     "ssh2-sftp-client": "^12.1.1",
     "vite": "^5.0.8"
   }

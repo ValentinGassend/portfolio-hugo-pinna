@@ -1,3 +1,4 @@
+import ProjectManager from "../../../managers/ProjectManager.jsx";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
@@ -47,12 +48,12 @@ const ProjectsView = ({index, project}) => {
                 <Link data-id={project.id} className={`Projects-list-project--title`}
                       to={'/project/' + project.id}>
                     {project.media && project.media.type === "video"  ? (
-                        <video className="Projects-list-project--video" autoPlay muted playsInline loop style={{ transform: `translate(${imagePosition.x}px, ${imagePosition.y}px)` }}>
-                            <source src={project.url} type={`video/${project.media.extension}`} />
+                        <video className="Projects-list-project--video" autoPlay muted playsInline loop poster={ProjectManager.videoProps(project.url).poster} style={{ transform: `translate(${imagePosition.x}px, ${imagePosition.y}px)` }}>
+                            <source src={ProjectManager.videoProps(project.url).src} type={ProjectManager.videoProps(project.url).type || `video/${project.media.extension}`} />
                             Your browser does not support the video tag.
                         </video>
                     ) : (
-                        <img src={project.url} alt={project.name} className="Projects-list-project--img" style={{ transform: `translate(${imagePosition.x}px, ${imagePosition.y}px)` }}/>
+                        <img {...ProjectManager.imageProps(project.url, "(max-width: 768px) 60vw, 640px")} loading="lazy" alt={project.name} className="Projects-list-project--img" style={{ transform: `translate(${imagePosition.x}px, ${imagePosition.y}px)` }}/>
                     )}
                     {project.name}
 
