@@ -13,6 +13,8 @@ import PanelsContainer from "./PanelsContainter.jsx";
 import GalleryPartView from "../gallery/GalleryPartView.jsx";
 import projectManager from "../../../managers/ProjectManager.jsx";
 import {IsMobile} from "../../../utils/utils.jsx";
+import {useNavigationType} from "react-router-dom";
+import HomeReturn from "../../../managers/HomeReturn.js";
 
 const Home = () => {
     const [projects, setProjects] = useState([]);
@@ -33,6 +35,49 @@ const Home = () => {
     const [isAssetReady, setIsAssetReady] = useState(false)
     const [isPageReady, setIsPageReady] = useState(false)
     const elapsedTimeRef = useRef(0);
+    const navigationType = useNavigationType();
+    // Retour arrière (POP) sur un accueil déjà chargé : ni chargeur ni attente minimale de 2 s
+    const isReturn = useRef(HomeReturn.loaded && navigationType === 'POP').current;
+    const minDelay = isReturn ? 0 : 2000;
+    const [isExitDone, setIsExitDone] = useState(!isReturn);
+
+    useEffect(() => {
+        if (isExitDone) return;
+        const onExitDone = () => setIsExitDone(true);
+        window.addEventListener('hp:exit-done', onExitDone);
+        // filet si l'événement de fin de transition ne vient pas
+        const fallback = setTimeout(onExitDone, 1600);
+        return () => {
+            window.removeEventListener('hp:exit-done', onExitDone);
+            clearTimeout(fallback);
+        };
+    }, [isExitDone]);
+
+    // Position notée au clic : entre le clic et le changement de page, la page défile encore
+    useEffect(() => {
+        const remember = () => {
+            HomeReturn.scrollY = window.scrollY;
+        };
+        document.addEventListener('click', remember, true);
+        return () => document.removeEventListener('click', remember, true);
+    }, []);
+
+    // Les déclencheurs de l'accueil visent .Projects, .About… : sans ce nettoyage ils survivaient au démontage
+    // et GSAP avertissait « Element not found » à chaque recalcul sur la page projet.
+    useEffect(() => () => {
+        ScrollTrigger.getAll().filter((t) => t.trigger && !t.trigger.isConnected).forEach((t) => t.kill());
+    }, []);
+
+    useEffect(() => {
+        if (!isPageReady) return;
+        HomeReturn.loaded = true;
+        if (isReturn && isExitDone) {
+            requestAnimationFrame(() => {
+                ScrollTrigger.refresh();
+                window.scrollTo(0, HomeReturn.scrollY);
+            });
+        }
+    }, [isPageReady, isExitDone]);
 
     const [assetsUrl, setAssetsUrl] = useState({})
     const addAssetUrl = (name, url) => {
@@ -98,7 +143,7 @@ const Home = () => {
 
             setTimeout(() => {
                 setIsGalleryReady(true);
-            }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
+            }, minDelay - elapsedTime); // Utilisez la différence pour ajuster le délai restant
         });
         projectManager.getProjectsFromFirebase('projects').then((projectsData) => {
 
@@ -116,7 +161,7 @@ const Home = () => {
 
             setTimeout(() => {
                 setIsProjectReady(true);
-            }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
+            }, minDelay - elapsedTime); // Utilisez la différence pour ajuster le délai restant
         });
         projectManager.getProjectsFromFirebase('landing').then((landingData) => {
 
@@ -160,7 +205,7 @@ const Home = () => {
 
                 setTimeout(() => {
                     setIsLandingReady(true);
-                }, 2000 - elapsedTime);
+                }, minDelay - elapsedTime);
             }
             setLandingData(landingData[0]);
             setAnalyticsInitialized(true);
@@ -170,7 +215,7 @@ const Home = () => {
 
             setTimeout(() => {
                 setIsLandingReady(true);
-            }, 2000 - elapsedTime); // Utilisez la différence pour ajuster le délai restant
+            }, minDelay - elapsedTime); // Utilisez la différence pour ajuster le délai restant
         });
         projectManager.getProjectsFromFirebase('assets').then((assetsData) => {
             setAssets(assetsData);
@@ -186,7 +231,7 @@ const Home = () => {
 
             setTimeout(() => {
                 setIsGalleryPartReady(true);
-            }, 2000 - elapsedTime);
+            }, minDelay - elapsedTime);
         });
         projectManager.getProjectsFromFirebase('about').then((aboutData) => {
             if (aboutData && aboutData.length > 0) {
@@ -214,7 +259,7 @@ const Home = () => {
 
                 setTimeout(() => {
                     setIsAboutReady(true);
-                }, 2000 - elapsedTime);
+                }, minDelay - elapsedTime);
             }
         });
     }, []);
@@ -393,7 +438,7 @@ const Home = () => {
             <ContactPartView contactManager={projectManager} contactData={contactData} assetsUrl={assetsUrl}/>
             <GalleryPartView galleryData={galleryData} galleryPartData={galleryPartData}/>
             <Overlay/>
-            <HomeLoader isPageReady={isPageReady}/>
+            {isReturn ? null : <HomeLoader isPageReady={isPageReady}/>}
             {IsMobile() ? <></> : <Landing assetsUrl={assetsUrl} landingData={landingData}/>}
 
         </div>

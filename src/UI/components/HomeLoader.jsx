@@ -29,14 +29,17 @@ const HomeLoader = ({isPageReady}) => {
             setSubtitle(subtitle)
     }, []);
     useGSAP(() => {
+        // Le découpage SplitText arrive au second rendu : avant, title et subtitle valent false
+        if (!title || !subtitle) return;
+        const hasWords = (split) => Boolean(split.words && split.words.length);
 
         if (isPageReady === true) {
             HomeLoaderBar.current.setPlayerSpeed(2)
 
-            gsap.to(title.words, { // <- selector text, scoped to this component!
+            hasWords(title) && gsap.to(title.words, { // <- selector text, scoped to this component!
                 opacity: 0, y: -100, ease: "power4.inOut", duration: 1, stagger: 0.1
             });
-            gsap.to(subtitle.words, { // <- selector text, scoped to this component!
+            hasWords(subtitle) && gsap.to(subtitle.words, { // <- selector text, scoped to this component!
                 opacity: 0, y: -100, ease: "power4.inOut", delay: 0.5, duration: 1, stagger: 0.1,
             });
             gsap.to(".HomeLoader", { // <- selector text, scoped to this component!
@@ -51,10 +54,10 @@ const HomeLoader = ({isPageReady}) => {
                     HomeLoaderBar.current.play()
                 }
             });
-            gsap.from(title.words, { // <- selector text, scoped to this component!
+            hasWords(title) && gsap.from(title.words, { // <- selector text, scoped to this component!
                 opacity: 0, y: 100, ease: "power4.inOut",  duration: 1, stagger: 0.1
             });
-            gsap.from(subtitle.words, { // <- selector text, scoped to this component!
+            hasWords(subtitle) && gsap.from(subtitle.words, { // <- selector text, scoped to this component!
                 opacity: 0, y: 100, ease: "power4.inOut", delay: 0.5, duration: 1, stagger: 0.1
             });
         }

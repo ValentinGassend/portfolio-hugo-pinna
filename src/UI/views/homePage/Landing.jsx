@@ -25,24 +25,17 @@ const Landing = ({assetsUrl, landingData}) => {
                 // console.log("canplay");
                 // console.log(currentVideo);
                 if (currentVideo) {
-                    currentVideo.pause();
+                    currentVideo.removeEventListener('canplay', handleVideoLoaded);
                     currentVideo.currentTime = 0;
-                    // currentVideo.play();
-                    if (currentVideo.pause) {
-                        currentVideo.play()
-                        currentVideo.removeEventListener('canplay', handleVideoLoaded);
-
-                    }
-                    if (currentVideo.play) {
-                        currentVideo.removeEventListener('canplay', handleVideoLoaded);
-
-                    }
-
+                    // play() rend une promesse : un pause() ou un démontage pendant le lancement la rejette (AbortError)
+                    const playing = currentVideo.play();
+                    if (playing) playing.catch(() => {});
                 }
             };
 
             currentVideo.addEventListener('canplay', handleVideoLoaded);
-
+            // landingData change plusieurs fois : sans ce nettoyage, deux écouteurs se marchaient dessus
+            return () => currentVideo.removeEventListener('canplay', handleVideoLoaded);
         }
     }, [landingData, videoRef.current]);
 

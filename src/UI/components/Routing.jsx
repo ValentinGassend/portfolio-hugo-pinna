@@ -186,7 +186,11 @@ const Routing = () => {
                 y: "100%"
             }, {
                 y: "-100%", duration: 0.8, stagger: 0.1, ease: "power4.linear", onComplete: () => {
+                    // L'ancienne page, déjà transparente, restait dans le flux jusqu'à la fin du délai (1,5 s) :
+                    // la nouvelle page était poussée hors de l'écran, d'où une page blanche.
+                    node.style.display = 'none';
                     window.scrollTo(0, 0)
+                    window.dispatchEvent(new Event('hp:exit-done'));
                     gsap.killTweensOf([transitionFirstPart, transitionSecondPart, transitionThirdPart]);
                 }
             });
