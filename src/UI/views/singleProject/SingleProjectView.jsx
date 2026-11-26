@@ -39,7 +39,7 @@ const SingleProjectView = (props) => {
                     setTimeout(() => {
                         setIsPageReady(true);
 
-                    }, 2000 - elapsedTime);
+                    }, 1000 - elapsedTime); // 1 s = durée des volets de transition (0,8 s + décalages)
 
                 } catch (error) {
                     console.error("Error fetching project:", error);
